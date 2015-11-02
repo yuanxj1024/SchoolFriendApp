@@ -1,0 +1,36 @@
+@import "flex";
+
+.invite-code-wrap{
+  padding-top: 40px;
+  .invite-tip{
+    font-size: 16px;
+  }
+  .code-wrap{
+    .code{
+      width: 50%;
+      height: 66px;
+      background-image: url(/img/invite-code-bg.png);
+      -webkit-background-size: 23px;
+      background-size: 23px;
+      color: #fff;
+      font-size: 30px;
+      font-weight: 800;
+      vertical-align: middle;
+      padding-top: 23px;
+    }
+  }
+  .invite-btn-wrap{
+    margin: 40px 0 10px 0;
+    button{
+      color: $main-font-color2;
+      margin-right: 20px;
+      padding: 0 25px;
+    }
+    .btn-copy{
+      color: #fff;
+      background-color: $main-color-yellow;
+      margin-right:0;
+
+    }
+  }
+}

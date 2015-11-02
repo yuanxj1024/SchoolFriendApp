@@ -1,0 +1,72 @@
+@import "flex";
+
+
+.has-main-menu{
+  margin-bottom: 54px!important;
+}
+//修正外部样式
+.main-menu--footer{
+  border: none;
+  padding: 0;
+  background-color: #f8f8f8;
+  height: 54px!important;
+}
+
+//底部菜单
+.main-menu-wrap{
+  @include flexbox;
+  @include justify-content('space-around');
+  width: 100%;
+  .m-item{
+    @include flex(1,1,auto);
+    border: none;
+    text-align: center;
+    a{
+      margin-top: 8px;
+      font-size: 11px;
+      display: inline-block;
+      padding-top: 24px;
+      color: #7a7a7a;
+      &.main-icon{
+        -webkit-background-size: 24px;
+        background-size: 24px;
+        background-repeat: no-repeat;
+        background-position: center 0;
+      }
+      &.home{
+        background-image: url(/img/menu-home.png);
+      }
+      &.activity{
+        background-image: url(/img/menu-activity.png);
+      }
+      &.discover{
+        background-image: url(/img/menu-discover.png);
+      }
+      &.message{
+        background-image: url(/img/menu-message.png);
+      }
+      &.mine{
+        background-image: url(/img/menu-mine.png);
+      }
+      &.active{
+        color: #2d69c4;
+        &.home{
+          background-image: url(/img/menu-home-a.png);
+        }
+        &.activity{
+          background-image: url(/img/menu-activity-a.png);
+        }
+        &.discover{
+          background-image: url(/img/menu-discover-a.png);
+        }
+        &.message{
+          background-image: url(/img/menu-message-a.png);
+        }
+        &.mine{
+          background-image: url(/img/menu-mine-a.png);
+        }
+
+      }
+    }
+  }
+}

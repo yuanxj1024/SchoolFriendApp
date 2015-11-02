@@ -1,0 +1,25 @@
+<ion-modal-view ng-controller="LoginRegCtrl">
+  <ion-header-bar class="top-header-bg-color">
+    <h1 class="title">交大邦</h1>
+  </ion-header-bar>
+  <ion-content class="has-header login-wrap" scroll="false">
+    <div class="login-bg">
+      <img class="logo" src="/img/logo.png" alt=""/>
+      <form novalidate name="frmLogin" id="frmLogin" ng-submit="login(frmLogin.$valid)">
+        <div class="login-input-wrap">
+          <div class="input-item-wrap name">
+            <input ng-required="true" minlength="11" placeholder="请输入手机号码" ng-model="loginForm.phone" class="login-name" type="text"/>
+          </div>
+          <div class="input-item-wrap pwd">
+            <input ng-required="true" minlength="6" placeholder="请输入密码" ng-model="loginForm.pwd" class="login-pwd" type="password"/>
+          </div>
+        </div>
+        <div class="forget"><a href="#">忘记密码？</a></div>
+        <div class="btn-wrap">
+          <input value="登陆" type="submit" class="button button-full btn-login" ng-class="{'false':'invalid'}[frmLogin.$valid]" />
+          <button class="button button-full  btn-reg" ng-click="cancel()" ui-sref="jdb.register">注册</button>
+        </div>
+      </form>
+    </div>
+  </ion-content>
+</ion-modal-view>

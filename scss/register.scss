@@ -1,0 +1,66 @@
+@import "flex";
+.reg-wrap{
+  .reg-frm-wrap{
+    background-color: #fff;
+    width: 100%;
+    margin-top: 23px;
+    .input-item-wrap{
+      position: relative;
+      border-bottom: 1px solid $main-body-bg-color;
+      input{
+        height: 40px;
+        width: 100%;
+        padding-left: 40px;
+      }
+      &:after{
+        position: absolute;
+        content: ' ';
+        top: 10px;
+        left: 10px;
+        background-repeat: no-repeat;
+        -webkit-background-size: 100%;
+        background-size: 100%;
+        width: 20px;
+        height: 20px;
+      }
+      &.phone{
+        &:after{
+          background-image: url(/img/reg-phone.png);
+        }
+      }
+      &.pwd{
+        &:after{
+          background-image: url(/img/reg-pwd.png);
+          height: 25px;
+        }
+      }
+      &.invite-code{
+        &:after{
+          background-image: url(/img/reg-invite.png);
+          top: 13px;
+          width: 22px;
+        }
+      }
+      &.code{
+        &:after{
+          background-image: url(/img/reg-code.png);
+          height: 25px;
+        }
+        @include flexbox;
+        .btn-send{
+          width: 40%;
+          background-color: $main-color-yellow;
+          color: #fff;
+          line-height: 40px;
+        }
+      }
+    }
+  }
+  .btn-save{
+    border: none;
+    margin: 75px auto;
+    width: 90%!important;
+    background-color: $main-header-bg-color;
+    color: #fff;
+  }
+}

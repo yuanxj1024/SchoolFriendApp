@@ -1,0 +1,41 @@
+@import "variable";
+@import "flex";
+
+@media (min--moz-device-pixel-ratio: 1.5),
+(-webkit-min-device-pixel-ratio: 1.5),
+(min-device-pixel-ratio: 1.5),
+(min-resolution: 144dpi),
+(min-resolution: 1.5dppx) {
+
+}
+
+.toastWrap {
+  @include flexbox;
+  z-index: 200;
+  position: absolute;
+  width: 100%;
+  color: #ffffff;
+  height: 30px;
+  display: none;
+  text-align: center;
+  span {
+    @include flex(0, 0, auto);
+    border-radius:5px;
+    opacity:0.8;
+    filter:alpha(opacity=80);
+    background-color: #000000;
+    display: inline;
+    margin: 0 auto;
+    font-size: 14px;
+    padding: 10px;
+  }
+  &.top{
+    
+  }
+  &.bottom{
+    position: fixed!important;
+    bottom: 0!important;
+  }
+}
+
+

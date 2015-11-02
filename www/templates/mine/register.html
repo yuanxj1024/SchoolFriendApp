@@ -1,0 +1,27 @@
+<ion-view ng-controller="LoginRegCtrl">
+  <ion-header-bar class="top-header-bg-color">
+    <button class="button button-clear" ui-sref="jdb.home">
+      <i class="icon ion-ios-arrow-left"></i>
+    </button>
+    <h1 class="title">注册</h1>
+  </ion-header-bar>
+  <ion-content scroll="false" class="reg-wrap main-body-bg-color">
+    <form novalidate name="frmReg" id="frmReg" ng-submit="register(frmReg.$valid)">
+      <div class="reg-frm-wrap">
+        <div class="input-item-wrap phone">
+          <input ng-required="true" minlength="11" ng-model="regForm.phone" type="text" placeholder="请填写手机号码"/>
+        </div>
+        <div class="input-item-wrap pwd">
+          <input ng-required="true" minlength="6" ng-model="regForm.pwd" type="password" placeholder="6-16位数字、字码或下划线"/>
+        </div>
+        <div class="input-item-wrap invite-code">
+          <input ng-required="true" minlength="6" ng-model="regForm.inviteCode" type="text" placeholder="请输入邀请码"/></div>
+        <div class="input-item-wrap code">
+          <input ng-required="true" minlength="4" ng-model="regForm.code" type="text" placeholder="请输入验证码"/>
+          <a class="btn-send txt-center" ng-class="{'true': 'invalid'}[isSendCode]" ng-click="sendCode()">获取验证码</a>
+        </div>
+      </div>
+      <input type="submit" class="button button-block btn-save" ng-class="{'false':'invalid'}[frmReg.$valid]" value="提交"/>
+    </form>
+  </ion-content>
+</ion-view>

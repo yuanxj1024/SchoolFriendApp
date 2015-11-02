@@ -1,0 +1,113 @@
+
+.login-wrap{
+  background-image: url(/img/login-bg.png);
+  //background-repeat: repeat-y;
+  -webkit-background-size: 100%;
+  background-size: 100%;
+  .login-bg{
+    text-align: center;
+    padding-top: 34px;
+    height: 100%;
+    //background:rgba(255,255,255,0.3);
+    .logo{
+      width: 106px;
+      height: 106px;
+    }
+    .login-input-wrap{
+      padding-top: 35px;
+      .input-item-wrap{
+        position: relative;
+        width: 90%;
+        margin: 0 auto;
+        input{
+          background:rgba(255,255,255,0.3);
+          color: #fff!important;
+          width: 100%;
+          -webkit-border-radius: 5px;
+          -moz-border-radius: 5px;
+          border-radius: 5px;
+          margin-bottom: 5px;
+          padding-left: 38px;
+          height: 42px;
+        }
+        
+        &:after{
+          position: absolute;
+          content: ' ';
+          background-repeat: no-repeat;
+          -webkit-background-size: 100%;
+          background-size: 100%;
+          display: inline-block;
+        }
+        &.name{
+          &:after{
+            width: 20px;
+            height: 20px;
+            background-image: url(/img/login-name.png);
+            top:10px;
+            left:10px;
+          }
+
+        }
+        &.pwd{
+          &:after{
+            width: 19px;
+            height: 21px;
+            background-image: url(/img/login-pwd.png);
+            top:10px;
+            left:10px;
+          }
+        }
+        input::-webkit-input-placeholder, textarea::-webkit-input-placeholder {
+          color: #fff!important;
+        }
+        input:-moz-placeholder, textarea:-moz-placeholder {
+          color: #fff!important;
+        }
+        input::-moz-placeholder, textarea::-moz-placeholder {
+          color: #fff!important;
+        }
+        input:-ms-input-placeholder, textarea:-ms-input-placeholder {
+          color: #fff!important;
+        }
+      }
+      .login-name{
+      }
+      .login-pwd{
+      }
+    }
+    .forget{
+      text-align: right;
+      margin: 10px auto;
+      width: 90%;
+      a{
+        font-size: 14px;
+        color: #fff;
+        font-weight: 800;
+      }
+    }
+    .btn-wrap{
+      margin: 15px auto;
+      width: 90%;
+      .button {
+        color: #fff;
+        -webkit-border-radius: 5px;
+        -moz-border-radius: 5px;
+        border-radius: 5px;
+        font-weight: 800;
+        border: none;
+        width: 100%;
+      }
+      .btn-login{
+        background-color: $main-header-bg-color;
+        &.invalid{
+          background-color: $main-font-color2!important;
+          //color: #69717d;
+        }
+      }
+      .btn-reg{
+        background-color: $main-color-yellow;
+      }
+    }
+  }
+}
