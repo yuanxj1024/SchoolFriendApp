@@ -92,6 +92,18 @@ module JDB {
                     }
                 }
             })
+            //充值密码
+            .state('jdb.resetpwd',{
+                url: '/resetpwd',
+                params: {
+                    action: 'resetpwd'
+                },
+                views: {
+                    'tab-main':{
+                        templateUrl: 'templates/mine/reset-pwd.html'
+                    }
+                }
+            })
             //注册成功后完善信息
             .state('jdb.reginfo',{
                 url: '/register/info',
@@ -107,7 +119,7 @@ module JDB {
         ;
 
         //默认转到首页
-        $urlRouterProvider.otherwise('/jdb/register/info');
+        $urlRouterProvider.otherwise('/jdb/home');
 
     });
 }

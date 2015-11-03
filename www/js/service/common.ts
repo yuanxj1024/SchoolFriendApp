@@ -8,11 +8,12 @@
 module JDB {
     'use strict';
 
+    declare var window;
 
     //搜索页实例
     var searchModal = null,
         reportSheet = null,
-        loginModal = null;
+        schoolSheet = null;
 
 
     export interface ICommonService {
@@ -24,6 +25,9 @@ module JDB {
 
         //显示登录页面
         showLoginModal(): void;
+
+        //学校选择
+        showSchoolList(callback: any): void;
     }
 
     class Common implements ICommonService{
@@ -91,7 +95,27 @@ module JDB {
             this.$rootScope.createModal('/templates/mine/login.html');
         }
 
-        showSchoolList(){
+        //打开学校列表
+        showSchoolList(callback:any){
+            if(schoolSheet){
+                return null;
+            }
+            schoolSheet = {};
+
+            schoolSheet = this.$ionicActionSheet.show({
+                buttons: window.JDBTypes.schoolSheet,
+                cancelText: '取消',
+                cancel: function() {
+                    schoolSheet = null;
+                },
+                buttonClicked: function(index) {
+                    //索引从零开始
+                    console.log(index);
+                    callback && callback(index);
+                    schoolSheet = null;
+                    return true;
+                }
+            });
 
         }
 

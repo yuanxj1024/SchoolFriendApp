@@ -7,7 +7,7 @@ var JDB;
 (function (JDB) {
     'use strict';
     //搜索页实例
-    var searchModal = null, reportSheet = null, loginModal = null;
+    var searchModal = null, reportSheet = null, schoolSheet = null;
     var Common = (function () {
         function Common($rootScope, $ionicModal, $ionicActionSheet, $q) {
             this.$rootScope = $rootScope;
@@ -62,7 +62,26 @@ var JDB;
         Common.prototype.showLoginModal = function () {
             this.$rootScope.createModal('/templates/mine/login.html');
         };
-        Common.prototype.showSchoolList = function () {
+        //打开学校列表
+        Common.prototype.showSchoolList = function (callback) {
+            if (schoolSheet) {
+                return null;
+            }
+            schoolSheet = {};
+            schoolSheet = this.$ionicActionSheet.show({
+                buttons: window.JDBTypes.schoolSheet,
+                cancelText: '取消',
+                cancel: function () {
+                    schoolSheet = null;
+                },
+                buttonClicked: function (index) {
+                    //索引从零开始
+                    console.log(index);
+                    callback && callback(index);
+                    schoolSheet = null;
+                    return true;
+                }
+            });
         };
         return Common;
     })();

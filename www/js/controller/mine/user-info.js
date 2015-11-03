@@ -3,19 +3,22 @@
  */
 /// <reference path="../../app.ts" />
 /// <reference path="../../service/mine/mine.ts" />
+/// <reference path="../../service/common.ts" />
 //用户基本信息
 var JDB;
 (function (JDB) {
     'use strict';
     var UserInfo = (function () {
-        function UserInfo($rootScope, $scope, $state, $stateParams, MineService) {
+        function UserInfo($rootScope, $scope, $state, $stateParams, MineService, CommonService) {
             this.$rootScope = $rootScope;
             this.$scope = $scope;
             this.$state = $state;
             this.$stateParams = $stateParams;
             this.MineService = MineService;
+            this.CommonService = CommonService;
             $scope.changeStep = angular.bind(this, this.changeStep);
             $scope.saveInfo = angular.bind(this, this.saveInfo);
+            $scope.chooseSchool = angular.bind(this, this.chooseSchool);
             console.log($stateParams);
             $scope.step = 1;
             if ($stateParams['action'] == 'reg') {
@@ -47,14 +50,17 @@ var JDB;
             if (!this.$scope.userForm.userName) {
                 msg = '请输入姓名';
                 this.$scope.step = 1;
+                this.$rootScope.scrollTop();
             }
             else if (!this.$scope.userForm.englishName) {
                 msg = '请输入英文名称';
                 this.$scope.step = 1;
+                this.$rootScope.scrollTop();
             }
             else if (!this.$scope.userForm.gender) {
                 msg = '请选择性别';
                 this.$scope.step = 1;
+                this.$rootScope.scrollTop();
             }
             else if (!this.$scope.userForm.school) {
                 msg = '请选择学校';
@@ -72,11 +78,9 @@ var JDB;
         UserInfo.prototype.saveInfo = function ($valid) {
             var self = this;
             this.validateForm();
-            console.log($valid);
             if (!$valid) {
                 return null;
             }
-            console.log(1);
             //TODO save
             this.MineService.saveUserData(this.$scope.userForm).then(function (result) {
                 if (result && result.code == 0) {
@@ -90,9 +94,15 @@ var JDB;
                 window.plugins.toast.showShortCenter('数据提交失败');
             });
         };
+        UserInfo.prototype.chooseSchool = function () {
+            var self = this;
+            this.CommonService.showSchoolList(function (index) {
+                self.$scope.userForm.school = window.JDBTypes.school[index];
+            });
+        };
         return UserInfo;
     })();
-    UserInfo.$inject = ['$rootScope', '$scope', '$state', '$stateParams', 'MineService'];
+    UserInfo.$inject = ['$rootScope', '$scope', '$state', '$stateParams', 'MineService', 'CommonService'];
     JDB.CtrlModule.controller('UserInfoCtrl', UserInfo);
 })(JDB || (JDB = {}));
 //# sourceMappingURL=user-info.js.map

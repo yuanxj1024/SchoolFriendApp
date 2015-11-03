@@ -17,10 +17,17 @@ var JDB;
             this.AuthService = AuthService;
             this.$interval = $interval;
             this.$state = $state;
+            //登陆
             $scope.login = angular.bind(this, this.login);
+            //注册
             $scope.register = angular.bind(this, this.register);
             $scope.sendCode = angular.bind(this, this.sendCode);
+            //重置密码
+            $scope.changeResetStep = angular.bind(this, this.changeResetStep);
+            $scope.resetBack = angular.bind(this, this.resetBack);
+            $scope.resetPwd = angular.bind(this, this.resetPwd);
             $scope.btnSendText = '获取验证码';
+            $scope.resetStep = 1;
             this.initForm();
         }
         LoginReg.prototype.initForm = function () {
@@ -110,18 +117,29 @@ var JDB;
                     self.$scope.btnSendText = '重新发送';
                 }
             }, 1000);
-            this.MineService.test(args).then(function (result) {
+            this.MineService.sendSMSCode(args).then(function (result) {
                 if (result.code == 0) {
                     window.plugins.toast.showShortCenter('验证码发送成功');
                 }
                 else {
-                    self.$scope.isSendCode = false;
                     window.plugins.toast.showShortCenter(result.message || '电话格式不正确');
                 }
             }, function (err) {
-                self.$scope.isSendCode = false;
                 window.plugins.toast.showShortCenter('发送失败，稍后重试');
             });
+        };
+        LoginReg.prototype.changeResetStep = function (val) {
+            this.$scope.resetStep = val;
+        };
+        LoginReg.prototype.resetPwd = function ($valid) {
+            if (!$valid) {
+                return null;
+            }
+            //TODO save new pwd
+        };
+        LoginReg.prototype.resetBack = function () {
+            this.$scope.resetStep = 1;
+            this.$rootScope.stateGo('jdb.mine');
         };
         return LoginReg;
     })();

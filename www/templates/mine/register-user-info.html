@@ -64,8 +64,8 @@
             <div>
               学校<span class="start"></span>
             </div>
-            <div class="info">
-              选择<i class="ion-chevron-right"></i>
+            <div class="info" ng-click="chooseSchool()">
+              {{userForm.school || '请选择' }}<i class="ion-chevron-right"></i>
               <!--<input type="text" placeholder="请选择学校"/>-->
             </div>
           </div>

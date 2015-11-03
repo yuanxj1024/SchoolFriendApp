@@ -47,7 +47,8 @@ module JDB {
         stateGo: Function;
         //显示加载层
         loading: Function;
-
+        //屏幕滚动到底部
+        scrollTop: Function;
     }
 
     //程序启动入口
@@ -60,27 +61,6 @@ module JDB {
 
 
         /*业务处理*/
-
-
-        ////通用请求处理函数
-        ////仅局限于Service层使用
-        //$rootScope.requestHandler = function(requestFn, args, data){
-        //    var defer = this.$q.defer();
-        //    requestFn(args, data, function(result){
-        //        if(typeof result == 'string'){
-        //            result = JSON.parse(result);
-        //        }
-        //        defer.resolve(result);
-        //    }, function(err){
-        //        if(typeof err == 'string'){
-        //            err = JSON.parse(err);
-        //        }
-        //        defer.reject(err);
-        //    });
-        //    return defer.promise;
-        //};
-
-
 
 
         /*事件定义*/

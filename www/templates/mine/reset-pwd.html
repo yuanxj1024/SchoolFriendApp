@@ -1,0 +1,34 @@
+<ion-view ng-controller="LoginRegCtrl">
+  <ion-header-bar class="top-header-bg-color">
+    <button class="button button-clear" ng-click="resetBack()">
+      <i class="icon ion-ios-arrow-left"></i>
+      返回
+    </button>
+    <h1 class="title">重置密码</h1>
+  </ion-header-bar>
+  <ion-content scroll="false" class="reg-wrap main-body-bg-color">
+    <form novalidate name="frmReset" id="frmReg" ng-submit="resetPwd(frmReset.$valid)">
+      <div class="reg-frm-wrap">
+        <div ng-show="resetStep == 1" ng-hide>
+          <div class="input-item-wrap phone">
+            <input ng-required="true" minlength="11" ng-model="regForm.phone" type="text" placeholder="请填写手机号码"/>
+          </div>
+          <div class="input-item-wrap code">
+            <input ng-required="true" minlength="4" ng-model="regForm.code" type="text" placeholder="请输入验证码"/>
+            <a class="btn-send txt-center" ng-class="{'true': 'invalid'}[isSendCode]" ng-click="sendCode()">{{btnSendText}}</a>
+          </div>
+        </div>
+        <div ng-hide ng-show="resetStep == 2">
+          <div class="input-item-wrap pwd">
+            <input ng-required="true" minlength="6" ng-model="regForm.pwd" type="password" placeholder="6-16位数字、字码或下划线"/>
+          </div>
+          <div class="input-item-wrap pwd">
+            <input ng-required="true" minlength="6" ng-model="regForm.pwd" type="password" placeholder="请再次确认密码"/>
+          </div>
+        </div>
+      </div>
+      <span class="button button-block btn-save ng-hide" ng-show="resetStep == 1" ng-click="changeResetStep(2)">下一步</span>
+      <input type="submit" class="button button-block btn-save ng-hide" ng-show="resetStep == 2" ng-class="{'false':'invalid'}[frmReg.$valid]" value="确定重置"/>
+    </form>
+  </ion-content>
+</ion-view>

@@ -21,11 +21,13 @@ module JDB {
             public $q: ng.IQService,
             public $ionicModal: Ionic.IModal,
             public $state: ng.ui.IStateService,
-            public $ionicLoading: Ionic.ILoading
+            public $ionicLoading: Ionic.ILoading,
+            public $ionicScrollDelegate: Ionic.IScrollDelegate
         ){
             $rootScope.createModal = angular.bind(this, this.createmodal);
             $rootScope.requestHandler = angular.bind(this, this.requestHandler);
             $rootScope.stateGo = angular.bind(this, this.stateGo);
+            $rootScope.scrollTop = angular.bind(this, this.scrollTop);
 
         }
 
@@ -101,9 +103,13 @@ module JDB {
                 this.$ionicLoading.hide();
             }
         }
+
+        scrollTop(){
+            this.$ionicScrollDelegate.scrollTop();
+        }
     }
 
-    RootScopeExtend.$inject = ['$rootScope', '$q', '$ionicModal', '$state', '$ionicLoading'];
+    RootScopeExtend.$inject = ['$rootScope', '$q', '$ionicModal', '$state', '$ionicLoading', '$ionicScrollDelegate'];
     ServiceModule.service('RootScopeExtendService', RootScopeExtend);
 }
 

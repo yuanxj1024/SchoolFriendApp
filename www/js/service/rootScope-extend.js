@@ -10,15 +10,17 @@ var JDB;
     //modal对象集合
     var modalList = {};
     var RootScopeExtend = (function () {
-        function RootScopeExtend($rootScope, $q, $ionicModal, $state, $ionicLoading) {
+        function RootScopeExtend($rootScope, $q, $ionicModal, $state, $ionicLoading, $ionicScrollDelegate) {
             this.$rootScope = $rootScope;
             this.$q = $q;
             this.$ionicModal = $ionicModal;
             this.$state = $state;
             this.$ionicLoading = $ionicLoading;
+            this.$ionicScrollDelegate = $ionicScrollDelegate;
             $rootScope.createModal = angular.bind(this, this.createmodal);
             $rootScope.requestHandler = angular.bind(this, this.requestHandler);
             $rootScope.stateGo = angular.bind(this, this.stateGo);
+            $rootScope.scrollTop = angular.bind(this, this.scrollTop);
         }
         //创建模式窗口
         RootScopeExtend.prototype.createmodal = function (url, scope) {
@@ -91,9 +93,12 @@ var JDB;
                 this.$ionicLoading.hide();
             }
         };
+        RootScopeExtend.prototype.scrollTop = function () {
+            this.$ionicScrollDelegate.scrollTop();
+        };
         return RootScopeExtend;
     })();
-    RootScopeExtend.$inject = ['$rootScope', '$q', '$ionicModal', '$state', '$ionicLoading'];
+    RootScopeExtend.$inject = ['$rootScope', '$q', '$ionicModal', '$state', '$ionicLoading', '$ionicScrollDelegate'];
     JDB.ServiceModule.service('RootScopeExtendService', RootScopeExtend);
 })(JDB || (JDB = {}));
 //# sourceMappingURL=rootScope-extend.js.map

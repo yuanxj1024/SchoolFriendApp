@@ -69,6 +69,16 @@ var JDB;
                     templateUrl: 'templates/mine/register.html'
                 }
             }
+        }).state('jdb.resetpwd', {
+            url: '/resetpwd',
+            params: {
+                action: 'resetpwd'
+            },
+            views: {
+                'tab-main': {
+                    templateUrl: 'templates/mine/reset-pwd.html'
+                }
+            }
         }).state('jdb.reginfo', {
             url: '/register/info',
             params: {
@@ -81,7 +91,7 @@ var JDB;
             }
         });
         //默认转到首页
-        $urlRouterProvider.otherwise('/jdb/register/info');
+        $urlRouterProvider.otherwise('/jdb/home');
     });
 })(JDB || (JDB = {}));
 //# sourceMappingURL=router.js.map
