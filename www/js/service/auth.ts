@@ -72,7 +72,7 @@ module JDB {
             if(this.$rootScope.User){
                 return true;
             }
-            this.CommonService.showLoginModal();
+            //this.CommonService.showLoginModal();
             return false;
         }
 

@@ -39,7 +39,7 @@ var JDB;
             if (this.$rootScope.User) {
                 return true;
             }
-            this.CommonService.showLoginModal();
+            //this.CommonService.showLoginModal();
             return false;
         };
         Auth.prototype.setUser = function (user) {

@@ -33,7 +33,7 @@ var JDB;
         /*业务处理*/
         ////通用请求处理函数
         ////仅局限于Service层使用
-        //$rootScope.RequestHandler = function(requestFn, args, data){
+        //$rootScope.requestHandler = function(requestFn, args, data){
         //    var defer = this.$q.defer();
         //    requestFn(args, data, function(result){
         //        if(typeof result == 'string'){

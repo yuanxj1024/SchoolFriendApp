@@ -20,7 +20,7 @@ module JDB {
         //发送验证码
         sendSMSCode(args:any): ng.IPromise<any>;
 
-        test(args:any): ng.IPromise<any>;
+        register(args:any): ng.IPromise<any>;
 
     }
 
@@ -31,6 +31,9 @@ module JDB {
         login(params:Object, data:Object,success?:Function,error?:Function);
         //发送验证码
         smsCode(params:Object, data:Object,success?:Function,error?:Function);
+        //注册
+        register(params:Object, data:Object,success?:Function,error?:Function);
+
     }
 
     class Mine implements IMineService {
@@ -44,7 +47,7 @@ module JDB {
             this.mineResource = <IMineResource> $resource(appHost + '/:action', {
                 action: '@action'
             },{
-                saveDate:{
+                saveData:{
                     method: 'POST',
                     isArray: false,
                     needAccessToken: true,
@@ -68,16 +71,25 @@ module JDB {
                     params:{
                         action: ''
                     }
+                },
+                register: {
+                    method: 'POST',
+                    isArray: false,
+                    needAccessToken: false,
+                    //needLogin: false,
+                    params:{
+                        action: ''
+                    }
                 }
             });
         }
 
         saveUserData(args:any): ng.IPromise<any> {
-            return this.$rootScope.RequestHandler(this.mineResource.saveData, args, null);
+            return this.$rootScope.requestHandler(this.mineResource.saveData, args, null);
         }
 
         login(args: any): ng.IPromise<any> {
-            return this.$rootScope.RequestHandler(this.mineResource.login, args, null);
+            return this.$rootScope.requestHandler(this.mineResource.login, args, null);
         }
 
         logout(){
@@ -86,20 +98,11 @@ module JDB {
         }
 
         sendSMSCode(): ng.IPromise<any> {
-            return this.$rootScope.RequestHandler(this.mineResource.smsCode,null,null);
+            return this.$rootScope.requestHandler(this.mineResource.smsCode,null,null);
         }
 
-        test(args){
-            var defer = this.$q.defer();
-            this.mineResource.smsCode(args,null, function(result){
-                if(typeof result == 'string'){
-                    result = JSON.parse(result);
-                }
-                defer.resolve(result);
-            }, function(err){
-                defer.reject(err);
-            });
-            return defer.promise;
+        register(args){
+            return this.$rootScope.requestHandler(this.mineResource.register, args, null);
         }
 
 

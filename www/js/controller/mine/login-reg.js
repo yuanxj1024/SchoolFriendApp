@@ -10,12 +10,13 @@ var JDB;
 (function (JDB) {
     'use strict';
     var LoginReg = (function () {
-        function LoginReg($rootScope, $scope, MineService, AuthService, $interval) {
+        function LoginReg($rootScope, $scope, MineService, AuthService, $interval, $state) {
             this.$rootScope = $rootScope;
             this.$scope = $scope;
             this.MineService = MineService;
             this.AuthService = AuthService;
             this.$interval = $interval;
+            this.$state = $state;
             $scope.login = angular.bind(this, this.login);
             $scope.register = angular.bind(this, this.register);
             $scope.sendCode = angular.bind(this, this.sendCode);
@@ -64,6 +65,13 @@ var JDB;
                 return null;
             }
             //TODO save
+            this.MineService.register(this.$scope.regForm).then(function (result) {
+                if (result && result.code == 0) {
+                    window.plugins.toast.showShortCenter('注册成功');
+                }
+            }, function (err) {
+                window.plugins.toast.showShortCenter('注册失败，请稍后重试');
+            });
         };
         LoginReg.prototype.validateReg = function () {
             var msg;
@@ -92,12 +100,13 @@ var JDB;
             this.sendSMSCode({});
         };
         LoginReg.prototype.sendSMSCode = function (args) {
-            var self = this, time = 59;
+            var self = this, time = 9;
             self.$scope.btnSendText = '发送中';
             var timeID = self.$interval(function () {
                 self.$scope.btnSendText = '重新发送(' + time + ')';
                 if (time-- <= 0) {
                     self.$interval.cancel(timeID);
+                    self.$scope.isSendCode = false;
                     self.$scope.btnSendText = '重新发送';
                 }
             }, 1000);
@@ -110,15 +119,13 @@ var JDB;
                     window.plugins.toast.showShortCenter(result.message || '电话格式不正确');
                 }
             }, function (err) {
-                console.log(123);
-                console.log(err);
                 self.$scope.isSendCode = false;
                 window.plugins.toast.showShortCenter('发送失败，稍后重试');
             });
         };
         return LoginReg;
     })();
-    LoginReg.$inject = ['$rootScope', '$scope', 'MineService', 'AuthService', '$interval'];
+    LoginReg.$inject = ['$rootScope', '$scope', 'MineService', 'AuthService', '$interval', '$state'];
     JDB.CtrlModule.controller('LoginRegCtrl', LoginReg);
 })(JDB || (JDB = {}));
 //# sourceMappingURL=login-reg.js.map

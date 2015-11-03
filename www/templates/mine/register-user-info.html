@@ -1,0 +1,128 @@
+<ion-view ng-controller="UserInfoCtrl">
+  <ion-header-bar class="top-header-bg-color">
+    <h1 class="title">完善信息({{step}}/2)</h1>
+  </ion-header-bar>
+  <ion-content class="mine-info-wrap main-body-bg-color reg-info-extend">
+    <form novalidate name="frmRegInfo" id="frmRegInfo" ng-submit="saveInfo(frmRegInfo.$valid)">
+      <div class="ng-hide" ng-show="step == 1">
+        <div class="basic-list list">
+          <div class="main-font-color2 item">
+            基本信息
+          </div>
+          <div class="item">
+            <div>
+              姓名<span class="start"></span>
+            </div>
+            <div class="info">
+              <input ng-model="userForm.userName" type="text" ng-required="true" minlength="2" placeholder="请输入姓名"/>
+            </div>
+          </div>
+          <div class="item">
+            <div>
+              英文名称<span class="start"></span>
+            </div>
+            <div class="info">
+              <input ng-model="userForm.englishName" ng-required="true" minlength="1" type="text" placeholder="请输入英文名"/>
+            </div>
+          </div>
+          <div class="item">
+            <div>
+              性别<span class="start"></span>
+            </div>
+            <div class="info">
+              <input ng-model="userForm.gender" ng-required="true" type="text" placeholder="请选择性别"/>
+            </div>
+          </div>
+
+          <div class="item">
+            <div>
+              微信
+            </div>
+            <div class="info">
+              <input ng-model="userForm.wechat" type="text" placeholder="请输入微信号"/>
+            </div>
+          </div>
+          <div class="item">
+            <div>
+              邮箱
+            </div>
+            <div class="info">
+              <input ng-model="userForm.email" type="text" placeholder="请输入常用邮箱"/>
+            </div>
+          </div>
+        </div>
+        <div class="reg-tip">
+          注：姓名填写提交后将无法修改。
+        </div>
+      </div>
+
+      <div class="ng-hide" ng-show="step==2">
+        <!-- -->
+        <div class="list">
+          <div class="main-font-color2 item">学校信息</div>
+          <div class="item">
+            <div>
+              学校<span class="start"></span>
+            </div>
+            <div class="info">
+              选择<i class="ion-chevron-right"></i>
+              <!--<input type="text" placeholder="请选择学校"/>-->
+            </div>
+          </div>
+          <div class="item">
+            <div>
+              院系<span class="start"></span>
+            </div>
+            <div class="info">
+              <input ng-model="userForm.subject" type="text" placeholder="请输入院系"/>
+              <!--选择<i class="ion-chevron-right"></i>-->
+            </div>
+          </div>
+
+          <div class="item">
+            <div>
+              年级<span class="start"></span>
+            </div>
+            <div class="info">
+              <!--选择<i class="ion-chevron-right"></i>-->
+              <input ng-model="userForm.grade" type="text" placeholder="请输入年纪"/>
+            </div>
+          </div>
+        </div>
+        <!-- -->
+        <div class="list">
+          <div class="main-font-color2 item">工作信息</div>
+          <div class="item">
+            <div>
+              公司
+            </div>
+            <div class="info">
+              <input ng-model="userForm.companyName" type="text" placeholder="请输入公司名称"/>
+            </div>
+          </div>
+          <div class="item">
+            <div>
+              职位
+            </div>
+            <div class="info">
+              <input ng-model="userForm.jobTitle" type="text" placeholder="请输入职位名称"/>
+            </div>
+          </div>
+        </div>
+        <!-- -->
+        <div class="list">
+          <div class="main-font-color2 item">备注信息</div>
+          <div class="item">
+            <textarea ng-model="userForm.remark" class="more-text" cols="30" rows="5" placeholder="请输入备注信息"></textarea>
+          </div>
+        </div>
+      </div>
+
+      <div class="btn-list">
+        <span class="button button-block ng-hide" ng-show="step==1" ng-click="changeStep(2)">下一步</span>
+        <span class="button button-block ng-hide" ng-show="step==2" ng-click="changeStep(1)">上一步</span>
+        <input ng-show="step==2" class="button button-blue button-block ng-hide" value="完成" type="submit" />
+      </div>
+    </form>
+  </ion-content>
+</ion-view>

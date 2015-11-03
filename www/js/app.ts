@@ -40,9 +40,14 @@ module JDB {
         //当前用户
         User: IUser;
         //通用请求处理函数
-        RequestHandler:Function;
+        requestHandler:Function;
         //创建模式窗口
         createModal: Function;
+        //路由跳转
+        stateGo: Function;
+        //显示加载层
+        loading: Function;
+
     }
 
     //程序启动入口
@@ -59,7 +64,7 @@ module JDB {
 
         ////通用请求处理函数
         ////仅局限于Service层使用
-        //$rootScope.RequestHandler = function(requestFn, args, data){
+        //$rootScope.requestHandler = function(requestFn, args, data){
         //    var defer = this.$q.defer();
         //    requestFn(args, data, function(result){
         //        if(typeof result == 'string'){

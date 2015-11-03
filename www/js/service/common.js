@@ -62,6 +62,8 @@ var JDB;
         Common.prototype.showLoginModal = function () {
             this.$rootScope.createModal('/templates/mine/login.html');
         };
+        Common.prototype.showSchoolList = function () {
+        };
         return Common;
     })();
     Common.$inject = ['$rootScope', '$ionicModal', '$ionicActionSheet', '$q'];

@@ -92,10 +92,22 @@ module JDB {
                     }
                 }
             })
+            //注册成功后完善信息
+            .state('jdb.reginfo',{
+                url: '/register/info',
+                params:{
+                    action: 'reg'
+                },
+                views: {
+                    'tab-main':{
+                        templateUrl: 'templates/mine/register-user-info.html'
+                    }
+                }
+            })
         ;
 
         //默认转到首页
-        $urlRouterProvider.otherwise('/jdb/register');
+        $urlRouterProvider.otherwise('/jdb/register/info');
 
     });
 }

@@ -19,10 +19,13 @@ module JDB {
         constructor(
             public $rootScope: IJDBRootScopeService,
             public $q: ng.IQService,
-            public $ionicModal: Ionic.IModal
+            public $ionicModal: Ionic.IModal,
+            public $state: ng.ui.IStateService,
+            public $ionicLoading: Ionic.ILoading
         ){
             $rootScope.createModal = angular.bind(this, this.createmodal);
-            $rootScope.RequestHandler = angular.bind(this, this.RequestHandler);
+            $rootScope.requestHandler = angular.bind(this, this.requestHandler);
+            $rootScope.stateGo = angular.bind(this, this.stateGo);
 
         }
 
@@ -65,15 +68,18 @@ module JDB {
 
         //通用请求处理函数
         //仅局限于Service层使用
-        RequestHandler(requestFn, args, data): ng.IPromise<any> {
-            //console.log(requestFn);
+        requestHandler(requestFn, args, data): ng.IPromise<any> {
+            var self = this;
+            this.loading();
             var defer = this.$q.defer();
             requestFn(args, data, function(result){
+                self.loading(false);
                 if(typeof result == 'string'){
                     result = JSON.parse(result);
                 }
                 defer.resolve(result);
             }, function(err){
+                self.loading(false);
                 if(typeof err == 'string'){
                     err = JSON.parse(err);
                 }
@@ -82,12 +88,23 @@ module JDB {
             return defer.promise;
         }
 
+        //路由跳转
+        stateGo(name: string): void {
+            this.$state.go(name);
+        }
+
+        //显示加载层
+        loading(isShow:boolean = true):void {
+            if(isShow){
+                this.$ionicLoading.show();
+            }else{
+                this.$ionicLoading.hide();
+            }
+        }
     }
 
-
-    RootScopeExtend.$inject = ['$rootScope', '$q', '$ionicModal'];
+    RootScopeExtend.$inject = ['$rootScope', '$q', '$ionicModal', '$state', '$ionicLoading'];
     ServiceModule.service('RootScopeExtendService', RootScopeExtend);
-
 }
 
 

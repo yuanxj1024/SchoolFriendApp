@@ -69,9 +69,19 @@ var JDB;
                     templateUrl: 'templates/mine/register.html'
                 }
             }
+        }).state('jdb.reginfo', {
+            url: '/register/info',
+            params: {
+                action: 'reg'
+            },
+            views: {
+                'tab-main': {
+                    templateUrl: 'templates/mine/register-user-info.html'
+                }
+            }
         });
         //默认转到首页
-        $urlRouterProvider.otherwise('/jdb/register');
+        $urlRouterProvider.otherwise('/jdb/register/info');
     });
 })(JDB || (JDB = {}));
 //# sourceMappingURL=router.js.map

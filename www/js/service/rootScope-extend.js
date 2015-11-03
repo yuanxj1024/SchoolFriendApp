@@ -10,12 +10,15 @@ var JDB;
     //modal对象集合
     var modalList = {};
     var RootScopeExtend = (function () {
-        function RootScopeExtend($rootScope, $q, $ionicModal) {
+        function RootScopeExtend($rootScope, $q, $ionicModal, $state, $ionicLoading) {
             this.$rootScope = $rootScope;
             this.$q = $q;
             this.$ionicModal = $ionicModal;
+            this.$state = $state;
+            this.$ionicLoading = $ionicLoading;
             $rootScope.createModal = angular.bind(this, this.createmodal);
-            $rootScope.RequestHandler = angular.bind(this, this.RequestHandler);
+            $rootScope.requestHandler = angular.bind(this, this.requestHandler);
+            $rootScope.stateGo = angular.bind(this, this.stateGo);
         }
         //创建模式窗口
         RootScopeExtend.prototype.createmodal = function (url, scope) {
@@ -55,15 +58,18 @@ var JDB;
         };
         //通用请求处理函数
         //仅局限于Service层使用
-        RootScopeExtend.prototype.RequestHandler = function (requestFn, args, data) {
-            //console.log(requestFn);
+        RootScopeExtend.prototype.requestHandler = function (requestFn, args, data) {
+            var self = this;
+            this.loading();
             var defer = this.$q.defer();
             requestFn(args, data, function (result) {
+                self.loading(false);
                 if (typeof result == 'string') {
                     result = JSON.parse(result);
                 }
                 defer.resolve(result);
             }, function (err) {
+                self.loading(false);
                 if (typeof err == 'string') {
                     err = JSON.parse(err);
                 }
@@ -71,9 +77,23 @@ var JDB;
             });
             return defer.promise;
         };
+        //路由跳转
+        RootScopeExtend.prototype.stateGo = function (name) {
+            this.$state.go(name);
+        };
+        //显示加载层
+        RootScopeExtend.prototype.loading = function (isShow) {
+            if (isShow === void 0) { isShow = true; }
+            if (isShow) {
+                this.$ionicLoading.show();
+            }
+            else {
+                this.$ionicLoading.hide();
+            }
+        };
         return RootScopeExtend;
     })();
-    RootScopeExtend.$inject = ['$rootScope', '$q', '$ionicModal'];
+    RootScopeExtend.$inject = ['$rootScope', '$q', '$ionicModal', '$state', '$ionicLoading'];
     JDB.ServiceModule.service('RootScopeExtendService', RootScopeExtend);
 })(JDB || (JDB = {}));
 //# sourceMappingURL=rootScope-extend.js.map

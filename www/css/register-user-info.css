@@ -1,0 +1,6 @@
+@charset "UTF-8";
+/*基于mine-info样式进行修改*/
+.reg-info-extend .list .item:first-child {
+  line-height: 40px; }
+
+/*# sourceMappingURL=register-user-info.css.map */

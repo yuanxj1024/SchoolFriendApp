@@ -91,6 +91,10 @@ module JDB {
             this.$rootScope.createModal('/templates/mine/login.html');
         }
 
+        showSchoolList(){
+
+        }
+
     }
 
     Common.$inject = ['$rootScope', '$ionicModal', '$ionicActionSheet', '$q'];

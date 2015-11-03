@@ -8921,6 +8921,13 @@ a {
 .invalid {
   background-color: #dddddd !important; }
 
+.button-blue {
+  background-color: #2d69c4;
+  color: #fff; }
+
+.button-yellow {
+  background-color: #ffb300; }
+
 .main-header {
   color: #fff; }
   .main-header .button {
@@ -9432,6 +9439,35 @@ a {
   background-color: #2d69c4;
   color: #fff; }
 
+/*基于mine-info样式进行修改*/
+.reg-info-extend .list .item div {
+  height: 30px; }
+  .reg-info-extend .list .item div:first-child {
+    line-height: 30px; }
+    .reg-info-extend .list .item div:first-child .start:after {
+      top: -8px; }
+.reg-info-extend .list .item .info {
+  padding-right: 10px;
+  line-height: 30px; }
+  .reg-info-extend .list .item .info input {
+    margin: 0;
+    padding: 0;
+    text-align: right;
+    width: 100%; }
+.reg-info-extend .list .more-text {
+  width: 100%;
+  border: 1px solid #dddddd;
+  -webkit-border-radius: 5px;
+  -moz-border-radius: 5px;
+  border-radius: 5px; }
+.reg-info-extend .btn-list {
+  padding: 0 10px;
+  margin-bottom: 50px; }
+.reg-info-extend .reg-tip {
+  padding: 0 10px;
+  margin-top: 10px;
+  color: #d60007; }
+
 body {
   font-size: 12px;
   background-color: #666666; }
@@ -9475,6 +9511,13 @@ a {
 
 .invalid {
   background-color: #dddddd !important; }
+
+.button-blue {
+  background-color: #2d69c4;
+  color: #fff; }
+
+.button-yellow {
+  background-color: #ffb300; }
 
 .toastWrap {
   display: -webkit-box;

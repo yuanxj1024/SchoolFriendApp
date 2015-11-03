@@ -42,7 +42,8 @@ module JDB {
             public $scope: ILoginRegScope,
             public MineService: IMineService,
             public AuthService: IAuthService,
-            public $interval: ng.IIntervalService
+            public $interval: ng.IIntervalService,
+            public $state: ng.ui.IStateService
         ){
             $scope.login = angular.bind(this, this.login);
 
@@ -105,6 +106,15 @@ module JDB {
                 return null;
             }
             //TODO save
+
+            this.MineService.register(this.$scope.regForm).then(function(result){
+                if(result && result.code == 0){
+                    window.plugins.toast.showShortCenter('注册成功');
+                    //TODO 跳转到完善信息页面
+                }
+            }, function(err){
+                window.plugins.toast.showShortCenter('注册失败，请稍后重试');
+            });
         }
 
         validateReg() {
@@ -137,12 +147,13 @@ module JDB {
 
         sendSMSCode(args: any){
             var self = this,
-                time = 59;
+                time = 9;
             self.$scope.btnSendText = '发送中';
             var timeID = self.$interval(function(){
                 self.$scope.btnSendText = '重新发送(' + time + ')';
                 if(time-- <=0){
                     self.$interval.cancel(timeID);
+                    self.$scope.isSendCode = false;
                     self.$scope.btnSendText = '重新发送';
                 }
             }, 1000);
@@ -155,8 +166,6 @@ module JDB {
                     window.plugins.toast.showShortCenter(result.message|| '电话格式不正确');
                 }
             }, function(err){
-                console.log(123);
-                console.log(err);
                 self.$scope.isSendCode = false;
                 window.plugins.toast.showShortCenter('发送失败，稍后重试');
             });
@@ -166,8 +175,7 @@ module JDB {
 
     }
 
-    LoginReg.$inject = ['$rootScope', '$scope', 'MineService', 'AuthService', '$interval'];
+    LoginReg.$inject = ['$rootScope', '$scope', 'MineService', 'AuthService', '$interval', '$state'];
     CtrlModule.controller('LoginRegCtrl', LoginReg);
-
 }
 
