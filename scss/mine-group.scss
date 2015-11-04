@@ -1,0 +1,39 @@
+
+.mine-group-wrap{
+  margin-top: 51px;
+  .list{
+    .item{
+      border: none;
+    }
+  }
+  .mine-group-list{
+    .item{
+      border-top: 1px solid $main-font-color3;
+      padding-left: 75px;
+      min-height: 75px;
+      &:first-child{
+        border-top: none;
+      }
+      h2{
+        margin-top: 5px;
+        font-size: 15px;
+      }
+    }
+  }
+  .mine-group-img{
+    width: 52px;
+    height: 52px;
+    max-width: 52px!important;
+    max-height: 52px!important;
+  }
+}
+
+.mine-group-search-wrap{
+  margin-top: 44px;
+    .item{
+      border: none;
+      label{
+        background-color: #fff;
+      }
+    }
+}

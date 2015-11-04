@@ -1,0 +1,117 @@
+@import "flex";
+.mine-default-wrap{
+  padding-top: 15px;
+  .list-title{
+    padding: 0 10px;
+    color: $main-font-color2;
+    font-weight: bold;
+  }
+  .list{
+    margin-bottom: 15px;
+    .user-head{
+      @include flexbox;
+      padding-left: 12px;
+      padding-top: 10px!important;
+      padding-bottom: 10px!important;
+      div{
+        @include flex(1,1,auto);
+      }
+      .user-img{
+        @include flex(0,0,auto);
+        width: 50px;
+        margin-right: 10px;
+        img{
+          width: 50px;
+          height: 50px;
+          -webkit-border-radius: 5px;
+          -moz-border-radius: 5px;
+          border-radius: 5px;
+          border: none;
+        }
+      }
+      .user-info{
+        p{
+          margin-top: 5px;
+        }
+      }
+      .btn{
+        text-align: right;
+        padding-right: 10px;
+        i{
+          margin-top: 20px;
+          color: $main-font-color3;
+        }
+      }
+    }
+    .item{
+      border-color: $main-font-color3;
+      padding-top: 0;
+      padding-bottom: 0;
+      padding-right: 0;
+      border: none;
+      //&:first-child{
+      //  border-top: none;
+      //}
+      .item-icon{
+        &:before{
+          content: ' ';
+          background-repeat: no-repeat;
+          -webkit-background-size: 100%;
+          background-size: 100%;
+          display: block;
+          width: 32px;
+          height: 32px;
+          text-align: center;
+        }
+        &.mine-group{
+          &:before{
+            background-image: url(/img/mine-group.png);
+          }
+        }
+        &.mine-topic{
+          &:before{
+            background-image: url(/img/mine-topic.png);
+          }
+        }
+        &.mine-release{
+          &:before{
+            background-image: url(/img/mine-release.png);
+          }
+        }
+        &.mine-join{
+          &:before{
+            background-image: url(/img/mine-join.png);
+          }
+        }
+      }
+      .info-wrap{
+        @include flexbox;
+        border-bottom: 1px solid $main-font-color3;
+        padding: 16px 10px 16px 0;
+        margin-bottom: 1px;
+        &:last-child{
+          //border-bottom: none;
+        }
+        .title{
+          @include flex(1,1,auto);
+        }
+        .btn{
+          @include flex(1,1,auto);
+          text-align: right;
+          color: $main-font-color3;
+          i{
+            margin-left: 5px;
+          }
+        }
+
+      }
+
+    }
+  }
+  .btn-wrap{
+    .button{
+      width: 90%;
+      margin-bottom: 10px;
+    }
+  }
+}

@@ -55,6 +55,20 @@ var JDB;
                     templateUrl: 'templates/mine/info.html'
                 }
             }
+        }).state('jdb.minegroup', {
+            url: '/mine/group',
+            views: {
+                'tab-main': {
+                    templateUrl: 'templates/mine/mine-group.html'
+                }
+            }
+        }).state('jdb.minetopic', {
+            url: '/mine/topic',
+            views: {
+                'tab-main': {
+                    templateUrl: 'templates/mine/mine-topic.html'
+                }
+            }
         }).state('jdb.invite', {
             url: '/mine/invite',
             views: {

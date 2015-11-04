@@ -72,7 +72,6 @@ module JDB {
             $scope.resetStep = 1;
 
             this.initForm();
-
         }
 
         initForm(){

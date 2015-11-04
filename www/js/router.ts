@@ -75,6 +75,24 @@ module JDB {
                     }
                 }
             })
+            //我的圈子
+            .state('jdb.minegroup',{
+                url: '/mine/group',
+                views: {
+                    'tab-main':{
+                        templateUrl: 'templates/mine/mine-group.html'
+                    }
+                }
+            })
+            //我的话题
+            .state('jdb.minetopic',{
+                url: '/mine/topic',
+                views: {
+                    'tab-main':{
+                        templateUrl: 'templates/mine/mine-topic.html'
+                    }
+                }
+            })
             //邀请码
             .state('jdb.invite',{
                 url: '/mine/invite',
