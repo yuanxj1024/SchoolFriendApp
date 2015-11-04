@@ -1,11 +1,72 @@
-<ion-modal-view>
+<ion-view ng-controller="MineCtrl">
   <ion-header-bar class="top-header-bg-color">
-    <button class="button button-clear back-button" ng-click="cancel()">
+    <button class="button button-clear" ui-sref="jdb.info">
+      <i class="icon ion-ios-arrow-left"></i>
       取消
     </button>
-    <h1 class="title">编辑个人信息</h1>
+    <h1 class="title" once-text="tagName"></h1>
   </ion-header-bar>
-  <ion-content class="has-header">
-    <p>编辑</p>
+  <ion-content class="info-edit-wrap main-body-bg-color" scrollbar-y='false' scroll="false">
+    <form name="frmEdit" id="frmEdit" novalidate>
+      <div class="edit-item-wrap" ng-switch="editTag">
+
+        <div class="list margintop22" ng-switch-when="2">
+          <label class="item item-input">
+            <input type="text" placeholder="请输入英文名">
+          </label>
+        </div>
+        <!-- -->
+        <div class="list margintop22" ng-switch-when="4">
+          <label class="item item-input">
+            <input type="text" placeholder="请输入微信">
+          </label>
+        </div>
+        <!-- -->
+        <div class="list margintop22" ng-switch-when="5">
+          <label class="item item-input">
+            <input type="text" placeholder="请输入邮箱">
+          </label>
+        </div>
+        <!-- -->
+        <div class="list margintop22" ng-switch-when="7">
+          <label class="item item-input">
+            <input type="text" placeholder="请输入院系">
+          </label>
+        </div>
+        <!-- -->
+        <div class="list margintop22" ng-switch-when="8">
+          <label class="item item-input">
+            <input type="text" placeholder="请输入年级">
+          </label>
+        </div>
+        <!-- -->
+        <div class="list margintop22" ng-switch-when="9">
+          <label class="item item-input">
+            <input type="text" placeholder="请输入公司">
+          </label>
+        </div>
+        <!-- -->
+        <div class="list margintop22" ng-switch-when="10">
+          <label class="item item-input">
+            <input type="text" placeholder="请输入职位">
+          </label>
+        </div>
+        <!-- -->
+        <div class="list margintop22" ng-switch-when="11">
+          <label class="item item-input">
+            <textarea cols="30" rows="5" placeholder="请输入备注"></textarea>
+          </label>
+        </div>
+        <!-- -->
+
+
+
+      </div>
+
+      <div class="btn-wrap txt-center">
+        <button class="button button-blue">保存</button>
+      </div>
+    </form>
   </ion-content>
-</ion-modal-view>
+</ion-view>
+

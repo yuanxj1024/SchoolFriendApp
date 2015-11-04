@@ -75,9 +75,23 @@ module JDB {
                     }
                 }
             })
+            .state('jdb.infoedit',{
+                url: '/mine/edit',
+                params: {
+                    tag: ''
+                },
+                views: {
+                    'tab-main':{
+                        templateUrl: 'templates/mine/info-edit.html'
+                    }
+                }
+            })
             //我的圈子
             .state('jdb.minegroup',{
                 url: '/mine/group',
+                params:{
+                    action: 'group'
+                },
                 views: {
                     'tab-main':{
                         templateUrl: 'templates/mine/mine-group.html'
@@ -87,9 +101,45 @@ module JDB {
             //我的话题
             .state('jdb.minetopic',{
                 url: '/mine/topic',
+                params: {
+                    action: 'topic'
+                },
                 views: {
                     'tab-main':{
                         templateUrl: 'templates/mine/mine-topic.html'
+                    }
+                }
+            })
+            //我发布的
+            .state('jdb.minerelease',{
+                url: '/mine/release',
+                params: {
+                    action: 'release'
+                },
+                views: {
+                    'tab-main':{
+                        templateUrl: 'templates/mine/mine-release-join.html'
+                    }
+                }
+            })
+            //我参加的
+            .state('jdb.minejoin',{
+                url: '/mine/join',
+                params: {
+                    action: 'join'
+                },
+                views: {
+                    'tab-main':{
+                        templateUrl: 'templates/mine/mine-release-join.html'
+                    }
+                }
+            })
+            //修改手机
+            .state('jdb.modifyphone',{
+                url: '/mine/modifyphone',
+                views: {
+                    'tab-main':{
+                        templateUrl: 'templates/mine/modify-phone.html'
                     }
                 }
             })

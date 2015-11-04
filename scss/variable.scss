@@ -57,6 +57,9 @@ $main-font-color3:#dddddd;
 .txt-center{
   text-align: center;
 }
+.txt-left{
+  text-align: left!important;
+}
 
 .center{
   margin: 0 auto;
@@ -73,7 +76,7 @@ $main-font-color3:#dddddd;
 
 .button-blue{
   background-color: $main-header-bg-color;
-  color: #fff;
+  color: #fff!important;
 }
 .button-yellow{
   background-color: $main-color-yellow;
@@ -99,4 +102,8 @@ $main-font-color3:#dddddd;
 
 .no-border{
   border: none!important;
+}
+
+.has-header-search{
+  margin-top: 40px;
 }

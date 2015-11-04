@@ -1,0 +1,24 @@
+<ion-view>
+  <ion-header-bar class="top-header-bg-color">
+    <button class="button button-clear" ui-sref="jdb.mine">
+      <i class="icon ion-ios-arrow-left"></i>
+      我的
+    </button>
+    <h1 class="title">更换手机号码</h1>
+  </ion-header-bar>
+  <ion-content class="reg-wrap main-body-bg-color" scrollbar-y='false'>
+    <form novalidate name="frmReset" id="frmReg" ng-submit="resetPwd(frmReset.$valid)">
+      <div class="reg-frm-wrap">
+          <div class="input-item-wrap phone">
+            <input ng-required="true" minlength="11" ng-model="regForm.phone" type="text" placeholder="请填写手机号码"/>
+          </div>
+          <div class="input-item-wrap code">
+            <input ng-required="true" minlength="4" ng-model="regForm.code" type="text" placeholder="请输入验证码"/>
+            <a class="btn-send txt-center" ng-class="{'true': 'invalid'}[isSendCode]" ng-click="sendCode()">{{btnSendText||'获取验证码'}}</a>
+          </div>
+      </div>
+      <input type="submit" class="button button-block btn-save" value="提交"/>
+    </form>
+
+  </ion-content>
+</ion-view>

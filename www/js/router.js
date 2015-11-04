@@ -55,8 +55,21 @@ var JDB;
                     templateUrl: 'templates/mine/info.html'
                 }
             }
+        }).state('jdb.infoedit', {
+            url: '/mine/edit',
+            params: {
+                tag: ''
+            },
+            views: {
+                'tab-main': {
+                    templateUrl: 'templates/mine/info-edit.html'
+                }
+            }
         }).state('jdb.minegroup', {
             url: '/mine/group',
+            params: {
+                action: 'group'
+            },
             views: {
                 'tab-main': {
                     templateUrl: 'templates/mine/mine-group.html'
@@ -64,9 +77,39 @@ var JDB;
             }
         }).state('jdb.minetopic', {
             url: '/mine/topic',
+            params: {
+                action: 'topic'
+            },
             views: {
                 'tab-main': {
                     templateUrl: 'templates/mine/mine-topic.html'
+                }
+            }
+        }).state('jdb.minerelease', {
+            url: '/mine/release',
+            params: {
+                action: 'release'
+            },
+            views: {
+                'tab-main': {
+                    templateUrl: 'templates/mine/mine-release-join.html'
+                }
+            }
+        }).state('jdb.minejoin', {
+            url: '/mine/join',
+            params: {
+                action: 'join'
+            },
+            views: {
+                'tab-main': {
+                    templateUrl: 'templates/mine/mine-release-join.html'
+                }
+            }
+        }).state('jdb.modifyphone', {
+            url: '/mine/modifyphone',
+            views: {
+                'tab-main': {
+                    templateUrl: 'templates/mine/modify-phone.html'
                 }
             }
         }).state('jdb.invite', {
