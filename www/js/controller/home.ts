@@ -38,7 +38,7 @@ module JDB {
         ){
             console.log('home');
             $scope.openReleaseTopic = angular.bind(TopicService, TopicService.releaseTopicModal);
-            $scope.openSearchModal = angular.bind(CommonService, CommonService.showSearchModal);
+            //$scope.openSearchModal = angular.bind(CommonService, CommonService.showSearchModal);
             $scope.openActionSheet = angular.bind(this ,this.openActionSheet);
             $scope.openLogin = angular.bind(this,CommonService.showLoginModal);
 

@@ -1,12 +1,44 @@
 <ion-view>
   <ion-header-bar class="top-header-bg-color">
-    <button class="button button-clear" ui-sref="jdb.home">
-      <i class="icon ion-ios-arrow-left"></i>
-      首页
-    </button>
+    <!--<button class="button button-clear" ui-sref="jdb.home">-->
+      <!--<i class="icon ion-ios-arrow-left"></i>-->
+      <!--首页-->
+    <!--</button>-->
     <h1 class="title">发现</h1>
   </ion-header-bar>
-  <ion-content scrollbar-y='false'>
-    <h1>发现</h1>
+  <ion-content scrollbar-y='false' class="discover-home-wrap main-body-bg-color">
+    <div class="top-banner-wrap">
+      <img src="/img/discover-banner.png" alt=""/>
+    </div>
+
+    <div class="block-wrap">
+      <div class="header">
+        <h4>推荐圈子</h4>
+        <a class="right" href="">查看更多<i class="ion-ios-arrow-right"></i></a>
+      </div>
+      <div class="list-wrap">
+        <div class="sub-item"><img src="/img/2015.jpg" alt=""/><span class="title">09级通讯录</span><span class="count">234人</span></div>
+        <div class="sub-item"><img src="/img/discover-group-default.png" alt=""/><span class="title">09级通讯录</span><span class="count">234人</span></div>
+        <div class="sub-item"><img src="/img/discover-group-default.png" alt=""/><span class="title">09级通讯录</span><span class="count">234人</span></div>
+        <div class="sub-item"><img src="/img/discover-group-default.png" alt=""/><span class="title">09级通讯录</span><span class="count">234人</span></div>
+      </div>
+    </div>
+    <!-- -->
+
+    <div class="block-wrap">
+      <div class="header">
+        <h4>附近好友</h4>
+        <a class="right" href="">查看更多<i class="ion-ios-arrow-right"></i></a>
+      </div>
+      <div class="list-wrap friends">
+        <div class="sub-item"><img class="user-head" src="/img/2015.jpg" alt=""/><span class="title">蒋方舟</span><span class="count">234人</span></div>
+        <div class="sub-item"><img class="user-head" src="/img/discover-user-head.png" alt=""/><span class="title">蒋方舟</span><span class="count">234m</span></div>
+        <div class="sub-item"><img class="user-head" src="/img/discover-user-head.png" alt=""/><span class="title">蒋方舟</span><span class="count">234m</span></div>
+        <div class="sub-item"><img class="user-head" src="/img/discover-user-head.png" alt=""/><span class="title">蒋方舟</span><span class="count">23m</span></div>
+        <div class="sub-item"><img class="user-head" src="/img/discover-user-head.png" alt=""/><span class="title">蒋方舟</span><span class="count">23m</span></div>
+      </div>
+    </div>
+    <!-- -->
   </ion-content>
+  <div ng-include="'/templates/part/main-menu.html'"></div>
 </ion-view>

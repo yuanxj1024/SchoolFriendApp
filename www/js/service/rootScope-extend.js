@@ -3,6 +3,7 @@
  * Created by AaronYuan on 11/2/15.
  */
 /// <reference path="../app.ts" />
+/// <reference path="../service/common.ts" />
 //对 $rootScope 扩展一些通用方法
 var JDB;
 (function (JDB) {
@@ -10,17 +11,19 @@ var JDB;
     //modal对象集合
     var modalList = {};
     var RootScopeExtend = (function () {
-        function RootScopeExtend($rootScope, $q, $ionicModal, $state, $ionicLoading, $ionicScrollDelegate) {
+        function RootScopeExtend($rootScope, $q, $ionicModal, $state, $ionicLoading, $ionicScrollDelegate, CommonService) {
             this.$rootScope = $rootScope;
             this.$q = $q;
             this.$ionicModal = $ionicModal;
             this.$state = $state;
             this.$ionicLoading = $ionicLoading;
             this.$ionicScrollDelegate = $ionicScrollDelegate;
+            this.CommonService = CommonService;
             $rootScope.createModal = angular.bind(this, this.createmodal);
             $rootScope.requestHandler = angular.bind(this, this.requestHandler);
             $rootScope.stateGo = angular.bind(this, this.stateGo);
             $rootScope.scrollTop = angular.bind(this, this.scrollTop);
+            $rootScope.openSearchModal = angular.bind(CommonService, CommonService.showSearchModal);
         }
         //创建模式窗口
         RootScopeExtend.prototype.createmodal = function (url, scope) {
@@ -98,7 +101,7 @@ var JDB;
         };
         return RootScopeExtend;
     })();
-    RootScopeExtend.$inject = ['$rootScope', '$q', '$ionicModal', '$state', '$ionicLoading', '$ionicScrollDelegate'];
+    RootScopeExtend.$inject = ['$rootScope', '$q', '$ionicModal', '$state', '$ionicLoading', '$ionicScrollDelegate', 'CommonService'];
     JDB.ServiceModule.service('RootScopeExtendService', RootScopeExtend);
 })(JDB || (JDB = {}));
 //# sourceMappingURL=rootScope-extend.js.map

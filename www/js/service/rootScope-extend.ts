@@ -3,6 +3,7 @@
  * Created by AaronYuan on 11/2/15.
  */
 /// <reference path="../app.ts" />
+/// <reference path="../service/common.ts" />
 //对 $rootScope 扩展一些通用方法
 
 module JDB {
@@ -22,12 +23,14 @@ module JDB {
             public $ionicModal: Ionic.IModal,
             public $state: ng.ui.IStateService,
             public $ionicLoading: Ionic.ILoading,
-            public $ionicScrollDelegate: Ionic.IScrollDelegate
+            public $ionicScrollDelegate: Ionic.IScrollDelegate,
+            public CommonService: ICommonService
         ){
             $rootScope.createModal = angular.bind(this, this.createmodal);
             $rootScope.requestHandler = angular.bind(this, this.requestHandler);
             $rootScope.stateGo = angular.bind(this, this.stateGo);
             $rootScope.scrollTop = angular.bind(this, this.scrollTop);
+            $rootScope.openSearchModal = angular.bind(CommonService, CommonService.showSearchModal);
 
         }
 
@@ -109,7 +112,7 @@ module JDB {
         }
     }
 
-    RootScopeExtend.$inject = ['$rootScope', '$q', '$ionicModal', '$state', '$ionicLoading', '$ionicScrollDelegate'];
+    RootScopeExtend.$inject = ['$rootScope', '$q', '$ionicModal', '$state', '$ionicLoading', '$ionicScrollDelegate', 'CommonService'];
     ServiceModule.service('RootScopeExtendService', RootScopeExtend);
 }
 

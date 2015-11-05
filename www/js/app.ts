@@ -49,6 +49,8 @@ module JDB {
         loading: Function;
         //屏幕滚动到底部
         scrollTop: Function;
+        //打开搜索页面
+        openSearchModal: Function;
     }
 
     //程序启动入口
