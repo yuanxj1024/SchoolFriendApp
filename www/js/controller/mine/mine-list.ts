@@ -32,10 +32,20 @@ module JDB {
         ){
             $scope.showReport = angular.bind(CommonService ,CommonService.showReport);
 
-            if($stateParams['action'] == 'group'){
+            this.renderView();
+
+        }
+
+        renderView(){
+            var action = this.$stateParams['action'];
+            if(action == 'group'){
                 this.initForGroup();
-            }else if($stateParams['action'] == 'group'){
+            }else if(action == 'group'){
                 this.initForTopic();
+            }else if(action == 'release'){
+                this.$scope.viewTitle = '我发布的';
+            }else if(action == 'join'){
+                this.$scope.viewTitle = '我参与的';
             }
         }
 

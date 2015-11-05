@@ -1,4 +1,4 @@
-<ion-view view-title="我的">
+<ion-view view-title="我的" ng-controller="MineCtrl">
   <ion-header-bar class="top-header-bg-color">
     <button class="button button-clear" ui-sref="jdb.mine">
       <i class="icon ion-ios-arrow-left"></i>
@@ -18,7 +18,7 @@
     </div>
 
     <div class="basic-list list">
-      <div class="main-font-color2 item">
+      <div class="main-font-color2 item item-header">
         基本信息
       </div>
       <div class="item">
@@ -65,7 +65,7 @@
     </div>
     <!-- -->
     <div class="list">
-      <div class="main-font-color2 item">学校信息</div>
+      <div class="main-font-color2 item item-header">学校信息</div>
       <div class="item">
         <div>
           学校<span class="start"></span>
@@ -94,7 +94,7 @@
     </div>
     <!-- -->
     <div class="list">
-      <div class="main-font-color2 item">工作信息</div>
+      <div class="main-font-color2 item item-header">工作信息</div>
       <div class="item">
        <div>
          公司
@@ -114,7 +114,7 @@
     </div>
     <!-- -->
     <div class="list">
-      <div class="main-font-color2 item">安全信息</div>
+      <div class="main-font-color2 item item-header">安全信息</div>
       <div class="item">
         <div>
           电话<span class="start"></span>
@@ -126,7 +126,7 @@
     </div>
     <!-- -->
     <div class="list">
-      <div class="main-font-color2 item">备注信息</div>
+      <div class="main-font-color2 item item-header">备注信息</div>
       <div class="item" ui-sref="jdb.infoedit({tag:11})">
         <div class="info txt-left">
           创业中<i class="ion-chevron-right right"></i>

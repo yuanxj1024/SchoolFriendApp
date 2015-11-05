@@ -7,20 +7,24 @@
 module JDB {
     'use strict';
 
+    declare var window;
+
+    //用户头像选择
+    var userHeaderSheet = null;
+
     export interface IMineService {
         //保存用户信息
         saveUserData(args: any): ng.IPromise<any>;
-
         //登陆
         login(args: any): ng.IPromise<any>;
-
         //退出登陆
         logout():void;
-
         //发送验证码
         sendSMSCode(args:any): ng.IPromise<any>;
-
+        //注册
         register(args:any): ng.IPromise<any>;
+        //修改头像
+        changeUserHeader(callback:any):ng.IPromise<any>;
 
     }
 
@@ -41,7 +45,8 @@ module JDB {
         constructor(
             public $rootScope: IJDBRootScopeService,
             public $q: ng.IQService,
-            public $resource: ng.resource.IResourceService
+            public $resource: ng.resource.IResourceService,
+            public $ionicActionSheet: Ionic.IActionSheet
         ){
 
             this.mineResource = <IMineResource> $resource(appHost + '/:action', {
@@ -105,11 +110,34 @@ module JDB {
             return this.$rootScope.requestHandler(this.mineResource.register, args, null);
         }
 
+        changeUserHeader(callback): ng.IPromise<any> {
+            if(userHeaderSheet){
+                return null;
+            }
+            userHeaderSheet = {};
+
+            userHeaderSheet = this.$ionicActionSheet.show({
+                buttons: [
+                    {text:'选择'}
+                ],
+                cancelText: '取消',
+                cancel: function() {
+                    userHeaderSheet = null;
+                },
+                buttonClicked: function(index) {
+                    //索引从零开始
+                    callback && callback(index);
+                    userHeaderSheet = null;
+                    return true;
+                }
+            });
+
+            return null;
+        }
+
 
     }
 
-    Mine.$inject = ['$rootScope', '$q', '$resource'];
+    Mine.$inject = ['$rootScope', '$q', '$resource', '$ionicActionSheet'];
     ServiceModule.service('MineService', Mine);
-
-
 }

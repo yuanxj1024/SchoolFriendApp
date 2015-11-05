@@ -17,4 +17,16 @@
    width: 90%;
   }
  }
+ .school-list{
+  .item{
+   border-top: 1px solid $main-font-color3;
+   &:first-child{
+    border-top: none;
+   }
+   &.active{
+    background-color: $main-header-bg-color;
+    color: #fff;
+   }
+  }
+ }
 }

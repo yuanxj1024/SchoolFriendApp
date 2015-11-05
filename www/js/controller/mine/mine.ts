@@ -5,6 +5,7 @@
 
 /// <reference path="../../app.ts" />
 /// <reference path="../../service/common.ts" />
+/// <reference path="../../service/mine/mine.ts" />
 //我的
 
 module JDB {
@@ -15,15 +16,18 @@ module JDB {
     interface IMineScope extends ng.IScope {
         //编辑标记
         editTag: number;
+        //编辑某个具体字段的标记
         tagName: string;
+        //修改头像
+        changeHeaderImg: Function;
     }
-
 
     class Mine {
         constructor(
             public $rootScope: IJDBRootScopeService,
             public $scope: IMineScope,
-            public $stateParams: ng.ui.IStateParamsService
+            public $stateParams: ng.ui.IStateParamsService,
+            public MineService: IMineService
         ){
             console.log($stateParams);
 
@@ -42,8 +46,12 @@ module JDB {
 
         }
 
+        changeHeaderImg():void {
+
+        }
+
     }
 
-    Mine.$inject = ['$rootScope', '$scope', '$stateParams'];
+    Mine.$inject = ['$rootScope', '$scope', '$stateParams', 'MineService'];
     CtrlModule.controller('MineCtrl', Mine);
 }

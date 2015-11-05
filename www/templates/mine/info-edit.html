@@ -9,7 +9,6 @@
   <ion-content class="info-edit-wrap main-body-bg-color" scrollbar-y='false' scroll="false">
     <form name="frmEdit" id="frmEdit" novalidate>
       <div class="edit-item-wrap" ng-switch="editTag">
-
         <div class="list margintop22" ng-switch-when="2">
           <label class="item item-input">
             <input type="text" placeholder="请输入英文名">
@@ -58,12 +57,18 @@
           </label>
         </div>
         <!-- -->
+        <div class="list margintop22 school-list" ng-switch-when="6">
+          <a class="item">西南交大</a>
+          <a class="item active">上海交大</a>
+          <a class="item">北京交大</a>
+          <a class="item">西安大</a>
+          <a class="item">台湾交大</a>
+        </div>
 
 
 
       </div>
-
-      <div class="btn-wrap txt-center">
+      <div class="btn-wrap txt-center" ng-hide="editTag == 6">
         <button class="button button-blue">保存</button>
       </div>
     </form>

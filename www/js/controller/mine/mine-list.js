@@ -17,13 +17,23 @@ var JDB;
             this.$stateParams = $stateParams;
             this.CommonService = CommonService;
             $scope.showReport = angular.bind(CommonService, CommonService.showReport);
-            if ($stateParams['action'] == 'group') {
+            this.renderView();
+        }
+        MineList.prototype.renderView = function () {
+            var action = this.$stateParams['action'];
+            if (action == 'group') {
                 this.initForGroup();
             }
-            else if ($stateParams['action'] == 'group') {
+            else if (action == 'group') {
                 this.initForTopic();
             }
-        }
+            else if (action == 'release') {
+                this.$scope.viewTitle = '我发布的';
+            }
+            else if (action == 'join') {
+                this.$scope.viewTitle = '我参与的';
+            }
+        };
         //我的圈子，初始化
         MineList.prototype.initForGroup = function () {
         };

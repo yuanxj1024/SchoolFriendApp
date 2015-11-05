@@ -1,4 +1,46 @@
 @import "flex";
+
+
+@media (min--moz-device-pixel-ratio: 1.5),
+(-webkit-min-device-pixel-ratio: 1.5),
+(min-device-pixel-ratio: 1.5),
+(min-resolution: 144dpi),
+(min-resolution: 1.5dppx) {
+
+  .mine-default-wrap{
+    .list{
+      .item{
+        &:last-child{
+          .info-wrap{
+            &:before{
+              background: none;
+            }
+          }
+        }
+        .info-wrap{
+          border: none!important;
+          position: relative;
+          &:before{
+            content: ' ';
+            position: absolute;
+            left: 0;
+            bottom: 1px;
+            background: $main-font-color3;
+            width: 100%;
+            height: 1px;
+            -webkit-transform: scaleY(0.5);
+            transform: scaleY(0.5);
+            -webkit-transform-origin: 0 0;
+            transform-origin: 0 0;
+          }
+        }
+
+      }
+    }
+  }
+
+}
+
 .mine-default-wrap{
   padding-top: 15px;
   .list-title{
@@ -88,7 +130,7 @@
         @include flexbox;
         border-bottom: 1px solid $main-font-color3;
         padding: 13px 10px 13px 0;
-        margin-bottom: 1px;
+        margin-top: 1px;
         &:last-child{
           //border-bottom: none;
         }

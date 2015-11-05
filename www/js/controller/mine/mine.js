@@ -4,15 +4,17 @@
  */
 /// <reference path="../../app.ts" />
 /// <reference path="../../service/common.ts" />
+/// <reference path="../../service/mine/mine.ts" />
 //我的
 var JDB;
 (function (JDB) {
     'use strict';
     var Mine = (function () {
-        function Mine($rootScope, $scope, $stateParams) {
+        function Mine($rootScope, $scope, $stateParams, MineService) {
             this.$rootScope = $rootScope;
             this.$scope = $scope;
             this.$stateParams = $stateParams;
+            this.MineService = MineService;
             console.log($stateParams);
             $scope.editTag = $stateParams['tag'];
             $scope.tagName = window.JDBTypes.InfoEditTags[$scope.editTag];
@@ -23,9 +25,11 @@ var JDB;
         //编辑， 初始化
         Mine.prototype.initForEdit = function () {
         };
+        Mine.prototype.changeHeaderImg = function () {
+        };
         return Mine;
     })();
-    Mine.$inject = ['$rootScope', '$scope', '$stateParams'];
+    Mine.$inject = ['$rootScope', '$scope', '$stateParams', 'MineService'];
     JDB.CtrlModule.controller('MineCtrl', Mine);
 })(JDB || (JDB = {}));
 //# sourceMappingURL=mine.js.map
