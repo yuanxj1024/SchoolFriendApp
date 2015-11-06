@@ -94,7 +94,8 @@ module JDB {
                 },
                 views: {
                     'tab-main':{
-                        templateUrl: 'templates/mine/mine-group.html'
+                        templateUrl: 'templates/group/list.html'
+                        //templateUrl: 'templates/mine/mine-group.html'
                     }
                 }
             })
@@ -181,6 +182,30 @@ module JDB {
                 views: {
                     'tab-main':{
                         templateUrl: 'templates/mine/register-user-info.html'
+                    }
+                }
+            })
+            //圈子
+            .state('jdb.group',{
+                url: '/group',
+                params:{
+                    action: 'all'
+                },
+                views: {
+                    'tab-main':{
+                        templateUrl: 'templates/group/list.html'
+                    }
+                }
+            })
+            //附近的人
+            .state('jdb.nearby',{
+                url: '/nearby',
+                params:{
+                    action: ''
+                },
+                views: {
+                    'tab-main':{
+                        templateUrl: 'templates/discover/nearby.html'
                     }
                 }
             })

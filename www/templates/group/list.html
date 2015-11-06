@@ -1,0 +1,33 @@
+<ion-view ng-controller="GroupListCtrl">
+  <ion-header-bar class="top-header-bg-color">
+    <button class="button button-clear" ui-sref="jdb.home">
+      <i class="icon ion-ios-arrow-left"></i>首页
+    </button>
+    <h1 class="title" once-text="viewTitle"></h1>
+  </ion-header-bar>
+  <div class="mine-group-search-wrap list">
+    <div class="item item-input-inset main-body-bg-color">
+      <label class="item-input-wrapper">
+        <i class="icon ion-search placeholder-icon"></i>
+        <input ng-click="openSearchModal()" type="text" placeholder="搜索">
+      </label>
+      <!--<button class="button button-small no-border">-->
+      <!--搜索-->
+      <!--</button>-->
+    </div>
+  </div>
+  <ion-content class="mine-group-wrap main-body-bg-color" scrollbar-y='false'>
+    <div class="list mine-group-list">
+      <a class="item item-thumbnail-left" href="#">
+        <img class="mine-group-img" src="/img/2015.jpg">
+        <h2><span class="title left">Pretty Hate Machine </span><span class="count">9人</span></h2>
+        <p>Nine Inch Nails</p>
+      </a>
+      <a class="item item-thumbnail-left" href="#">
+        <img class="mine-group-img" src="/img/2015.jpg">
+        <h2><span class="title left"> 580元16G苹果手机升级128G？ 苹果称不对此进行回应</span><span class="count">119人</span></h2>
+        <p>数万冻鸭变烤鸭世界偏见地图马伊琍保卫马伊琍保卫马伊琍保卫爱情</p>
+      </a>
+    </div>
+  </ion-content>
+</ion-view>

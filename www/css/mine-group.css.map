@@ -1,0 +1,7 @@
+{
+"version": 3,
+"mappings": "AAEE,gCAAe;EACb,KAAK,EAAE,IAAI;EACX,MAAM,EAAE,IAAI",
+"sources": ["../../scss/mine-group.scss"],
+"names": [],
+"file": "mine-group.css"
+}

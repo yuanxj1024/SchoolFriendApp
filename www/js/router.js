@@ -72,7 +72,7 @@ var JDB;
             },
             views: {
                 'tab-main': {
-                    templateUrl: 'templates/mine/mine-group.html'
+                    templateUrl: 'templates/group/list.html'
                 }
             }
         }).state('jdb.minetopic', {
@@ -144,6 +144,26 @@ var JDB;
             views: {
                 'tab-main': {
                     templateUrl: 'templates/mine/register-user-info.html'
+                }
+            }
+        }).state('jdb.group', {
+            url: '/group',
+            params: {
+                action: 'all'
+            },
+            views: {
+                'tab-main': {
+                    templateUrl: 'templates/group/list.html'
+                }
+            }
+        }).state('jdb.nearby', {
+            url: '/nearby',
+            params: {
+                action: ''
+            },
+            views: {
+                'tab-main': {
+                    templateUrl: 'templates/discover/nearby.html'
                 }
             }
         });
