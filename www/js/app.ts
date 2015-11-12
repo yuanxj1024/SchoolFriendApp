@@ -51,6 +51,9 @@ module JDB {
         scrollTop: Function;
         //打开搜索页面
         openSearchModal: Function;
+        //打开举报对话框
+        showReport: Function;
+
     }
 
     //程序启动入口

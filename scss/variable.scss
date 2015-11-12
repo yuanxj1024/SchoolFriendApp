@@ -22,7 +22,11 @@ $main-body-bg-color: #f0f0f0;
 $main-font-color: #333333;
 $main-font-color2:#999999 ;
 $main-font-color3:#dddddd;
+$main-font-color4:#f8f8f8;
 
+.main-font-color-blue{
+  color: $main-header-bg-color;
+}
 
 .main-font-color {
   color: #333333;
@@ -35,7 +39,9 @@ $main-font-color3:#dddddd;
 }
 
 
-
+.top-header-bg-color2{
+  background-color: $main-font-color4;
+}
 //顶部背景色
 .top-header-bg-color,.main-header{
   background-color: $main-header-bg-color;
@@ -80,6 +86,7 @@ $main-font-color3:#dddddd;
 }
 .button-yellow{
   background-color: $main-color-yellow;
+  color: #fff!important;
 }
 
 .user-gender-famale{

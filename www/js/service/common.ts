@@ -28,6 +28,16 @@ module JDB {
 
         //学校选择
         showSchoolList(callback: any): void;
+
+        //话题分类选择
+        showTopicCategroy(): void;
+
+        //图片选择
+        showChooseImg(): ng.IPromise<any>;
+
+        //通用打开ActionSheet
+        showActionSheet(name: string ,buttons:Array<any>): ng.IPromise<any>;
+
     }
 
     class Common implements ICommonService{
@@ -116,7 +126,42 @@ module JDB {
                     return true;
                 }
             });
+        }
+        //话题分类
+        showTopicCategroy(): void {
+            this.$rootScope.createModal('/templates/topic/choose-category.html');
+        }
 
+        //打开选择图片sheet
+        showChooseImg(){
+            return this.showActionSheet('chooseImg',[
+                    { text: '拍照' }
+                ]);
+        }
+
+        //通用打开ActionSheet
+        showActionSheet(name: string ,buttons:Array<any>): ng.IPromise<any> {
+            var defer = this.$q.defer(),
+                self = this;
+            if(this[name]){
+                return null;
+            }
+            this[name] = {};
+            self[name] = this.$ionicActionSheet.show({
+                buttons: buttons,
+                cancelText: '取消',
+                cancel: function() {
+                    self[name] = null;
+                    defer.reject();
+                },
+                buttonClicked: function(index) {
+                    console.log(index);
+                    self[name] = null;
+                    defer.resolve(index);
+                    return true;
+                }
+            });
+            return defer.promise;
         }
 
     }

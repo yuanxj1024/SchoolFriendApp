@@ -38,6 +38,14 @@ var JDB;
         10: '职位',
         11: '备注'
     };
+    //话题类型
+    JDBTypes.TopicTypes = {
+        1: '商机',
+        2: '招聘',
+        3: '校企',
+        4: '杂谈',
+        5: '资讯'
+    };
     window.JDBTypes = JDBTypes;
 })(JDB || (JDB = {}));
 //# sourceMappingURL=type-define.js.map

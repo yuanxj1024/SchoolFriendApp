@@ -1,0 +1,46 @@
+@import "flex";
+
+
+.activity-wrap{
+  .location-backdrop{
+    position: fixed;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right:0;
+    background: rgba(0,0,0, 0.4);
+  }
+  .location-wrap{
+    position: fixed;
+    top: 44px;
+    left: 0;
+    background-color: $main-font-color4;
+    width: 100%;
+    padding: 10px 10px 0 10px;
+    @include flexbox;
+    @include justify-content(space-between);
+    @include flex-flow(row wrap);
+    span{
+      @include flex(0,0,auto);
+      background-color: #fff;
+      -webkit-border-radius: 5px;
+      -moz-border-radius: 5px;
+      border-radius: 5px;
+      text-align: center;
+      display: inline-block;
+      width: 90px;
+      height: 40px;
+      line-height: 40px;
+      margin-bottom: 10px;
+      font-weight: 600;
+      font-size: 15px;
+      color: $main-font-color2;
+      &.active{
+        border: 1px solid $main-header-bg-color;
+        color: $main-header-bg-color;
+      }
+    }
+  }
+}
+
+

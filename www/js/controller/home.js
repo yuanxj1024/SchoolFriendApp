@@ -21,7 +21,7 @@ var JDB;
             //$scope.openSearchModal = angular.bind(CommonService, CommonService.showSearchModal);
             $scope.openActionSheet = angular.bind(this, this.openActionSheet);
             $scope.openLogin = angular.bind(this, CommonService.showLoginModal);
-            //$scope.openLogin();
+            //$scope.openReleaseTopic();
             window.plugins.toast.showShortCenter('测试信息');
             var self = this;
             $rootScope.$on('$stateChangeStart', function (e, data) {

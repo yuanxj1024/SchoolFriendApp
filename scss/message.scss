@@ -1,0 +1,23 @@
+//基于nearby
+
+.message-wrap{
+  .item{
+    padding-left: 0!important;
+    .item-content {
+      padding-left: 72px;
+      padding-right: 10px!important;
+      min-height: 74px!important;
+    }
+    .item-options{
+      .button{
+        height: 99%;
+        width: 80px;
+        text-align: center;
+        display: inline-block;
+        line-height: 74px;
+      }
+    }
+
+  }
+
+}

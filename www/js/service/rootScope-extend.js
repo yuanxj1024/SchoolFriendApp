@@ -24,6 +24,7 @@ var JDB;
             $rootScope.stateGo = angular.bind(this, this.stateGo);
             $rootScope.scrollTop = angular.bind(this, this.scrollTop);
             $rootScope.openSearchModal = angular.bind(CommonService, CommonService.showSearchModal);
+            $rootScope.showReport = angular.bind(this, this.showReport);
         }
         //创建模式窗口
         RootScopeExtend.prototype.createmodal = function (url, scope) {
@@ -98,6 +99,9 @@ var JDB;
         };
         RootScopeExtend.prototype.scrollTop = function () {
             this.$ionicScrollDelegate.scrollTop();
+        };
+        RootScopeExtend.prototype.showReport = function (id) {
+            this.CommonService.showReport(id);
         };
         return RootScopeExtend;
     })();

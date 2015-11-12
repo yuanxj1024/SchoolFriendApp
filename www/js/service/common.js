@@ -83,6 +83,39 @@ var JDB;
                 }
             });
         };
+        //话题分类
+        Common.prototype.showTopicCategroy = function () {
+            this.$rootScope.createModal('/templates/topic/choose-category.html');
+        };
+        //打开选择图片sheet
+        Common.prototype.showChooseImg = function () {
+            return this.showActionSheet('chooseImg', [
+                { text: '拍照' }
+            ]);
+        };
+        //通用打开ActionSheet
+        Common.prototype.showActionSheet = function (name, buttons) {
+            var defer = this.$q.defer(), self = this;
+            if (this[name]) {
+                return null;
+            }
+            this[name] = {};
+            self[name] = this.$ionicActionSheet.show({
+                buttons: buttons,
+                cancelText: '取消',
+                cancel: function () {
+                    self[name] = null;
+                    defer.reject();
+                },
+                buttonClicked: function (index) {
+                    console.log(index);
+                    self[name] = null;
+                    defer.resolve(index);
+                    return true;
+                }
+            });
+            return defer.promise;
+        };
         return Common;
     })();
     Common.$inject = ['$rootScope', '$ionicModal', '$ionicActionSheet', '$q'];

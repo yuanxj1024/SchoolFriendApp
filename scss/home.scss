@@ -128,8 +128,9 @@
           }
           .content{
             overflow: hidden;
-            max-height: 100px;
+            max-height: 96px;
             position: relative;
+            line-height: 16px;
             &:after{
               display: inline-block;
               position: absolute;

@@ -15,6 +15,7 @@ module JDB {
 
         //打开发布话题modal
         releaseTopicModal():void;
+
     }
 
     interface ITopicResource  extends ng.resource.IResourceClass<ng.resource.IResource<any>> {

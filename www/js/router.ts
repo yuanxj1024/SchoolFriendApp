@@ -39,6 +39,39 @@ module JDB {
                     }
                 }
             })
+            //发布活动
+            .state('jdb.activity-add',{
+                url: '/activity/add',
+                views: {
+                    'tab-main':{
+                        templateUrl: 'templates/activity/create.html'
+                    }
+                }
+            })
+            //发布活动
+            .state('jdb.activity-member',{
+                url: '/activity/member',
+                params: {
+                    id: ''
+                },
+                views: {
+                    'tab-main':{
+                        templateUrl: 'templates/activity/member.html'
+                    }
+                }
+            })
+            //发布活动
+            .state('jdb.activity-detail',{
+                url: '/activity/detail',
+                params: {
+                    id: ''
+                },
+                views: {
+                    'tab-main':{
+                        templateUrl: 'templates/activity/detail.html'
+                    }
+                }
+            })
             //发现
             .state('jdb.discover',{
                 url: '/discover',
@@ -206,6 +239,18 @@ module JDB {
                 views: {
                     'tab-main':{
                         templateUrl: 'templates/discover/nearby.html'
+                    }
+                }
+            })
+            //话题
+            .state('jdb.topic',{
+                url: '/topic',
+                params:{
+                    tag: ''
+                },
+                views: {
+                    'tab-main':{
+                        templateUrl: 'templates/topic/default.html'
                     }
                 }
             })

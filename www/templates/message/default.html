@@ -1,13 +1,41 @@
 <ion-view>
   <ion-header-bar class="top-header-bg-color">
     <button class="button button-clear" ui-sref="jdb.home">
-      <i class="icon ion-ios-arrow-left"></i>
+      <i class="ion-ios-arrow-left"></i>
       首页
     </button>
     <h1 class="title">消息</h1>
+    <button class="button button-clear" ui-sref="jdb.home">
+      <i class="icon ion-navicon"></i>
+    </button>
   </ion-header-bar>
-  <ion-content scrollbar-y='false'>
-    <h1>消息</h1>
+  <ion-content class="message-wrap mine-group-wrap main-body-bg-color nearby-wrap" scrollbar-y='false'>
+    <ion-list class="list mine-group-list" can-swipe="true">
+      <ion-item class="item item-thumbnail-left" href="#">
+        <img class="mine-group-img" src="/img/2015.jpg">
+        <h2>
+          <span class="title">佟大为</span>
+          <!--<span class="grade">09&nbsp;西安交大</span>-->
+          <span class="distance right">9:33</span>
+        </h2>
+        <p>育育成集团育成集团育成集团育成集团育成集团成集团</p>
+        <ion-option-button class="button-info button-yellow">
+         删除
+        </ion-option-button>
+      </ion-item>
+      <ion-item class="item item-thumbnail-left" href="#">
+        <img class="mine-group-img" src="/img/2015.jpg">
+        <h2>
+          <span class="title left">马伊琍</span>
+          <!--<span class="grade">09&nbsp;西安交大</span>-->
+          <span class="distance right">昨天</span>
+        </h2>
+        <p>牛娜毅力</p>
+        <ion-option-button class="button-info button-yellow">
+          删除
+        </ion-option-button>
+      </ion-item>
+    </ion-list>
   </ion-content>
   <div ng-include="'/templates/part/main-menu.html'"></div>
 </ion-view>

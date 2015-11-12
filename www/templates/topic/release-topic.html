@@ -1,12 +1,41 @@
-<ion-modal-view>
-  <ion-header-bar class="top-header-bg-color">
+<ion-modal-view ng-controller="ReleaseTopicCtrl">
+  <ion-header-bar class="top-header-bg-color2">
     <button class="button button-clear back-button" ng-click="cancel()">
     取消
     </button>
       <h1 class="title">发布话题</h1>
+    <button class="button button-small button-positive">
+      发布
+    </button>
     </ion-header-bar>
-  <ion-content class="has-header" scrollbar-y='false'>
-    <p>发布话题11</p>
+  <ion-content class="has-header release-topic-wrap has-footer" scrollbar-y='false'>
+    <div class="content-wrap">
+      <textarea class="txt-content" rows="7" placeholder="发布最新动态"></textarea>
+    </div>
+    <div class="img-wrap">
+      <div class="img-item">
+        <img src="/img/2015.jpg" alt=""/>
+        <i class="ion-ios-close-empty"></i>
+      </div>
+      <div class="img-item">
+        <img src="/img/2015.jpg" alt=""/>
+        <i class="ion-ios-close-empty"></i>
+      </div>
+      <div class="choose-img" ng-click="chooseImage()">
+        <i class="ion-android-add"></i>
+      </div>
+    </div>
+
   </ion-content>
-  <div ng-include="'/templates/part/main-menu.html'"></div>
+  <div class="release-topic-category" ng-click="chooseCategory()">
+    <i class="left ion-android-globe"></i>
+    分类
+  </div>
+  <div class="release-topic-fixed-footer">
+    <i class="ion-android-image"></i>
+    <i class="ion-android-happy"></i>
+    <!--<div>11</div>-->
+    <!--<div>22</div>-->
+  </div>
+  <!--<div ng-include="'/templates/part/main-menu.html'"></div>-->
 </ion-modal-view>

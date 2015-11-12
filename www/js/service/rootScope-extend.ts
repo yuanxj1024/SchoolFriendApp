@@ -31,6 +31,7 @@ module JDB {
             $rootScope.stateGo = angular.bind(this, this.stateGo);
             $rootScope.scrollTop = angular.bind(this, this.scrollTop);
             $rootScope.openSearchModal = angular.bind(CommonService, CommonService.showSearchModal);
+            $rootScope.showReport = angular.bind(this, this.showReport);
 
         }
 
@@ -110,7 +111,13 @@ module JDB {
         scrollTop(){
             this.$ionicScrollDelegate.scrollTop();
         }
+
+        showReport(id: number){
+            this.CommonService.showReport(id);
+        }
+
     }
+
 
     RootScopeExtend.$inject = ['$rootScope', '$q', '$ionicModal', '$state', '$ionicLoading', '$ionicScrollDelegate', 'CommonService'];
     ServiceModule.service('RootScopeExtendService', RootScopeExtend);
