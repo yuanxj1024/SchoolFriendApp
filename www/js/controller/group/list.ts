@@ -18,10 +18,9 @@ module JDB {
 
     interface IGroupListScope extends ng.IScope {
         //显示举报sheet
-        showReport: Function;
+        showDropMenu: Function;
 
         viewTitle: string;
-
 
     }
 
@@ -32,10 +31,11 @@ module JDB {
             public $stateParams: ng.ui.IStateParamsService,
             public CommonService: ICommonService
         ){
-            $scope.showReport = angular.bind(CommonService ,CommonService.showReport);
+            $scope.showDropMenu = angular.bind(CommonService ,CommonService.showDropMenu);
+
+            this.$scope.viewTitle = '所有圈子';
 
             this.renderView();
-
         }
 
         renderView(){

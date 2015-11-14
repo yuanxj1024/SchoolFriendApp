@@ -15,7 +15,7 @@ module JDB {
 
     interface IMineListScope extends ng.IScope {
         //显示举报sheet
-        showReport: Function;
+        showDropMenu: Function;
 
         // 发起，参与
         viewTitle: string;
@@ -30,7 +30,7 @@ module JDB {
             public $stateParams: ng.ui.IStateParamsService,
             public CommonService: ICommonService
         ){
-            $scope.showReport = angular.bind(CommonService ,CommonService.showReport);
+            $scope.showDropMenu = angular.bind(CommonService ,CommonService.showDropMenu);
 
             this.renderView();
 

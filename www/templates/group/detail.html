@@ -1,0 +1,54 @@
+<ion-view ng-controller="GroupDetailCtrl">
+  <ion-header-bar class="top-header-bg-color">
+    <button class="button button-clear" ng-click="goBack('jdb.message')">
+      <i class="ion-ios-arrow-left"></i>
+    </button>
+    <h1 class="title">圈子信息</h1>
+  </ion-header-bar>
+  <ion-content class="main-body-bg-color group-detail-wrap" scrollbar-y='false' scroll="false">
+    <div class="detail-info padding">
+      <img class="group-img" src="/img/2015.jpg" alt=""/>
+      <h5 class="title">芭蕾舞的基础形态的圈子</h5>
+      <p class="intro">简介：这里是圈子的简介这里是圈子的简介这里是圈子的简介这里是圈子的简介</p>
+    </div>
+    <div class="detail-member-wrap padding">
+      <div class="header">
+        <span class="title">圈内成员</span>
+        <span class="count right">45人<i class="ion-chevron-right"></i></span>
+      </div>
+      <div class="member-list">
+        <div class="member-item">
+          <img class="head-img" src="/img/2015.jpg" alt=""/>
+          <span class="name">李世民</span>
+        </div>
+        <div class="member-item">
+          <img class="head-img" src="/img/2015.jpg" alt=""/>
+          <span class="name">李世民</span>
+        </div>
+        <div class="member-item" ng-click="openChooseMember('add')">
+          <img class="head-img" src="/img/group-detail-add.png" alt="添加成员"/>
+        </div>
+      </div>
+    </div>
+    <div class="control-wrap list">
+      <div class="item">
+        我的圈子昵称
+        <i class="right icon ion-chevron-right"></i>
+      </div>
+      <div class="item" ui-sref="jdb.group-manage">
+        圈子管理
+        <i class="right icon ion-chevron-right"></i>
+      </div>
+    </div>
+    <div class="control-wrap list">
+      <div class="item">举报
+        <i class="right icon ion-chevron-right"></i>
+      </div>
+    </div>
+    <div class="btn-quit">
+      <button class="button button-positive button-block">退出/解散圈子</button>
+    </div>
+  </ion-content>
+
+</ion-view>
+

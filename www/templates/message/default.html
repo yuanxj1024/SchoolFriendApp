@@ -1,21 +1,28 @@
-<ion-view>
-  <ion-header-bar class="top-header-bg-color">
-    <button class="button button-clear" ui-sref="jdb.home">
-      <i class="ion-ios-arrow-left"></i>
-      首页
+<ion-view ng-controller="MessageCtrl">
+  <ion-header-bar class="top-header-bg-color message-header">
+    <button class="button button-clear" ui-sref="jdb.contact">
+      <i class="icon icon-nearby"></i>
     </button>
     <h1 class="title">消息</h1>
-    <button class="button button-clear" ui-sref="jdb.home">
-      <i class="icon ion-navicon"></i>
+    <button class="button button-clear" ng-click="showAddSheet()">
+      <i class="icon ion-ios-plus-outline"></i>
     </button>
   </ion-header-bar>
-  <ion-content class="message-wrap mine-group-wrap main-body-bg-color nearby-wrap" scrollbar-y='false'>
+  <div class="mine-group-search-wrap list">
+    <div class="item item-input-inset main-body-bg-color">
+      <label class="item-input-wrapper">
+        <i class="icon ion-search placeholder-icon"></i>
+        <input ng-click="openSearchModal()" type="text" placeholder="搜索">
+      </label>
+    </div>
+  </div>
+  <ion-content class="message-wrap mine-group-wrap main-body-bg-color nearby-wrap has-header-search" scrollbar-y='false'>
     <ion-list class="list mine-group-list" can-swipe="true">
-      <ion-item class="item item-thumbnail-left" href="#">
+      <ion-item class="item item-thumbnail-left" ui-sref="jdb.chat({id: 1})">
         <img class="mine-group-img" src="/img/2015.jpg">
+        <i class="msg-unread badge badge-assertive">16</i>
         <h2>
           <span class="title">佟大为</span>
-          <!--<span class="grade">09&nbsp;西安交大</span>-->
           <span class="distance right">9:33</span>
         </h2>
         <p>育育成集团育成集团育成集团育成集团育成集团成集团</p>
@@ -25,6 +32,7 @@
       </ion-item>
       <ion-item class="item item-thumbnail-left" href="#">
         <img class="mine-group-img" src="/img/2015.jpg">
+        <i class="msg-unread badge badge-assertive">2</i>
         <h2>
           <span class="title left">马伊琍</span>
           <!--<span class="grade">09&nbsp;西安交大</span>-->

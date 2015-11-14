@@ -6,19 +6,18 @@ a{
   text-decoration: none;
   color: #666;
 }
-//顶部颜色
+// top color
 $main-header-bg-color: #2d69c4;
-//提示色
+// tip color
 $main-color-yellow: #ffb300;
 
-//背景色
 $main-body-bg-color: #f0f0f0;
 .main-body-bg-color{
   background-color: $main-body-bg-color;
 }
 
 
-//文字颜色
+// font color
 $main-font-color: #333333;
 $main-font-color2:#999999 ;
 $main-font-color3:#dddddd;
@@ -42,7 +41,7 @@ $main-font-color4:#f8f8f8;
 .top-header-bg-color2{
   background-color: $main-font-color4;
 }
-//顶部背景色
+
 .top-header-bg-color,.main-header{
   background-color: $main-header-bg-color;
   color: #fff;
@@ -54,7 +53,6 @@ $main-font-color4:#f8f8f8;
   }
 }
 
-//重置actionsheet字体大小
 .action-sheet .button{
   font-size: 16px;
 }
@@ -113,4 +111,8 @@ $main-font-color4:#f8f8f8;
 
 .has-header-search{
   margin-top: 40px;
+}
+
+.margintop10{
+  margin-top: 10px;
 }

@@ -1,0 +1,47 @@
+<ion-view class="contacts-wrap">
+  <ion-header-bar class="top-header-bg-color">
+    <button class="button button-clear" ui-sref="jdb.discover">
+      <i class="ion-ios-arrow-left"></i>
+      发现
+    </button>
+    <h1 class="title">通讯录</h1>
+    <button class="button button-clear" ui-sref="jdb.home">
+      <i class="icon ion-ios-plus-outline"></i>
+    </button>
+  </ion-header-bar>
+
+  <div class="mine-group-search-wrap list">
+    <div class="item item-input-inset main-body-bg-color">
+      <label class="item-input-wrapper">
+        <i class="icon ion-search placeholder-icon"></i>
+        <input ng-click="openSearchModal()" type="text" placeholder="搜索">
+      </label>
+    </div>
+    <div class="item contact-new-friend" ui-sref="jdb.new-friends">
+      新的朋友
+      <i class="right ion-chevron-right"></i>
+    </div>
+  </div>
+  <ion-content class="contacts-content mine-group-wrap main-body-bg-color nearby-wrap has-header-search" scrollbar-y='false'>
+    <div class="list mine-group-list">
+      <div class="item item-thumbnail-left" href="#">
+        <img class="mine-group-img" src="/img/2015.jpg">
+        <h2>
+          <span class="title">佟大为</span>
+          <span class="grade">09&nbsp;西安交大</span>
+          <!--<span class="distance right">9km</span>-->
+        </h2>
+        <p>育成集团</p>
+      </div>
+      <div class="item item-thumbnail-left" href="#">
+        <img class="mine-group-img" src="/img/2015.jpg">
+        <h2>
+          <span class="title left">马伊琍</span>
+          <span class="grade">09&nbsp;西安交大</span>
+          <!--<span class="distance right">9km</span>-->
+        </h2>
+        <p>牛娜毅力</p>
+      </div>
+    </div>
+  </ion-content>
+</ion-view>

@@ -55,7 +55,14 @@ module JDB {
         5: '资讯'
     };
 
-
+    JDBTypes.ChooseMemberAction = {
+        //移除成员
+        'remove': 1,
+        //设置管理员
+        admin: 2,
+        //添加成员
+        add: 3
+    };
 
 
 

@@ -16,7 +16,7 @@ var JDB;
             this.$scope = $scope;
             this.$stateParams = $stateParams;
             this.CommonService = CommonService;
-            $scope.showReport = angular.bind(CommonService, CommonService.showReport);
+            $scope.showDropMenu = angular.bind(CommonService, CommonService.showDropMenu);
             this.renderView();
         }
         MineList.prototype.renderView = function () {

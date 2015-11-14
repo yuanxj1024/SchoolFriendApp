@@ -61,11 +61,25 @@ var JDB;
                     templateUrl: 'templates/discover/default.html'
                 }
             }
+        }).state('jdb.new-friends', {
+            url: '/newFriends',
+            views: {
+                'tab-main': {
+                    templateUrl: 'templates/discover/new-friends.html'
+                }
+            }
         }).state('jdb.message', {
             url: '/message',
             views: {
                 'tab-main': {
                     templateUrl: 'templates/message/default.html'
+                }
+            }
+        }).state('jdb.chat', {
+            url: '/message/chat',
+            views: {
+                'tab-main': {
+                    templateUrl: 'templates/message/chat-box.html'
                 }
             }
         }).state('jdb.mine', {
@@ -176,17 +190,53 @@ var JDB;
         }).state('jdb.group', {
             url: '/group',
             params: {
-                action: 'all'
+                action: 'all',
+                from: ''
             },
             views: {
                 'tab-main': {
                     templateUrl: 'templates/group/list.html'
                 }
             }
+        }).state('jdb.group-create', {
+            url: '/group/create',
+            params: {
+                from: ''
+            },
+            views: {
+                'tab-main': {
+                    templateUrl: 'templates/group/create.html'
+                }
+            }
+        }).state('jdb.group-add-member', {
+            url: '/group/addMember',
+            views: {
+                'tab-main': {
+                    templateUrl: 'templates/group/add-member.html'
+                }
+            }
+        }).state('jdb.group-detail', {
+            url: '/group/detail',
+            params: {
+                id: '',
+                from: ''
+            },
+            views: {
+                'tab-main': {
+                    templateUrl: 'templates/group/detail.html'
+                }
+            }
+        }).state('jdb.group-manage', {
+            url: '/group/manage',
+            views: {
+                'tab-main': {
+                    templateUrl: 'templates/group/manage.html'
+                }
+            }
         }).state('jdb.nearby', {
             url: '/nearby',
             params: {
-                action: ''
+                from: ''
             },
             views: {
                 'tab-main': {
@@ -201,6 +251,16 @@ var JDB;
             views: {
                 'tab-main': {
                     templateUrl: 'templates/topic/default.html'
+                }
+            }
+        }).state('jdb.contact', {
+            url: '/contact',
+            params: {
+                from: ''
+            },
+            views: {
+                'tab-main': {
+                    templateUrl: 'templates/discover/contacts.html'
                 }
             }
         });

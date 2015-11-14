@@ -11,7 +11,7 @@ var JDB;
     //modal对象集合
     var modalList = {};
     var RootScopeExtend = (function () {
-        function RootScopeExtend($rootScope, $q, $ionicModal, $state, $ionicLoading, $ionicScrollDelegate, CommonService) {
+        function RootScopeExtend($rootScope, $q, $ionicModal, $state, $ionicLoading, $ionicScrollDelegate, CommonService, $stateParams) {
             this.$rootScope = $rootScope;
             this.$q = $q;
             this.$ionicModal = $ionicModal;
@@ -19,12 +19,14 @@ var JDB;
             this.$ionicLoading = $ionicLoading;
             this.$ionicScrollDelegate = $ionicScrollDelegate;
             this.CommonService = CommonService;
+            this.$stateParams = $stateParams;
             $rootScope.createModal = angular.bind(this, this.createmodal);
             $rootScope.requestHandler = angular.bind(this, this.requestHandler);
             $rootScope.stateGo = angular.bind(this, this.stateGo);
+            $rootScope.goBack = angular.bind(this, this.goBack);
             $rootScope.scrollTop = angular.bind(this, this.scrollTop);
             $rootScope.openSearchModal = angular.bind(CommonService, CommonService.showSearchModal);
-            $rootScope.showReport = angular.bind(this, this.showReport);
+            $rootScope.showDropMenu = angular.bind(this, this.showDropMenu);
         }
         //创建模式窗口
         RootScopeExtend.prototype.createmodal = function (url, scope) {
@@ -84,8 +86,16 @@ var JDB;
             return defer.promise;
         };
         //路由跳转
-        RootScopeExtend.prototype.stateGo = function (name) {
-            this.$state.go(name);
+        RootScopeExtend.prototype.stateGo = function (name, args) {
+            if (args === void 0) { args = {}; }
+            this.$state.go(name, args);
+        };
+        //返回前一路由
+        RootScopeExtend.prototype.goBack = function (name, params) {
+            if (params === void 0) { params = {}; }
+            name = this.$stateParams['from'] || name;
+            console.log(this.$stateParams);
+            this.$state.go(name, params);
         };
         //显示加载层
         RootScopeExtend.prototype.loading = function (isShow) {
@@ -100,12 +110,12 @@ var JDB;
         RootScopeExtend.prototype.scrollTop = function () {
             this.$ionicScrollDelegate.scrollTop();
         };
-        RootScopeExtend.prototype.showReport = function (id) {
-            this.CommonService.showReport(id);
+        RootScopeExtend.prototype.showDropMenu = function (id) {
+            this.CommonService.showDropMenu(id);
         };
         return RootScopeExtend;
     })();
-    RootScopeExtend.$inject = ['$rootScope', '$q', '$ionicModal', '$state', '$ionicLoading', '$ionicScrollDelegate', 'CommonService'];
+    RootScopeExtend.$inject = ['$rootScope', '$q', '$ionicModal', '$state', '$ionicLoading', '$ionicScrollDelegate', 'CommonService', '$stateParams'];
     JDB.ServiceModule.service('RootScopeExtendService', RootScopeExtend);
 })(JDB || (JDB = {}));
 //# sourceMappingURL=rootScope-extend.js.map

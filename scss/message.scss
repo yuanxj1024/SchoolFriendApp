@@ -1,8 +1,39 @@
+@charset "utf-8";
 //基于nearby
+
+.message-header{
+  .icon-nearby{
+    display: inline-block;
+    width: 20px;
+    height: 20px;
+    &:after{
+      content: ' ';
+      display: inline-block;
+      width: 25px;
+      height: 21px;
+      background-image: url(/img/message-nearby.png);
+      background-repeat: no-repeat;
+      background-position: center;
+      -webkit-background-size: 100%;
+      background-size: 100%;
+      margin-top: 5px;
+    }
+  }
+
+}
 
 .message-wrap{
   .item{
     padding-left: 0!important;
+    position: relative;
+    .msg-unread{
+      position: absolute;
+      top: 7px;
+      left: 48px;
+      right: inherit;
+      padding: 1px 6px;
+      font-size: 12px;
+    }
     .item-content {
       padding-left: 72px;
       padding-right: 10px!important;

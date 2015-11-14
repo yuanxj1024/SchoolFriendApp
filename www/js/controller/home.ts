@@ -60,7 +60,7 @@ module JDB {
         }
 
         openActionSheet(id: number){
-            this.CommonService.showReport(id);
+            this.CommonService.showDropMenu(id);
         }
 
 

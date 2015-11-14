@@ -1,0 +1,33 @@
+<ion-modal-view ng-controller="ChooseMemberCtrl" class="add-member-wrap">
+  <ion-header-bar class="top-header-bg-color">
+    <button class="button button-clear back-button" ng-click="cancel()">
+      取消
+    </button>
+    <h1 class="title" once-text="params.viewTitle"></h1>
+  </ion-header-bar>
+  <ion-content class="mine-group-wrap main-body-bg-color nearby-wrap has-footer" scrollbar-y='false'>
+    <div class="list mine-group-list">
+      <div class="item selected item-thumbnail-left" href="#">
+        <img class="mine-group-img" src="/img/2015.jpg">
+        <h2>
+          <span class="title">佟大为</span>
+          <span class="grade">09&nbsp;西安交大</span>
+        </h2>
+        <p>育成集团</p>
+        <i class="icon-select"></i>
+      </div>
+      <div class="item item-thumbnail-left" href="#">
+        <img class="mine-group-img" src="/img/2015.jpg">
+        <h2>
+          <span class="title left">马伊琍</span>
+          <span class="grade">09&nbsp;西安交大</span>
+        </h2>
+        <p>牛娜毅力</p>
+        <i class="icon-select"></i>
+      </div>
+    </div>
+  </ion-content>
+  <div class="btn-wrap">
+    <button class="button button-full button-positive" ng-click="finishHandler()">完成</button>
+  </div>
+</ion-modal-view>

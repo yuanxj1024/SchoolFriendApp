@@ -21,7 +21,7 @@ module JDB {
         showSearchModal:Function;
 
         //举报
-        showReport(args: any): void;
+        showDropMenu(args: any): void;
 
         //显示登录页面
         showLoginModal(): void;
@@ -76,7 +76,7 @@ module JDB {
             });
         }
 
-        showReport(args: any){
+        showDropMenu(args: any){
             if(reportSheet){
                 return null;
             }

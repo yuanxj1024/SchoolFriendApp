@@ -1,0 +1,124 @@
+@charset "utf-8";
+@import "flex";
+
+@media (min--moz-device-pixel-ratio: 1.5),
+(-webkit-min-device-pixel-ratio: 1.5),
+(min-device-pixel-ratio: 1.5),
+(min-resolution: 144dpi),
+(min-resolution: 1.5dppx) {
+
+  .group-detail-wrap{
+    .control-wrap{
+      .item{
+        border: none!important;
+        position: relative;
+        //margin-top: 1px;
+        &:last-child{
+          &:before{
+            background: none;
+          }
+        }
+        &:before{
+          content: '';
+          position: absolute;
+          left: 0;
+          bottom: 0;
+          background: $main-font-color3;
+          width: 100%;
+          height: 1px;
+          -webkit-transform: scaleY(0.5);
+          transform: scaleY(0.5);
+          -webkit-transform-origin: 0 0;
+          transform-origin: 0 0;
+        }
+      }
+    }
+  }
+
+}
+
+
+
+.group-detail-wrap{
+  .padding{
+    padding-left: 10px;
+    padding-right: 10px;
+  }
+  .detail-info{
+    text-align: center;
+    background-color: #fff;
+    margin-bottom: 10px;
+    .group-img{
+      width: 50px;
+      height: 50px;
+      -webkit-border-radius: 5px;
+      -moz-border-radius: 5px;
+      border-radius: 5px;
+    }
+    .title{
+      margin-top: 2px;
+    }
+    .intro{
+      text-align: left;
+      margin: 0;
+      height: 40px;
+      overflow: hidden;
+    }
+  }
+  .detail-member-wrap{
+    background-color: #fff;
+    margin-bottom: 10px;
+    .header{
+      height: 30px;
+      .count{
+        color: $main-font-color2;
+        .ion-chevron-right{
+          margin-left: 5px;
+        }
+      }
+    }
+    .member-list{
+      @include flexbox;
+      @include justify-content(space-around);
+      .member-item{
+        @include flex(0,0,auto);
+        .head-img{
+          width: 40px;
+          height: 40px;
+          -webkit-border-radius: 20px;
+          -moz-border-radius: 20px;
+          border-radius: 20px;
+        }
+        .name{
+          display: block;
+          color: $main-font-color2;
+        }
+      }
+    }
+  }
+
+  .control-wrap{
+    margin-bottom: 10px;
+      .item{
+        padding: 10px;
+        clear: both;
+        border-top: none;
+        margin: 0;
+        font-size: 13px;
+        &:last-child{
+          border-bottom: none;
+        }
+        .icon{
+          color: $main-font-color3;
+        }
+      }
+  }
+  .btn-quit{
+    margin: 30px auto 0;
+    padding: 0 10px;
+  }
+  //
+  .tip{
+    padding-top: 0;
+  }
+}

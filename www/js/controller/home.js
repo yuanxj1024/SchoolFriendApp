@@ -34,7 +34,7 @@ var JDB;
         Home.prototype.refresh = function () {
         };
         Home.prototype.openActionSheet = function (id) {
-            this.CommonService.showReport(id);
+            this.CommonService.showDropMenu(id);
         };
         return Home;
     })();

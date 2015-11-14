@@ -45,6 +45,8 @@ module JDB {
         createModal: Function;
         //路由跳转
         stateGo: Function;
+        //返回上一个路由
+        goBack: Function;
         //显示加载层
         loading: Function;
         //屏幕滚动到底部
@@ -52,7 +54,7 @@ module JDB {
         //打开搜索页面
         openSearchModal: Function;
         //打开举报对话框
-        showReport: Function;
+        showDropMenu: Function;
 
     }
 

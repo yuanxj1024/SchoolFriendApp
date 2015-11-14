@@ -1,0 +1,25 @@
+<ion-view ng-controller="GroupManageCtrl">
+  <ion-header-bar class="top-header-bg-color">
+    <button class="button button-clear" ui-sref="jdb.group-detail">
+      <i class=" ion-ios-arrow-left"></i>
+    </button>
+    <h1 class="title">圈子管理</h1>
+  </ion-header-bar>
+  <ion-content class="main-body-bg-color has-header" scrollbar-y='false'>
+    <div class="group-detail-wrap margintop10">
+      <div class="control-wrap list">
+        <div class="item" ng-click="openChooseMember('remove')" >
+          移除成员
+          <i class="right icon ion-chevron-right"></i>
+        </div>
+      </div>
+      <div class="control-wrap list">
+        <div class="item" ng-click="openChooseMember('admin')">
+          设置管理员
+          <i class="right icon ion-chevron-right"></i>
+        </div>
+      </div>
+      <p class="tip padding main-font-color2">管理员可以屏蔽成员</p>
+    </div>
+  </ion-content>
+</ion-view>

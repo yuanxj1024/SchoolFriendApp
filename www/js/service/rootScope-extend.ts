@@ -24,14 +24,16 @@ module JDB {
             public $state: ng.ui.IStateService,
             public $ionicLoading: Ionic.ILoading,
             public $ionicScrollDelegate: Ionic.IScrollDelegate,
-            public CommonService: ICommonService
+            public CommonService: ICommonService,
+            public $stateParams: ng.ui.IStateParamsService
         ){
             $rootScope.createModal = angular.bind(this, this.createmodal);
             $rootScope.requestHandler = angular.bind(this, this.requestHandler);
             $rootScope.stateGo = angular.bind(this, this.stateGo);
+            $rootScope.goBack = angular.bind(this, this.goBack);
             $rootScope.scrollTop = angular.bind(this, this.scrollTop);
             $rootScope.openSearchModal = angular.bind(CommonService, CommonService.showSearchModal);
-            $rootScope.showReport = angular.bind(this, this.showReport);
+            $rootScope.showDropMenu = angular.bind(this, this.showDropMenu);
 
         }
 
@@ -95,8 +97,15 @@ module JDB {
         }
 
         //路由跳转
-        stateGo(name: string): void {
-            this.$state.go(name);
+        stateGo(name: string,args:any={}): void {
+            this.$state.go(name, args);
+        }
+
+        //返回前一路由
+        goBack(name:string, params:any = {}){
+            name = this.$stateParams['from'] || name;
+            console.log(this.$stateParams);
+            this.$state.go(name, params);
         }
 
         //显示加载层
@@ -112,14 +121,13 @@ module JDB {
             this.$ionicScrollDelegate.scrollTop();
         }
 
-        showReport(id: number){
-            this.CommonService.showReport(id);
+        showDropMenu(id: number){
+            this.CommonService.showDropMenu(id);
         }
-
     }
 
 
-    RootScopeExtend.$inject = ['$rootScope', '$q', '$ionicModal', '$state', '$ionicLoading', '$ionicScrollDelegate', 'CommonService'];
+    RootScopeExtend.$inject = ['$rootScope', '$q', '$ionicModal', '$state', '$ionicLoading', '$ionicScrollDelegate', 'CommonService', '$stateParams'];
     ServiceModule.service('RootScopeExtendService', RootScopeExtend);
 }
 

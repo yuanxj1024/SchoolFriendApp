@@ -1,7 +1,7 @@
-<ion-view>
+<ion-view ng-controller="NearbyCtrl">
   <ion-header-bar class="top-header-bg-color">
-    <button class="button button-clear" ui-sref="jdb.discover">
-      <i class="icon ion-ios-arrow-left"></i>
+    <button class="button button-clear" ng-click="goBack('jdb.discover')">
+      <i class="ion-ios-arrow-left"></i>
       返回
     </button>
     <h1 class="title">附近的人</h1>

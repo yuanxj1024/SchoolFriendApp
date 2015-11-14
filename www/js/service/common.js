@@ -36,7 +36,7 @@ var JDB;
                 modal.show();
             });
         };
-        Common.prototype.showReport = function (args) {
+        Common.prototype.showDropMenu = function (args) {
             if (reportSheet) {
                 return null;
             }

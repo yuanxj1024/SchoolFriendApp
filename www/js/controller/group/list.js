@@ -19,7 +19,8 @@ var JDB;
             this.$scope = $scope;
             this.$stateParams = $stateParams;
             this.CommonService = CommonService;
-            $scope.showReport = angular.bind(CommonService, CommonService.showReport);
+            $scope.showDropMenu = angular.bind(CommonService, CommonService.showDropMenu);
+            this.$scope.viewTitle = '所有圈子';
             this.renderView();
         }
         GroupList.prototype.renderView = function () {

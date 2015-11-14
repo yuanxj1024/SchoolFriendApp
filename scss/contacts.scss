@@ -1,0 +1,20 @@
+@charset "utf-8";
+//基于nearby
+
+.contacts-wrap{
+  .contact-new-friend{
+    //clear: both;
+    font-size: 14px;
+    .ion-chevron-right{
+      color: $main-font-color3;
+    }
+  }
+
+  .contacts-content{
+    margin-top: 70px;
+    .list{
+      margin-top: 5px;
+    }
+  }
+
+}

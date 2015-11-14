@@ -1,0 +1,18 @@
+@charset "utf-8";
+//基于nearby
+
+.new-friends-wrap{
+  .list{
+    .item{
+      .btn-agree{
+        font-weight: 600;
+        width: 20px;
+        height: 10px;
+        font-size: 14px;
+        min-height: 30px;
+        margin-top: 20px;
+        line-height: 30px;
+      }
+    }
+  }
+}
