@@ -116,3 +116,21 @@ $main-font-color4:#f8f8f8;
 .margintop10{
   margin-top: 10px;
 }
+
+.gender{
+  display: inline-block;
+  background-repeat: no-repeat;
+  -webkit-background-size: 100%;
+  background-size: 100%;
+  background-position: center;
+  &.famale{
+    height: 15px;
+    width: 10px;
+    background-image: url(/img/gender-famale.png);
+  }
+  &.male{
+    width: 13px;
+    height: 13px;
+    background-image: url(/img/gender-male.png);
+  }
+}

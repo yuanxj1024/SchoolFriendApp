@@ -32,8 +32,15 @@ var JDB;
     var AppStart = function ($rootScope, $q, $state, RootScopeExtendService) {
         /*业务处理*/
         /*事件定义*/
-        $rootScope.$on('$stateChangeStart', function (e, data) {
+        $rootScope.$on('$stateChangeStart', function (e, toState, toParams, fromState, fromParams) {
+            toState.fromState = fromState.name;
+            toState.fromParams = JSON.stringify(fromParams);
         });
+        //$rootScope.$on('$stateChangeSuccess', function(e,data){
+        //    console.log('stateChangeSuccess');
+        //    console.log(e);
+        //    console.log(data);
+        //});
     };
     AppStart.$inject = ['$rootScope', '$q', '$state', 'RootScopeExtendService'];
     //启动应用程序

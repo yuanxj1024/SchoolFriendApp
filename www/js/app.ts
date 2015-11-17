@@ -55,6 +55,8 @@ module JDB {
         openSearchModal: Function;
         //打开举报对话框
         showDropMenu: Function;
+        //返回上一个路由
+        back: Function;
 
     }
 
@@ -71,8 +73,16 @@ module JDB {
 
 
         /*事件定义*/
-        $rootScope.$on('$stateChangeStart', function(e,data){
+        $rootScope.$on('$stateChangeStart', function(e,toState,toParams,fromState,fromParams){
+            toState.fromState = fromState.name;
+            toState.fromParams = JSON.stringify(fromParams);
         });
+
+        //$rootScope.$on('$stateChangeSuccess', function(e,data){
+        //    console.log('stateChangeSuccess');
+        //    console.log(e);
+        //    console.log(data);
+        //});
 
 
 

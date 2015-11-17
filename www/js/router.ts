@@ -81,6 +81,27 @@ module JDB {
                     }
                 }
             })
+            //个人名片
+            .state('jdb.usercard',{
+                url: '/usercard',
+                params: {
+                    id: '',
+                    from: ''
+                },
+                views: {
+                    'tab-main':{
+                        templateUrl: 'templates/discover/user-card.html',
+                    }
+                }
+            })
+            .state('jdb.friend-request',{
+                url: '/usercard/request',
+                views: {
+                    'tab-main':{
+                        templateUrl: 'templates/discover/friend-request.html',
+                    }
+                }
+            })
             //新朋友
             .state('jdb.new-friends',{
                 url: '/newFriends',
@@ -111,6 +132,8 @@ module JDB {
             //我的
             .state('jdb.mine',{
                 url: '/mine',
+                params:{
+                },
                 views: {
                     'tab-main':{
                         templateUrl: 'templates/mine/default.html'
@@ -141,7 +164,8 @@ module JDB {
             .state('jdb.minegroup',{
                 url: '/mine/group',
                 params:{
-                    action: 'group'
+                    action: 'group',
+                    from: 'jdb.mine'
                 },
                 views: {
                     'tab-main':{

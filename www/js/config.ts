@@ -27,11 +27,15 @@ module JDB {
 
 
     //扩展路由状态
-    interface IJDBStateDelegate extends ng.ui.IState {
-        //前一个路由
+    export interface IJDBStateDelegate extends ng.ui.IState {
+        //下一个路由
         next: ng.ui.IState;
         //参数
         toParams: ng.ui.IStateOptions;
+
+        fromState: string;
+
+        fromParams: any;
     }
 
     //请求拦截器定义
@@ -113,9 +117,12 @@ module JDB {
 
         //处理路由状态
         $provide.decorator('$state', ['$delegate', '$rootScope', function($delegate:IJDBStateDelegate, $rootScope: IJDBRootScopeService){
-            $rootScope.$on('$stateChangeStart', function(event:any, state:ng.ui.IState, params:any) {
+            $rootScope.$on('$stateChangeStart', function(event:any, state:ng.ui.IState, params:any,fromState:any,fromParams:any) {
                 $delegate.next = state;
                 $delegate.toParams = params;
+                $delegate.fromState = fromState.name;
+                $delegate.fromParams = fromParams;
+
             });
             return $delegate;
         }]);

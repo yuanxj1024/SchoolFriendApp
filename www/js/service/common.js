@@ -116,6 +116,12 @@ var JDB;
             });
             return defer.promise;
         };
+        //打开个人名片
+        Common.prototype.showUserCardModal = function (args) {
+            var scope = this.$rootScope.$new();
+            scope.params = args;
+            return this.$rootScope.createModal('/templates/discover/user-card-modal.html', scope);
+        };
         return Common;
     })();
     Common.$inject = ['$rootScope', '$ionicModal', '$ionicActionSheet', '$q'];

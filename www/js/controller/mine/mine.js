@@ -10,11 +10,14 @@ var JDB;
 (function (JDB) {
     'use strict';
     var Mine = (function () {
-        function Mine($rootScope, $scope, $stateParams, MineService) {
+        function Mine($rootScope, $scope, $stateParams, MineService, $state) {
             this.$rootScope = $rootScope;
             this.$scope = $scope;
             this.$stateParams = $stateParams;
             this.MineService = MineService;
+            this.$state = $state;
+            console.log('mine');
+            console.log($state);
             console.log($stateParams);
             $scope.editTag = $stateParams['tag'];
             $scope.tagName = window.JDBTypes.InfoEditTags[$scope.editTag];
@@ -29,7 +32,7 @@ var JDB;
         };
         return Mine;
     })();
-    Mine.$inject = ['$rootScope', '$scope', '$stateParams', 'MineService'];
+    Mine.$inject = ['$rootScope', '$scope', '$stateParams', 'MineService', '$state'];
     JDB.CtrlModule.controller('MineCtrl', Mine);
 })(JDB || (JDB = {}));
 //# sourceMappingURL=mine.js.map

@@ -1,0 +1,43 @@
+<ion-modal-view ng-controller="UserCardCtrl">
+  <ion-header-bar class="top-header-bg-color">
+    <button class="button button-clear back-button" ng-click="cancel()">
+      取消
+    </button>
+    <h1 class="title">个人名片</h1>
+    <button class="button button-clear" ng-click="showMore()">
+      <i class="icon ion-more"></i>
+    </button>
+  </ion-header-bar>
+  <ion-content class="has-header main-body-bg-color">
+    <div class="user-card-wrap">
+      <div class="info-wrap">
+        <img class="head-img" src="/img/2015.jpg" alt=""/>
+        <div class="info-left">
+          <h5>王小二 <i class="gender male"></i></h5>
+          <span class="light-color">钰诚集团&nbsp;首席执行官</span>
+          <span class="light-color">IT互联网 <i class="split"></i>金融</span>
+        </div>
+        <div class="me" ng-click="showSearch()">ME</div>
+      </div>
+      <div class="attribute-wrap">
+        <div class="attr-item"><i class="icon-img school"></i>北京交大</div>
+        <div class="attr-item yellow"><i class="icon-img grade"></i>2008</div>
+        <div class="attr-item"><i class="icon-img phone"></i>13691513508</div>
+        <div class="attr-item yellow"><i class="icon-img email"></i>asdfas@qq.com</div>
+        <div class="attr-item"><i class="icon-img wechat"></i>weixin</div>
+        <div class="attr-item yellow"><i class="icon-img remark"></i>互联网创业，抱大腿</div>
+      </div>
+      <div class="link">
+        <span class="title">加入Ta的圈子</span>
+        <span class="right light-color">12人 <i class="ion-chevron-right"></i></span>
+      </div>
+      <div class="link">
+        <span class="title">Ta的话题</span>
+        <span class="right light-color">12人 <i class="ion-chevron-right"></i></span>
+      </div>
+      <div class="btn-wrap">
+        <button class="button button-positive button-block">发消息</button>
+      </div>
+    </div>
+  </ion-content>
+</ion-modal-view>

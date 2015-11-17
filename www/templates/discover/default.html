@@ -1,4 +1,4 @@
-<ion-view>
+<ion-view ng-controller="DiscoverCtrl">
   <ion-header-bar class="top-header-bg-color">
     <!--<button class="button button-clear" ui-sref="jdb.home">-->
       <!--<i class="icon ion-ios-arrow-left"></i>-->
@@ -31,8 +31,8 @@
         <a class="right" ui-sref="jdb.nearby">查看更多<i class="ion-ios-arrow-right"></i></a>
       </div>
       <div class="list-wrap friends">
-        <div class="sub-item"><img class="user-head" src="/img/2015.jpg" alt=""/><span class="title">蒋方舟</span><span class="count">234人</span></div>
-        <div class="sub-item"><img class="user-head" src="/img/discover-user-head.png" alt=""/><span class="title">蒋方舟</span><span class="count">234m</span></div>
+        <div class="sub-item" ng-click="openUserCard(1)"><img class="user-head" src="/img/2015.jpg" alt=""/><span class="title">蒋方舟</span><span class="count">234人</span></div>
+        <div class="sub-item" ui-sref="jdb.usercard({id:1, from:'jdb.discover'})"><img class="user-head" src="/img/discover-user-head.png" alt=""/><span class="title">蒋方舟</span><span class="count">234m</span></div>
         <div class="sub-item"><img class="user-head" src="/img/discover-user-head.png" alt=""/><span class="title">蒋方舟</span><span class="count">234m</span></div>
         <div class="sub-item"><img class="user-head" src="/img/discover-user-head.png" alt=""/><span class="title">蒋方舟</span><span class="count">23m</span></div>
         <div class="sub-item"><img class="user-head" src="/img/discover-user-head.png" alt=""/><span class="title">蒋方舟</span><span class="count">23m</span></div>

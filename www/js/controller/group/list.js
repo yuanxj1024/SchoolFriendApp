@@ -27,10 +27,12 @@ var JDB;
             var action = this.$stateParams['action'];
             if (action == 'all') {
                 this.$scope.viewTitle = '所有圈子';
+                this.$scope.fromState = 'jdb.group';
                 this.refreshAllGroup();
             }
             else if (action == 'group') {
                 this.$scope.viewTitle = '我的圈子';
+                this.$scope.fromState = 'jdb.minegroup';
                 this.refreshMineGroup();
             }
         };

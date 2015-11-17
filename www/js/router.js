@@ -61,6 +61,24 @@ var JDB;
                     templateUrl: 'templates/discover/default.html'
                 }
             }
+        }).state('jdb.usercard', {
+            url: '/usercard',
+            params: {
+                id: '',
+                from: ''
+            },
+            views: {
+                'tab-main': {
+                    templateUrl: 'templates/discover/user-card.html'
+                }
+            }
+        }).state('jdb.friend-request', {
+            url: '/usercard/request',
+            views: {
+                'tab-main': {
+                    templateUrl: 'templates/discover/friend-request.html'
+                }
+            }
         }).state('jdb.new-friends', {
             url: '/newFriends',
             views: {
@@ -84,6 +102,7 @@ var JDB;
             }
         }).state('jdb.mine', {
             url: '/mine',
+            params: {},
             views: {
                 'tab-main': {
                     templateUrl: 'templates/mine/default.html'
@@ -109,7 +128,8 @@ var JDB;
         }).state('jdb.minegroup', {
             url: '/mine/group',
             params: {
-                action: 'group'
+                action: 'group',
+                from: 'jdb.mine'
             },
             views: {
                 'tab-main': {

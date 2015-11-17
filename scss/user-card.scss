@@ -1,0 +1,130 @@
+@charset "utf-8";
+@import "flex";
+//个人名片
+
+.user-card-wrap{
+  .light-color{
+    color: $main-font-color2;
+  }
+  .info-wrap{
+    @include flexbox;
+    position: relative;
+    height: 100px;
+    padding: 0 10px;
+    background-image: url(/img/user-card-bg.png);
+    -webkit-background-size: 100%;
+    background-size: 100%;
+    .head-img{
+      width: 50px;
+      height: 50px;
+      -webkit-border-radius: 25px;
+      -moz-border-radius: 25px;
+      border-radius: 25px;
+      margin-top: 28px;
+    }
+    .info-left{
+      margin-left: 10px;
+      padding-top: 28px;
+      h5{
+        margin: 0;
+      }
+      .light-color{
+        display: block;
+      }
+    }
+    .me{
+      position: absolute;
+      width: 25px;
+      height: 25px;
+      -webkit-border-radius: 15px;
+      -moz-border-radius: 15px;
+      border-radius: 15px;
+      background-color: $main-header-bg-color;
+      color: #fff;
+      text-align: center;
+      line-height: 25px;
+      bottom: -12px;
+      right: 10px;
+    }
+  }
+  .attribute-wrap{
+    padding: 10px;
+    background-color: #fff;
+    .attr-item{
+      position: relative;
+      border-left: 1px solid $main-font-color2;
+      padding-left: 15px;
+      padding-top: 5px;
+      padding-bottom: 5px;
+      margin-left: 5px;
+      clear: both;
+      color: $main-font-color2;
+      &.yellow{
+        &:after{
+          background-color: $main-color-yellow;
+        }
+      }
+      &:after{
+        position: absolute;
+        display: inline-block;
+        content: ' ';
+        background-color: $main-header-bg-color;
+        width: 9px;
+        height: 9px;
+        -webkit-border-radius: 9px;
+        -moz-border-radius: 9px;
+        border-radius: 9px;
+        top: 10px;
+        left: -5px;
+      }
+      .icon-img{
+        display: inline-block;
+        width: 15px;
+        height: 15px;
+        background-repeat: no-repeat;
+        -webkit-background-size: 100%;
+        background-size: 100%;
+        background-position: center;
+        margin-right: 10px;
+        float: left;
+        margin-top: 2px;
+        &.school{
+          background-image: url(/img/user-card-school.png);
+        }
+        &.grade{
+          background-image: url(/img/user-card-grade.png);
+        }
+        &.phone{
+          height: 21px;
+          background-image: url(/img/user-card-phone.png);
+          -webkit-background-size: 90%;
+          background-size: 90%;
+        }
+        &.email{
+          background-image: url(/img/user-card-email.png);
+        }
+        &.wechat{
+          background-image: url(/img/user-card-wechat.png);
+        }
+        &.remark{
+          background-image: url(/img/user-card-remark.png);
+        }
+      }
+    }
+  }
+  .link{
+    margin: 10px 0;
+    padding: 10px;
+    background-color: #fff;
+    clear: both;
+    .title{
+      color: $main-header-bg-color;
+    }
+
+  }
+  .btn-wrap{
+    margin-top: 30px;
+    padding: 0 10px;
+  }
+
+}

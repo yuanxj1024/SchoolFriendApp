@@ -1,0 +1,26 @@
+@charset "utf-8";
+
+.friend-request-wrap{
+  .tip{
+    padding: 10px;
+    color: $main-font-color2;
+  }
+  .item{
+    border: none;
+    padding: 10px;
+  }
+  .input-request{
+    width: 90%;
+  }
+  .ion-ios-close-outline{
+    padding: 5px;
+  }
+  .btn-wrap{
+    position: fixed;
+    width:100%;
+    bottom: 20px;
+    left: 0;
+    padding: 0 10px;
+  }
+
+}

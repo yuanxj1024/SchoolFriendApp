@@ -27,6 +27,8 @@ var JDB;
             $rootScope.scrollTop = angular.bind(this, this.scrollTop);
             $rootScope.openSearchModal = angular.bind(CommonService, CommonService.showSearchModal);
             $rootScope.showDropMenu = angular.bind(this, this.showDropMenu);
+            $rootScope.loading = angular.bind(this, this.loading);
+            $rootScope.back = angular.bind(this, this.back);
         }
         //创建模式窗口
         RootScopeExtend.prototype.createmodal = function (url, scope) {
@@ -92,10 +94,15 @@ var JDB;
         };
         //返回前一路由
         RootScopeExtend.prototype.goBack = function (name, params) {
+            if (name === void 0) { name = ''; }
             if (params === void 0) { params = {}; }
             name = this.$stateParams['from'] || name;
-            console.log(this.$stateParams);
+            //console.log(this.$stateParams);
             this.$state.go(name, params);
+        };
+        RootScopeExtend.prototype.back = function () {
+            var current = this.$state.current;
+            this.$state.go(current['fromState'] || 'jdb.home', JSON.parse(current['fromParams'] || {}));
         };
         //显示加载层
         RootScopeExtend.prototype.loading = function (isShow) {

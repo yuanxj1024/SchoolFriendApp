@@ -38,6 +38,9 @@ module JDB {
         //通用打开ActionSheet
         showActionSheet(name: string ,buttons:Array<any>): ng.IPromise<any>;
 
+        //打开个人名片
+        showUserCardModal(args: any): ng.IPromise<any>;
+
     }
 
     class Common implements ICommonService{
@@ -162,6 +165,13 @@ module JDB {
                 }
             });
             return defer.promise;
+        }
+
+        //打开个人名片
+        showUserCardModal(args:any){
+            var scope:any = this.$rootScope.$new();
+            scope.params = args;
+            return this.$rootScope.createModal('/templates/discover/user-card-modal.html', scope);
         }
 
     }

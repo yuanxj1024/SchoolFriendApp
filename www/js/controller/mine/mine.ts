@@ -27,8 +27,12 @@ module JDB {
             public $rootScope: IJDBRootScopeService,
             public $scope: IMineScope,
             public $stateParams: ng.ui.IStateParamsService,
-            public MineService: IMineService
+            public MineService: IMineService,
+            public $state: ng.ui.IStateService
         ){
+            console.log('mine');
+            console.log($state);
+
             console.log($stateParams);
 
             $scope.editTag = $stateParams['tag'];
@@ -52,6 +56,6 @@ module JDB {
 
     }
 
-    Mine.$inject = ['$rootScope', '$scope', '$stateParams', 'MineService'];
+    Mine.$inject = ['$rootScope', '$scope', '$stateParams', 'MineService', '$state'];
     CtrlModule.controller('MineCtrl', Mine);
 }
