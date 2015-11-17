@@ -1,13 +1,24 @@
 <ion-view ng-controller="UserCardCtrl">
-  <ion-header-bar class="top-header-bg-color">
-    <button class="button button-clear back-button" ng-click="goBack('jdb.discover')">
+  <ion-nav-bar class="top-header-bg-color">
+    <ion-nav-back-button class="button-icon">
       <i class="ion-ios-arrow-left"></i>
-    </button>
-    <h1 class="title">个人名片</h1>
-    <button class="button button-clear" ng-click="showMore()">
+    </ion-nav-back-button>
+    <ion-nav-buttons side="right">
+      <button class="button button-clear" ng-click="showMore()">
       <i class="icon ion-more"></i>
-    </button>
-  </ion-header-bar>
+      </button>
+    </ion-nav-buttons>
+  </ion-nav-bar>
+  <ion-nav-title>个人名片</ion-nav-title>
+  <!--<ion-header-bar class="top-header-bg-color">-->
+    <!--<button class="button button-clear back-button" ng-click="goBack('jdb.discover')">-->
+      <!--<i class="ion-ios-arrow-left"></i>-->
+    <!--</button>-->
+    <!--<h1 class="title">个人名片</h1>-->
+    <!--<button class="button button-clear" ng-click="showMore()">-->
+      <!--<i class="icon ion-more"></i>-->
+    <!--</button>-->
+  <!--</ion-header-bar>-->
   <ion-content class="has-header main-body-bg-color">
     <div class="user-card-wrap">
       <div class="info-wrap">

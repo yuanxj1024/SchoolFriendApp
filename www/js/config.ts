@@ -111,9 +111,14 @@ module JDB {
     AppModule.config(function(
         $httpProvider: ng.IHttpProvider,
         $provide: ng.auto.IProvideService,
-        $resourceProvider: any
+        $resourceProvider: any,
+        $ionicConfigProvider:any
     ){
         $resourceProvider.defaults.stripTrailingSlashes = false;
+
+        $ionicConfigProvider.navBar.alignTitle('center');
+        $ionicConfigProvider.backButton.text(' ');
+        //$ionicConfigProvider.backButton.icon('ion-ios-arrow-left');
 
         //处理路由状态
         $provide.decorator('$state', ['$delegate', '$rootScope', function($delegate:IJDBStateDelegate, $rootScope: IJDBRootScopeService){

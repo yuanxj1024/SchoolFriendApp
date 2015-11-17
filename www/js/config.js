@@ -65,8 +65,11 @@ var JDB;
         };
     };
     httpInterceptor.$inject = ['$rootScope', '$q'];
-    JDB.AppModule.config(function ($httpProvider, $provide, $resourceProvider) {
+    JDB.AppModule.config(function ($httpProvider, $provide, $resourceProvider, $ionicConfigProvider) {
         $resourceProvider.defaults.stripTrailingSlashes = false;
+        $ionicConfigProvider.navBar.alignTitle('center');
+        $ionicConfigProvider.backButton.text(' ');
+        //$ionicConfigProvider.backButton.icon('ion-ios-arrow-left');
         //处理路由状态
         $provide.decorator('$state', ['$delegate', '$rootScope', function ($delegate, $rootScope) {
             $rootScope.$on('$stateChangeStart', function (event, state, params, fromState, fromParams) {
