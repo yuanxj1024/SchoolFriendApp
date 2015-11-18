@@ -29,6 +29,7 @@ var JDB;
             });
         }
         Auth.prototype.verify = function () {
+            console.log(this.$rootScope.User);
             var temp;
             if (!this.$rootScope.User) {
                 temp = window.localStorage.getItem(userKey);
@@ -39,7 +40,7 @@ var JDB;
             if (this.$rootScope.User) {
                 return true;
             }
-            //this.CommonService.showLoginModal();
+            this.CommonService.showLoginModal();
             return false;
         };
         Auth.prototype.setUser = function (user) {
@@ -80,6 +81,13 @@ var JDB;
             }).then(function (modal) {
                 loginModal = modal;
             });
+        };
+        Auth.prototype.userLogout = function () {
+            localStorage.removeItem(userKey);
+            localStorage.removeItem('accessToken');
+        };
+        Auth.prototype.accessToken = function (key) {
+            return '';
         };
         return Auth;
     })();

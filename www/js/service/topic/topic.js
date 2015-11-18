@@ -13,7 +13,7 @@ var JDB;
             this.$q = $q;
             this.$resource = $resource;
             this.$ionicModal = $ionicModal;
-            this.topicResource = $resource('', {
+            this.topicResource = $resource(JDB.appHost + '/:action', {
                 action: '@action'
             }, {
                 list: {
@@ -27,9 +27,7 @@ var JDB;
             });
         }
         Topic.prototype.list = function (arg) {
-            var defer = this.$q.defer();
-            defer.resolve();
-            return defer.promise;
+            return this.$rootScope.requestHandler(this.topicResource.list, arg);
         };
         Topic.prototype.releaseTopicModal = function () {
             if (topicModal) {

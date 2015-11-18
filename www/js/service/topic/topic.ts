@@ -30,7 +30,7 @@ module JDB {
             public $resource: ng.resource.IResourceService,
             public $ionicModal: Ionic.IModal
         ){
-            this.topicResource = <ITopicResource> $resource('',{
+            this.topicResource = <ITopicResource> $resource(appHost + '/:action',{
                 action: '@action'
             },{
                 list:{
@@ -46,9 +46,7 @@ module JDB {
         }
 
         list(arg: any):ng.IPromise<any> {
-            var defer = this.$q.defer();
-            defer.resolve();
-            return defer.promise;
+            return this.$rootScope.requestHandler(this.topicResource.list, arg);
         }
 
         releaseTopicModal(){

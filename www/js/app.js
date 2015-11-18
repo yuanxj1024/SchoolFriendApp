@@ -13,7 +13,7 @@ var JDB;
 (function (JDB) {
     'use strict';
     //后台数据地址
-    JDB.appHost = 'http://www.baidu.com';
+    JDB.appHost = 'http://192.168.253.1:8080/jdb/mobile';
     //版本号
     JDB.AppVersion = '0.2.1';
     //类型模块
@@ -29,20 +29,19 @@ var JDB;
     //应用程序对象
     JDB.AppModule = angular.module('JDB', ['ionic', 'once', 'JDB.types', 'JDB.controllers', 'JDB.services']);
     //程序启动入口
-    var AppStart = function ($rootScope, $q, $state, RootScopeExtendService) {
+    var AppStart = function ($rootScope, $q, $state, RootScopeExtendService, AuthService) {
         /*业务处理*/
         /*事件定义*/
         $rootScope.$on('$stateChangeStart', function (e, toState, toParams, fromState, fromParams) {
             toState.fromState = fromState.name;
             toState.fromParams = JSON.stringify(fromParams);
         });
-        //$rootScope.$on('$stateChangeSuccess', function(e,data){
-        //    console.log('stateChangeSuccess');
-        //    console.log(e);
-        //    console.log(data);
-        //});
+        $rootScope.$on('event:need-login', function () {
+            AuthService.userLogout();
+            AuthService.showLoginModal();
+        });
     };
-    AppStart.$inject = ['$rootScope', '$q', '$state', 'RootScopeExtendService'];
+    AppStart.$inject = ['$rootScope', '$q', '$state', 'RootScopeExtendService', 'AuthService'];
     //启动应用程序
     JDB.AppModule.run(AppStart);
 })(JDB || (JDB = {}));

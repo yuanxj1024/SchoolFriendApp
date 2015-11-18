@@ -32,30 +32,38 @@ var JDB;
         }
         LoginReg.prototype.initForm = function () {
             this.$scope.loginForm = {
-                phone: '',
-                pwd: ''
+                username: '',
+                password: ''
             };
             this.$scope.regForm = {
-                phone: '',
-                pwd: '',
+                username: '',
+                password: '',
                 inviteCode: '',
                 code: ''
             };
         };
         LoginReg.prototype.login = function ($valid) {
-            console.log($valid);
-            this.validateLogin();
-            if (!$valid) {
+            var self = this;
+            if (!$valid || !this.validateLogin()) {
                 return;
             }
-            this.$scope.loginForm.id = 1;
-            this.AuthService.setUser(this.$scope.loginForm);
-            window.plugins.toast.showExShortCenter('登陆成功');
-            this.$scope.cancel();
+            this.MineService.login(this.$scope.loginForm).then(function (res) {
+                if (res && res.code == 0) {
+                    self.AuthService.setUser(res.data.alumnus);
+                    window.plugins.toast.showExShortCenter('登陆成功');
+                    self.$scope.cancel();
+                    self.$rootScope.$emit('event:refresh-home');
+                }
+                else {
+                    window.plugins.toast.showExShortCenter(res.error);
+                }
+            }, function (err) {
+                window.plugins.toast.showExShortCenter('登陆失败');
+            });
         };
         //校验登陆表单
         LoginReg.prototype.validateLogin = function () {
-            var msg = '', regPhone = /^[\d]{11}$/, phone = this.$scope.loginForm.phone, pwd = this.$scope.loginForm.pwd;
+            var msg = '', regPhone = /^[\d]{11}$/, phone = this.$scope.loginForm.username, pwd = this.$scope.loginForm.password;
             if (!phone || !regPhone.test(phone)) {
                 msg = '请输入正确的手机号码';
             }
@@ -64,7 +72,9 @@ var JDB;
             }
             if (msg) {
                 window.plugins.toast.showShortCenter(msg);
+                return false;
             }
+            return true;
         };
         LoginReg.prototype.register = function ($valid) {
             this.validateReg();

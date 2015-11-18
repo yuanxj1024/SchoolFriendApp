@@ -21,9 +21,12 @@ module JDB {
         setUser(user: IUser):void;
         //数据库读取用户
         getUser(args:Object):ng.IPromise<IUser>;
-
+        //退出登陆
+        userLogout():void;
         //显示登录页面
         showLoginModal():void;
+        //accesstoken
+        accessToken(key:string):string;
     }
 
     var userKey: string = 'authUser',
@@ -62,6 +65,7 @@ module JDB {
         }
 
         verify(): boolean{
+            console.log(this.$rootScope.User);
             var temp :string;
             if(!this.$rootScope.User){
                 temp = window.localStorage.getItem(userKey);
@@ -72,7 +76,7 @@ module JDB {
             if(this.$rootScope.User){
                 return true;
             }
-            //this.CommonService.showLoginModal();
+            this.CommonService.showLoginModal();
             return false;
         }
 
@@ -119,8 +123,20 @@ module JDB {
             }).then(function(modal){
                 loginModal = modal;
             });
-
         }
+
+        userLogout(){
+            localStorage.removeItem(userKey);
+            localStorage.removeItem('accessToken');
+        }
+
+        accessToken(key:string){
+
+            return '';
+        }
+
+
+
 
 
     }

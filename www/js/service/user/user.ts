@@ -58,7 +58,7 @@ module JDB {
 
         //获取单个用户
         getUser(args: any): ng.IPromise<any> {
-            return this.$rootScope.requestHandler(this.userResource.getUser, args, null);
+            return this.$rootScope.requestHandler(this.userResource.getUser, args);
         }
 
         openUserCard(args:any): ng.IPromise<any>{

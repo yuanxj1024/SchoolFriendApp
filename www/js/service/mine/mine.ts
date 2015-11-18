@@ -48,8 +48,7 @@ module JDB {
             public $resource: ng.resource.IResourceService,
             public $ionicActionSheet: Ionic.IActionSheet
         ){
-
-            this.mineResource = <IMineResource> $resource(appHost + '/:action', {
+            this.mineResource = <IMineResource> $resource(appHost + '/user/:action', {
                 action: '@action'
             },{
                 saveData:{
@@ -63,7 +62,8 @@ module JDB {
                 login: {
                     method: 'POST',
                     isArray: false,
-                    needAccessToken: true,
+                    needAccessToken: false,
+                    //headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
                     params:{
                         action: 'login'
                     }
@@ -90,11 +90,20 @@ module JDB {
         }
 
         saveUserData(args:any): ng.IPromise<any> {
-            return this.$rootScope.requestHandler(this.mineResource.saveData, args, null);
+            return this.$rootScope.requestHandler(this.mineResource.saveData, args);
         }
 
         login(args: any): ng.IPromise<any> {
-            return this.$rootScope.requestHandler(this.mineResource.login, args, null);
+            //var defer = this.$q.defer();
+            //this.mineResource.login(args,function(res){
+            //    console.log(res);
+            //    defer.resolve(res);
+            //}, function(err){
+            //    console.log(err);
+            //    defer.reject(err);
+            //});
+            //return defer.promise;
+            return this.$rootScope.requestHandler(this.mineResource.login, args, true);
         }
 
         logout(){
@@ -103,11 +112,11 @@ module JDB {
         }
 
         sendSMSCode(): ng.IPromise<any> {
-            return this.$rootScope.requestHandler(this.mineResource.smsCode,null,null);
+            return this.$rootScope.requestHandler(this.mineResource.smsCode,null);
         }
 
         register(args){
-            return this.$rootScope.requestHandler(this.mineResource.register, args, null);
+            return this.$rootScope.requestHandler(this.mineResource.register, args);
         }
 
         changeUserHeader(callback): ng.IPromise<any> {

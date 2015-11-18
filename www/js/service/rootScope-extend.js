@@ -29,6 +29,7 @@ var JDB;
             $rootScope.showDropMenu = angular.bind(this, this.showDropMenu);
             $rootScope.loading = angular.bind(this, this.loading);
             $rootScope.back = angular.bind(this, this.back);
+            $rootScope.setAccessToken = angular.bind(this, this.setAccessToken);
         }
         //创建模式窗口
         RootScopeExtend.prototype.createmodal = function (url, scope) {
@@ -63,28 +64,35 @@ var JDB;
                     });
                 });
             }
-            console.log(modalList);
             return defer.promise;
         };
         //通用请求处理函数
         //仅局限于Service层使用
-        RootScopeExtend.prototype.requestHandler = function (requestFn, args, data) {
+        RootScopeExtend.prototype.requestHandler = function (requestFn, args, isPost) {
+            if (isPost === void 0) { isPost = false; }
             var self = this;
             this.loading();
             var defer = this.$q.defer();
-            requestFn(args, data, function (result) {
+            function successFn(result) {
                 self.loading(false);
                 if (typeof result == 'string') {
                     result = JSON.parse(result);
                 }
                 defer.resolve(result);
-            }, function (err) {
+            }
+            function errFn(err) {
                 self.loading(false);
                 if (typeof err == 'string') {
                     err = JSON.parse(err);
                 }
                 defer.reject(err);
-            });
+            }
+            if (isPost) {
+                requestFn({}, this.param(args), successFn, errFn);
+            }
+            else {
+                requestFn(args, successFn, errFn);
+            }
             return defer.promise;
         };
         //路由跳转
@@ -97,7 +105,6 @@ var JDB;
             if (name === void 0) { name = ''; }
             if (params === void 0) { params = {}; }
             name = this.$stateParams['from'] || name;
-            //console.log(this.$stateParams);
             this.$state.go(name, params);
         };
         RootScopeExtend.prototype.back = function () {
@@ -119,6 +126,25 @@ var JDB;
         };
         RootScopeExtend.prototype.showDropMenu = function (id) {
             this.CommonService.showDropMenu(id);
+        };
+        //设置AK
+        RootScopeExtend.prototype.setAccessToken = function (key) {
+            this.$rootScope.accessToken = key;
+            if (key == null) {
+                localStorage.removeItem('accessToken');
+            }
+            else {
+                localStorage.setItem('accessToken', key);
+            }
+        };
+        //类似Jquery 的$.param
+        RootScopeExtend.prototype.param = function (obj) {
+            var result = [], add = function (value, key) {
+                value = angular.isFunction(value) ? value() : (value == null ? '' : value);
+                result[result.length] = encodeURIComponent(key) + "=" + encodeURIComponent(value);
+            };
+            angular.forEach(obj, add);
+            return result.join('&').replace(/%20/g, '+');
         };
         return RootScopeExtend;
     })();

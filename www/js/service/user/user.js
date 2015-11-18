@@ -36,7 +36,7 @@ var JDB;
         }
         //获取单个用户
         User.prototype.getUser = function (args) {
-            return this.$rootScope.requestHandler(this.userResource.getUser, args, null);
+            return this.$rootScope.requestHandler(this.userResource.getUser, args);
         };
         User.prototype.openUserCard = function (args) {
             var defer = this.$q.defer(), self = this;

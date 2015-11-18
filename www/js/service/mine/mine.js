@@ -13,7 +13,7 @@ var JDB;
             this.$q = $q;
             this.$resource = $resource;
             this.$ionicActionSheet = $ionicActionSheet;
-            this.mineResource = $resource(JDB.appHost + '/:action', {
+            this.mineResource = $resource(JDB.appHost + '/user/:action', {
                 action: '@action'
             }, {
                 saveData: {
@@ -27,7 +27,8 @@ var JDB;
                 login: {
                     method: 'POST',
                     isArray: false,
-                    needAccessToken: true,
+                    needAccessToken: false,
+                    //headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
                     params: {
                         action: 'login'
                     }
@@ -53,20 +54,29 @@ var JDB;
             });
         }
         Mine.prototype.saveUserData = function (args) {
-            return this.$rootScope.requestHandler(this.mineResource.saveData, args, null);
+            return this.$rootScope.requestHandler(this.mineResource.saveData, args);
         };
         Mine.prototype.login = function (args) {
-            return this.$rootScope.requestHandler(this.mineResource.login, args, null);
+            //var defer = this.$q.defer();
+            //this.mineResource.login(args,function(res){
+            //    console.log(res);
+            //    defer.resolve(res);
+            //}, function(err){
+            //    console.log(err);
+            //    defer.reject(err);
+            //});
+            //return defer.promise;
+            return this.$rootScope.requestHandler(this.mineResource.login, args, true);
         };
         Mine.prototype.logout = function () {
             window.localStorage.clear();
             this.$rootScope.User = null;
         };
         Mine.prototype.sendSMSCode = function () {
-            return this.$rootScope.requestHandler(this.mineResource.smsCode, null, null);
+            return this.$rootScope.requestHandler(this.mineResource.smsCode, null);
         };
         Mine.prototype.register = function (args) {
-            return this.$rootScope.requestHandler(this.mineResource.register, args, null);
+            return this.$rootScope.requestHandler(this.mineResource.register, args);
         };
         Mine.prototype.changeUserHeader = function (callback) {
             if (userHeaderSheet) {

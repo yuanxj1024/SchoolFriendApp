@@ -51,45 +51,48 @@ module JDB {
                     config.needAccessToken = false;
                 }
                 config.headers['x-access-token'] = $rootScope.accessToken;
-                //$rootScope.accessToken = 'xxx';
+                config.headers['Content-Type'] = 'application/x-www-form-urlencoded;charset=utf-8';
 
-                //if(config.needAccessToken){
-                //    if(config.hasOwnProperty('needLogin') && config.needLogin){
-                //        config.needLogin = true;
-                //    }
-                //}else{
-                //    config.needLogin = false;
-                //}
-                //
-                //if(!config.hasOwnProperty('cache')){
-                //    if($rootScope.accessToken){
-                //        config.params = angular.extend({
-                //            'accessToken': $rootScope.accessToken
-                //        }, config);
-                //
-                //        deferred.resolve(config);
-                //    }else if(config.needAccessToken && !$rootScope.accessToken){
-                //        var tempConfig = angular.extend({
-                //            'accessToken':''
-                //        }, config, {
-                //            data: {
-                //                message: '请登录'
-                //            },
-                //            tag: 1001,
-                //            needLogin: config.needLogin
-                //        });
-                //        deferred.reject(config);
-                //    }
-                //}else{
+                if(config.needAccessToken){
+                    if(config.hasOwnProperty('needLogin') && config.needLogin){
+                        config.needLogin = true;
+                    }
+                }else{
+                    config.needLogin = false;
+                }
+
+                if(!config.hasOwnProperty('cache')){
+                    if($rootScope.accessToken){
+                        config.params = angular.extend({
+                            'accessToken': $rootScope.accessToken
+                        }, config);
+
+                        deferred.resolve(config);
+                    }else if(config.needAccessToken && !$rootScope.accessToken){
+                        var tempConfig = angular.extend({
+                            'accessToken':''
+                        }, config, {
+                            data: {
+                                message: '请登录'
+                            },
+                            tag: 1001,
+                            needLogin: config.needLogin
+                        });
+                        deferred.reject(config);
+                    }else{
+                        deferred.resolve(config);
+                    }
+                }else{
                     deferred.resolve(config);
-                //}
+                }
                 return deferred.promise;
             },
 
             response: function(response: IJDBHttpPromiseCallbackArg<any>): IJDBHttpPromiseCallbackArg<any> {
-                var accessToken = response.headers('x-access-token')|| '1234567890';
+                var accessToken = response.headers('x-access-token');
                 if(accessToken && accessToken!= $rootScope.accessToken){
-                    $rootScope.accessToken = accessToken;
+                    console.log(accessToken);
+                    $rootScope.setAccessToken(accessToken);
                 }
                 return response;
             },
@@ -98,6 +101,7 @@ module JDB {
                 switch (rejection.tag){
                     case 1001:
                         console.log(rejection);
+                        $rootScope.$emit('event:need-login');
                         break;
                 }
                 return $q.reject(rejection);

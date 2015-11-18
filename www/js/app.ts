@@ -15,10 +15,9 @@ module JDB {
     'use strict';
 
     //后台数据地址
-    export var appHost: string = 'http://www.baidu.com';
+    export var appHost: string = 'http://192.168.253.1:8080/jdb/mobile';
     //版本号
     export var AppVersion: string = '0.2.1';
-
     //类型模块
     export var TypeModule: ng.IModule = angular.module('JDB.types', ['ionic']);
     //控制器模块
@@ -37,10 +36,12 @@ module JDB {
     export interface IJDBRootScopeService extends ng.IRootScopeService {
         //授权校验码
         accessToken: string;
+        setAccessToken: Function;
         //当前用户
         User: IUser;
         //通用请求处理函数
         requestHandler:Function;
+
         //创建模式窗口
         createModal: Function;
         //路由跳转
@@ -57,6 +58,9 @@ module JDB {
         showDropMenu: Function;
         //返回上一个路由
         back: Function;
+        //单次事件绑定
+        $once: Function;
+        ///类似Jquery的$.param
 
     }
 
@@ -65,9 +69,9 @@ module JDB {
         $rootScope: IJDBRootScopeService,
         $q: ng.IQService,
         $state: ng.ui.IStateService,
-        RootScopeExtendService: IRootScopeExtend
+        RootScopeExtendService: IRootScopeExtend,
+        AuthService: IAuthService
     ){
-
 
         /*业务处理*/
 
@@ -78,17 +82,14 @@ module JDB {
             toState.fromParams = JSON.stringify(fromParams);
         });
 
-        //$rootScope.$on('$stateChangeSuccess', function(e,data){
-        //    console.log('stateChangeSuccess');
-        //    console.log(e);
-        //    console.log(data);
-        //});
-
-
+        $rootScope.$on('event:need-login', function(){
+            AuthService.userLogout();
+            AuthService.showLoginModal();
+        });
 
     };
 
-    AppStart.$inject = ['$rootScope','$q', '$state', 'RootScopeExtendService'];
+    AppStart.$inject = ['$rootScope','$q', '$state', 'RootScopeExtendService' ,'AuthService'];
 
     //启动应用程序
     AppModule.run(AppStart);
