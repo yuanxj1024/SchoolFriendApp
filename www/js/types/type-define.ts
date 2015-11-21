@@ -31,6 +31,15 @@ module JDB {
         {text: '交大6'}
     ];
 
+    JDBTypes.schoolList = [
+         '交大1',
+         '交大2',
+         '交大3',
+         '交大4',
+         '交大5',
+         '交大6'
+    ];
+
     //个人信息编辑时的tag说明
     JDBTypes.InfoEditTags = {
         1: '姓名',

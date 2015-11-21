@@ -20,8 +20,8 @@ module JDB {
         //显示搜索页
         showSearchModal:Function;
 
-        //举报
-        showDropMenu(args: any): void;
+        //菜单
+        showDropMenu(args: any): ng.IPromise<any>;
 
         //显示登录页面
         showLoginModal(): void;
@@ -40,15 +40,33 @@ module JDB {
 
         //打开个人名片
         showUserCardModal(args: any): ng.IPromise<any>;
+        //上传文件
+        uploadFile(args: IUploadFileArgs): ng.IPromise<any>;
+
+        //显示举报内容
+        showReport: Function
 
     }
+
+
+    //上传文件参数
+    export interface IUploadFileArgs {
+        url?: string;
+        progressFn?: any;
+        fields?: any;
+        file: any;
+    }
+
+
 
     class Common implements ICommonService{
         constructor(
             public $rootScope: IJDBRootScopeService,
             public $ionicModal: Ionic.IModal,
             public $ionicActionSheet: Ionic.IActionSheet,
-            public $q: ng.IQService
+            public $q: ng.IQService,
+            public $ionicPopup: Ionic.IPopup,
+            public Upload: any
         ){
 
         }
@@ -79,9 +97,11 @@ module JDB {
             });
         }
 
-        showDropMenu(args: any){
+        showDropMenu(args: any):ng.IPromise<any> {
+            var defer =  this.$q.defer();
             if(reportSheet){
-                return null;
+                defer.resolve();
+                return defer.promise;
             }
             reportSheet = {};
 
@@ -97,11 +117,12 @@ module JDB {
                 },
                 buttonClicked: function(index) {
                     //索引从零开始
-                    console.log(index);
                     reportSheet = null;
+                    defer.resolve(index);
                     return true;
                 }
             });
+            return defer.promise;
         }
 
         showLoginModal():void {
@@ -138,7 +159,7 @@ module JDB {
         //打开选择图片sheet
         showChooseImg(){
             return this.showActionSheet('chooseImg',[
-                    { text: '拍照' }
+                    { text: '相册' }
                 ]);
         }
 
@@ -174,9 +195,37 @@ module JDB {
             return this.$rootScope.createModal('/templates/discover/user-card-modal.html', scope);
         }
 
+
+        showConfirm(title:string, tpl:string){
+
+
+        }
+        showAlert(title:string, tpl:string){
+
+        }
+        //上传文件
+        uploadFile(args: IUploadFileArgs): ng.IPromise<any> {
+            var defer = this.$q.defer();
+            this.Upload.upload( angular.extend({
+                url: appHost + (args.url || '/image/upload'),
+                file: args.file
+            },args.fields)).then(function(res){
+                defer.resolve(res);
+            },function(res){
+                window.plugins.toast.showShortCenter('上传失败，请稍后重试');
+                defer.reject(res);
+            },function(evt){
+                args.progressFn && args.progressFn(evt);
+            });
+            return defer.promise;
+        }
+
+        showReport(){
+            this.$rootScope.createModal('/templates/part/report-modal.html');
+        }
     }
 
-    Common.$inject = ['$rootScope', '$ionicModal', '$ionicActionSheet', '$q'];
+    Common.$inject = ['$rootScope', '$ionicModal', '$ionicActionSheet', '$q', '$ionicPopup', 'Upload'];
     ServiceModule.service('CommonService', Common);
 
 }

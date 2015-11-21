@@ -9,15 +9,15 @@
     <form novalidate name="frmReg" id="frmReg" ng-submit="register(frmReg.$valid)">
       <div class="reg-frm-wrap">
         <div class="input-item-wrap phone">
-          <input ng-required="true" minlength="11" ng-model="regForm.phone" type="text" placeholder="请填写手机号码"/>
+          <input ng-required="true" minlength="11" maxlength="11" ng-model="regForm.username" type="text" placeholder="请填写手机号码"/>
         </div>
         <div class="input-item-wrap pwd">
-          <input ng-required="true" minlength="6" ng-model="regForm.pwd" type="password" placeholder="6-16位数字、字码或下划线"/>
+          <input ng-required="true" minlength="6" max="22" ng-model="regForm.password" type="password" placeholder="6-16位数字、字码或下划线"/>
         </div>
         <div class="input-item-wrap invite-code">
-          <input ng-required="true" minlength="6" ng-model="regForm.inviteCode" type="text" placeholder="请输入邀请码"/></div>
+          <input ng-required="true" minlength="6" maxlength="6" ng-model="regForm.invitateCode" type="text" placeholder="请输入邀请码"/></div>
         <div class="input-item-wrap code">
-          <input ng-required="true" minlength="4" ng-model="regForm.code" type="text" placeholder="请输入验证码"/>
+          <input ng-required="true" minlength="6" maxlength="6" ng-model="regForm.verifyCode" type="text" placeholder="请输入验证码"/>
           <a class="btn-send txt-center" ng-class="{'true': 'invalid'}[isSendCode]" ng-click="sendCode()">{{btnSendText}}</a>
         </div>
       </div>

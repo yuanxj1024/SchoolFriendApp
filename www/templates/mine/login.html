@@ -14,7 +14,7 @@
             <input ng-required="true" minlength="6" placeholder="请输入密码" ng-model="loginForm.password" class="login-pwd" type="password"/>
           </div>
         </div>
-        <div class="forget"><a href="#">忘记密码？</a></div>
+        <div class="forget"><a ui-sref="jdb.resetpwd" >忘记密码？</a></div>
         <div class="btn-wrap">
           <input value="登陆" type="submit" class="button button-full btn-login" ng-class="{'false':'invalid'}[frmLogin.$valid]" />
           <button class="button button-full  btn-reg" ng-click="cancel()" ui-sref="jdb.register">注册</button>

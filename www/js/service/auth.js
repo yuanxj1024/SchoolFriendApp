@@ -29,7 +29,6 @@ var JDB;
             });
         }
         Auth.prototype.verify = function () {
-            console.log(this.$rootScope.User);
             var temp;
             if (!this.$rootScope.User) {
                 temp = window.localStorage.getItem(userKey);

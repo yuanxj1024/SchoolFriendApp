@@ -52,7 +52,7 @@
     padding: 0 10px;
     width: 100%;
     @include flexbox;
-    //@include justify-content(space-between);
+    @include flex-wrap(wrap);
     .img-item{
       position: relative;
       width: 90px;

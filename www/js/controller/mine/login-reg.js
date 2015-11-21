@@ -38,8 +38,8 @@ var JDB;
             this.$scope.regForm = {
                 username: '',
                 password: '',
-                inviteCode: '',
-                code: ''
+                invitateCode: '',
+                verifyCode: ''
             };
         };
         LoginReg.prototype.login = function ($valid) {
@@ -47,11 +47,17 @@ var JDB;
             if (!$valid || !this.validateLogin()) {
                 return;
             }
-            this.MineService.login(this.$scope.loginForm).then(function (res) {
+            self.autoLogin(this.$scope.loginForm);
+        };
+        //自动登录
+        LoginReg.prototype.autoLogin = function (form) {
+            var self = this;
+            this.MineService.login(form).then(function (res) {
                 if (res && res.code == 0) {
                     self.AuthService.setUser(res.data.alumnus);
                     window.plugins.toast.showExShortCenter('登陆成功');
                     self.$scope.cancel();
+                    //self.$rootScope.stateGo('jdb.home');
                     self.$rootScope.$emit('event:refresh-home');
                 }
                 else {
@@ -77,47 +83,70 @@ var JDB;
             return true;
         };
         LoginReg.prototype.register = function ($valid) {
-            this.validateReg();
-            if (!$valid) {
+            var self = this;
+            if (!$valid || !this.validateReg()) {
                 return null;
             }
-            //TODO save
             this.MineService.register(this.$scope.regForm).then(function (result) {
                 if (result && result.code == 0) {
                     window.plugins.toast.showShortCenter('注册成功');
+                    //登陆
+                    self.MineService.login(self.$scope.regForm).then(function (res) {
+                        if (res && res.code == 0) {
+                            self.AuthService.setUser(res.data.alumnus);
+                            self.$rootScope.stateGo('jdb.reginfo');
+                        }
+                        else {
+                            window.plugins.toast.showExShortCenter(res.error);
+                        }
+                    }, function (err) {
+                        window.plugins.toast.showExShortCenter('登陆失败');
+                        self.$rootScope.stateGo('jdb.home');
+                    });
+                }
+                else {
+                    window.plugins.toast.showExShortCenter(result.error || '注册失败，稍后重试');
                 }
             }, function (err) {
                 window.plugins.toast.showShortCenter('注册失败，请稍后重试');
             });
         };
+        //注册校验
         LoginReg.prototype.validateReg = function () {
             var msg;
-            if (!this.$scope.regForm.phone) {
-                msg = '请输入手机号码';
+            if (!this.$scope.regForm.username || !/^\d{11}$/.test(this.$scope.regForm.username)) {
+                msg = '请输入正确的手机号码';
             }
-            else if (!this.$scope.regForm.pwd) {
+            else if (!this.$scope.regForm.password) {
                 msg = '请输入密码';
             }
-            else if (!this.$scope.regForm.inviteCode) {
+            else if (!this.$scope.regForm.invitateCode || this.$scope.regForm.invitateCode.length < 6) {
                 msg = '请输入邀请码';
             }
-            else if (!this.$scope.regForm.code) {
+            else if (!this.$scope.regForm.verifyCode || this.$scope.regForm.verifyCode.length < 6) {
                 msg = '请输入手机验证码';
             }
             if (msg) {
                 window.plugins.toast.showShortCenter(msg);
+                return false;
             }
+            return true;
         };
         LoginReg.prototype.sendCode = function () {
             if (this.$scope.isSendCode) {
                 return;
             }
-            var self = this;
+            if (!this.$scope.regForm.username || !/^\d{11}$/.test(this.$scope.regForm.username)) {
+                window.plugins.toast.showShortCenter('请输入正确的手机号码');
+                return;
+            }
             this.$scope.isSendCode = true;
-            this.sendSMSCode({});
+            this.sendSMSCode({
+                username: this.$scope.regForm.username
+            });
         };
         LoginReg.prototype.sendSMSCode = function (args) {
-            var self = this, time = 9;
+            var self = this, time = 59;
             self.$scope.btnSendText = '发送中';
             var timeID = self.$interval(function () {
                 self.$scope.btnSendText = '重新发送(' + time + ')';
@@ -132,7 +161,7 @@ var JDB;
                     window.plugins.toast.showShortCenter('验证码发送成功');
                 }
                 else {
-                    window.plugins.toast.showShortCenter(result.message || '电话格式不正确');
+                    window.plugins.toast.showShortCenter('发送失败，稍后重试');
                 }
             }, function (err) {
                 window.plugins.toast.showShortCenter('发送失败，稍后重试');

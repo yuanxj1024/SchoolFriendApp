@@ -10,15 +10,17 @@ var JDB;
 (function (JDB) {
     'use strict';
     var Mine = (function () {
-        function Mine($rootScope, $scope, $stateParams, MineService, $state) {
+        function Mine($rootScope, $scope, $stateParams, MineService, $state, CommonService, Upload) {
             this.$rootScope = $rootScope;
             this.$scope = $scope;
             this.$stateParams = $stateParams;
             this.MineService = MineService;
             this.$state = $state;
-            console.log('mine');
-            console.log($state);
-            console.log($stateParams);
+            this.CommonService = CommonService;
+            this.Upload = Upload;
+            $scope.logout = angular.bind(MineService, MineService.logout);
+            $scope.upload = angular.bind(this, this.upload);
+            $scope.tempFile = '/img/discover-user-head.png';
             $scope.editTag = $stateParams['tag'];
             $scope.tagName = window.JDBTypes.InfoEditTags[$scope.editTag];
             if ($scope.editTag) {
@@ -30,9 +32,20 @@ var JDB;
         };
         Mine.prototype.changeHeaderImg = function () {
         };
+        Mine.prototype.upload = function (file) {
+            this.$scope.tempFile = file;
+            console.log(file);
+            this.MineService.uploadHeadImg(file, function (evt) {
+                console.log(evt);
+            }).then(function (res) {
+                console.log(res);
+            }, function (res) {
+                console.log(res);
+            });
+        };
         return Mine;
     })();
-    Mine.$inject = ['$rootScope', '$scope', '$stateParams', 'MineService', '$state'];
+    Mine.$inject = ['$rootScope', '$scope', '$stateParams', 'MineService', '$state', 'CommonService', 'Upload'];
     JDB.CtrlModule.controller('MineCtrl', Mine);
 })(JDB || (JDB = {}));
 //# sourceMappingURL=mine.js.map

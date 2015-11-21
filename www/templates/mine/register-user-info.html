@@ -14,7 +14,7 @@
               姓名<span class="start"></span>
             </div>
             <div class="info">
-              <input ng-model="userForm.userName" type="text" ng-required="true" minlength="2" placeholder="请输入姓名"/>
+              <input ng-model="userForm.realName" type="text" ng-required="true" minlength="2" placeholder="请输入姓名"/>
             </div>
           </div>
           <div class="item">
@@ -22,15 +22,15 @@
               英文名称<span class="start"></span>
             </div>
             <div class="info">
-              <input ng-model="userForm.englishName" ng-required="true" minlength="1" type="text" placeholder="请输入英文名"/>
+              <input ng-model="userForm.enRealName" ng-required="true" minlength="1" type="text" placeholder="请输入英文名"/>
             </div>
           </div>
           <div class="item">
             <div>
               性别<span class="start"></span>
             </div>
-            <div class="info">
-              <input ng-model="userForm.gender" ng-required="true" type="text" placeholder="请选择性别"/>
+            <div class="info" ng-click="chooseGender()">
+              <span>{{ isNaN(userForm.sex) ?userForm.sex: {0:'女', 1: '男'}[userForm.sex] ||'请选择性别'}}</span><i class="ion-chevron-right"></i>
             </div>
           </div>
 
@@ -39,7 +39,7 @@
               微信
             </div>
             <div class="info">
-              <input ng-model="userForm.wechat" type="text" placeholder="请输入微信号"/>
+              <input ng-model="userForm.weixin" type="text" placeholder="请输入微信号"/>
             </div>
           </div>
           <div class="item">
@@ -74,7 +74,7 @@
               院系<span class="start"></span>
             </div>
             <div class="info">
-              <input ng-model="userForm.subject" type="text" placeholder="请输入院系"/>
+              <input ng-model="userForm.department" type="text" placeholder="请输入院系"/>
               <!--选择<i class="ion-chevron-right"></i>-->
             </div>
           </div>
@@ -97,7 +97,7 @@
               公司
             </div>
             <div class="info">
-              <input ng-model="userForm.companyName" type="text" placeholder="请输入公司名称"/>
+              <input ng-model="userForm.company" type="text" placeholder="请输入公司名称"/>
             </div>
           </div>
           <div class="item">
@@ -105,7 +105,7 @@
               职位
             </div>
             <div class="info">
-              <input ng-model="userForm.jobTitle" type="text" placeholder="请输入职位名称"/>
+              <input ng-model="userForm.title" type="text" placeholder="请输入职位名称"/>
             </div>
           </div>
         </div>

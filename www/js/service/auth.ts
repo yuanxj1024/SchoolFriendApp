@@ -12,6 +12,7 @@ module JDB {
     export interface IUser {
         id: number;
         name: string;
+        username:string;
     }
 
     export interface IAuthService {
@@ -65,7 +66,6 @@ module JDB {
         }
 
         verify(): boolean{
-            console.log(this.$rootScope.User);
             var temp :string;
             if(!this.$rootScope.User){
                 temp = window.localStorage.getItem(userKey);

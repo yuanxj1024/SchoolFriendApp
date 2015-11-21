@@ -20,7 +20,14 @@ module JDB {
         tagName: string;
         //修改头像
         changeHeaderImg: Function;
+        //退出
+        logout: Function;
+        //上传头像
+        upload: Function;
+
+        tempFile: any;
     }
+
 
     class Mine {
         constructor(
@@ -28,20 +35,21 @@ module JDB {
             public $scope: IMineScope,
             public $stateParams: ng.ui.IStateParamsService,
             public MineService: IMineService,
-            public $state: ng.ui.IStateService
+            public $state: ng.ui.IStateService,
+            public CommonService: ICommonService,
+            public Upload: any
         ){
-            console.log('mine');
-            console.log($state);
+            $scope.logout = angular.bind(MineService, MineService.logout);
+            $scope.upload = angular.bind(this ,this.upload);
 
-            console.log($stateParams);
+            $scope.tempFile =  '/img/discover-user-head.png';
 
             $scope.editTag = $stateParams['tag'];
-
             $scope.tagName = window.JDBTypes.InfoEditTags[$scope.editTag];
+
             if($scope.editTag){
                 this.initForEdit();
             }
-
         }
 
 
@@ -54,8 +62,21 @@ module JDB {
 
         }
 
+        upload(file) {
+            this.$scope.tempFile = file;
+            console.log(file);
+
+            this.MineService.uploadHeadImg(file,function(evt){
+                console.log(evt);
+            }).then(function(res){
+                console.log(res);
+            },function(res){
+                console.log(res);
+            });
+        }
+
     }
 
-    Mine.$inject = ['$rootScope', '$scope', '$stateParams', 'MineService', '$state'];
+    Mine.$inject = ['$rootScope', '$scope', '$stateParams', 'MineService', '$state', 'CommonService', 'Upload'];
     CtrlModule.controller('MineCtrl', Mine);
 }

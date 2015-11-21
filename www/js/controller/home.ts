@@ -6,6 +6,7 @@
 /// <reference path="../service/topic/topic.ts" />
 /// <reference path="../service/common.ts" />
 /// <reference path="../service/auth.ts" />
+/// <reference path="../service/public/report.ts" />
 
 module JDB {
     'use strict';
@@ -28,6 +29,11 @@ module JDB {
         //话题列表
         topicList: Array<any>;
 
+        //话题列表类型 最新 = 1，好友=2
+        topicType: number;
+        //当前页码
+        currentPage: number;
+
     }
 
 
@@ -37,7 +43,8 @@ module JDB {
             public $scope: IHomeScope,
             public TopicService: ITopicService,
             public CommonService: ICommonService,
-            public AuthService: IAuthService
+            public AuthService: IAuthService,
+            public ReportService: IReportService
         ){
             $scope.openReleaseTopic = angular.bind(TopicService, TopicService.releaseTopicModal);
             //$scope.openSearchModal = angular.bind(CommonService, CommonService.showSearchModal);
@@ -49,11 +56,12 @@ module JDB {
 
             var self = this;
 
-            $rootScope.$on('$stateChangeSuccess', function(e,data){
-                if(data.name == 'jdb.home'){
-                    self.AuthService.verify();
-                }
-            });
+            //$rootScope.$on('$stateChangeSuccess', function(e,data){
+            //    console.log(data);
+            //    if(data.name == 'jdb.home'){
+            //        self.AuthService.verify();
+            //    }
+            //});
 
             self.AuthService.verify();
             this.refresh();
@@ -63,6 +71,10 @@ module JDB {
                 console.log('refresh home');
             });
 
+        }
+        init(){
+            this.$scope.topicType = 1;
+            this.$scope.currentPage = 1;
 
         }
 
@@ -70,7 +82,9 @@ module JDB {
         refresh(){
             var arg = {},
                 self = this;
-            this.TopicService.list({}).then(function(res){
+            this.TopicService.list({
+                labelId: this.$scope.topicType
+            }).then(function(res){
                 console.log(res);
             }, function(err){
                 //self.$rootScope.loading();
@@ -79,12 +93,24 @@ module JDB {
         }
 
         openActionSheet(id: number){
-            this.CommonService.showDropMenu(id);
+            var self = this;
+            this.ReportService.setReportObject(id);
+            this.CommonService.showDropMenu(id).then(function(index){
+                console.log(index);
+                if(index == 0){
+                    self.CommonService.showReport();
+                }
+            }.bind(this));
+        }
+
+        changeTopicType(t){
+            this.$scope.topicType = t;
+            this.refresh();
         }
 
 
     }
 
-    Home.$inject = ['$rootScope', '$scope', 'TopicService', 'CommonService', 'AuthService'];
+    Home.$inject = ['$rootScope', '$scope', 'TopicService', 'CommonService', 'AuthService', 'ReportService'];
     CtrlModule.controller('HomeCtrl', Home);
 }

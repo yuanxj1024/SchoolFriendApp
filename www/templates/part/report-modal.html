@@ -1,0 +1,29 @@
+<ion-modal-view ng-controller="ReportCtrl">
+  <ion-header-bar class="top-header-bg-color">
+    <button class="button button-clear back-button" ng-click="cancel()">
+      <i class="ion-ios-arrow-left"></i>
+      <!--取消-->
+    </button>
+    <h1 class="title">举报</h1>
+  </ion-header-bar>
+  <ion-content class="has-header main-body-bg-color choose-category-wrap report-wrap">
+    <div class="tip">请选择举报类型</div>
+    <div class="category-list list">
+      <a ng-class="{'true':'selected'}[selectedCategory == item]" class="item item-icon-left" ng-repeat="item in reportCategory track by $index" ng-click="categoryItemClicked(item)">
+        <i class="icon ion-ios-checkmark"></i>
+        <div class="info">
+          <p once-text="item"></p>
+        </div>
+      </a>
+
+    </div>
+    <div>
+      <div class="tip">其他</div>
+      <textarea ng-model="reportForm.content" class="report-content" placeholder="补充说明" rows="4"></textarea>
+    </div>
+    <div class="btn-wrap">
+      <button ng-click="save()" class="button button-positive button-block">提交</button>
+    </div>
+
+  </ion-content>
+</ion-modal-view>

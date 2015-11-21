@@ -10,9 +10,9 @@
     <div class="user-img-list list">
       <div class="item">
         <div class="middle">头像</div>
-        <div class="info">
+        <div class="info" ngf-select="upload($file)">
           <i class="ion-chevron-right right"></i>
-          <img class="user-img right" src="/img/2015.jpg" alt=""/>
+          <img class="user-img right" ngf-src="tempFile" />
         </div>
       </div>
     </div>
@@ -26,7 +26,7 @@
           姓名<span class="start"></span>
         </div>
         <div class="info">
-          <span once-text="'李灿'"></span><i class="ion-chevron-right"></i>
+          <span once-text="User.realName"></span><i class="ion-chevron-right"></i>
         </div>
       </div>
       <div class="item">
@@ -34,7 +34,7 @@
           英文名称<span class="start"></span>
         </div>
         <div class="info" ui-sref="jdb.infoedit({tag:2})">
-          lican<i class="ion-chevron-right"></i>
+          <span once-text="User.enRealName"></span><i class="ion-chevron-right"></i>
         </div>
       </div>
       <div class="item">
@@ -42,7 +42,7 @@
           性别<span class="start"></span>
         </div>
         <div class="info">
-          男<i class="ion-chevron-right"></i>
+          <span once-text="['女','男'][User.sex]"></span><i class="ion-chevron-right"></i>
         </div>
       </div>
 
@@ -51,7 +51,7 @@
           微信
         </div>
         <div class="info" ui-sref="jdb.infoedit({tag:4})">
-          lican123<i class="ion-chevron-right"></i>
+          <span once-text="User.weixin"></span><i class="ion-chevron-right"></i>
         </div>
       </div>
       <div class="item">

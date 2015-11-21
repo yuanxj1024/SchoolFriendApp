@@ -9,11 +9,13 @@ var JDB;
     //搜索页实例
     var searchModal = null, reportSheet = null, schoolSheet = null;
     var Common = (function () {
-        function Common($rootScope, $ionicModal, $ionicActionSheet, $q) {
+        function Common($rootScope, $ionicModal, $ionicActionSheet, $q, $ionicPopup, Upload) {
             this.$rootScope = $rootScope;
             this.$ionicModal = $ionicModal;
             this.$ionicActionSheet = $ionicActionSheet;
             this.$q = $q;
+            this.$ionicPopup = $ionicPopup;
+            this.Upload = Upload;
         }
         Common.prototype.showSearchModal = function () {
             if (searchModal) {
@@ -37,8 +39,10 @@ var JDB;
             });
         };
         Common.prototype.showDropMenu = function (args) {
+            var defer = this.$q.defer();
             if (reportSheet) {
-                return null;
+                defer.resolve();
+                return defer.promise;
             }
             reportSheet = {};
             reportSheet = this.$ionicActionSheet.show({
@@ -53,11 +57,12 @@ var JDB;
                 },
                 buttonClicked: function (index) {
                     //索引从零开始
-                    console.log(index);
                     reportSheet = null;
+                    defer.resolve(index);
                     return true;
                 }
             });
+            return defer.promise;
         };
         Common.prototype.showLoginModal = function () {
             this.$rootScope.createModal('/templates/mine/login.html');
@@ -90,7 +95,7 @@ var JDB;
         //打开选择图片sheet
         Common.prototype.showChooseImg = function () {
             return this.showActionSheet('chooseImg', [
-                { text: '拍照' }
+                { text: '相册' }
             ]);
         };
         //通用打开ActionSheet
@@ -122,9 +127,32 @@ var JDB;
             scope.params = args;
             return this.$rootScope.createModal('/templates/discover/user-card-modal.html', scope);
         };
+        Common.prototype.showConfirm = function (title, tpl) {
+        };
+        Common.prototype.showAlert = function (title, tpl) {
+        };
+        //上传文件
+        Common.prototype.uploadFile = function (args) {
+            var defer = this.$q.defer();
+            this.Upload.upload(angular.extend({
+                url: JDB.appHost + (args.url || '/image/upload'),
+                file: args.file
+            }, args.fields)).then(function (res) {
+                defer.resolve(res);
+            }, function (res) {
+                window.plugins.toast.showShortCenter('上传失败，请稍后重试');
+                defer.reject(res);
+            }, function (evt) {
+                args.progressFn && args.progressFn(evt);
+            });
+            return defer.promise;
+        };
+        Common.prototype.showReport = function () {
+            this.$rootScope.createModal('/templates/part/report-modal.html');
+        };
         return Common;
     })();
-    Common.$inject = ['$rootScope', '$ionicModal', '$ionicActionSheet', '$q'];
+    Common.$inject = ['$rootScope', '$ionicModal', '$ionicActionSheet', '$q', '$ionicPopup', 'Upload'];
     JDB.ServiceModule.service('CommonService', Common);
 })(JDB || (JDB = {}));
 //# sourceMappingURL=common.js.map

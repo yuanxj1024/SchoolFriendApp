@@ -2,17 +2,19 @@
  * Created by AaronYuan on 10/31/15.
  */
 /// <reference path="../../app.ts" />
+/// <reference path="../../service/common.ts" />
 var JDB;
 (function (JDB) {
     'use strict';
     //用户头像选择
     var userHeaderSheet = null;
     var Mine = (function () {
-        function Mine($rootScope, $q, $resource, $ionicActionSheet) {
+        function Mine($rootScope, $q, $resource, $ionicActionSheet, CommonService) {
             this.$rootScope = $rootScope;
             this.$q = $q;
             this.$resource = $resource;
             this.$ionicActionSheet = $ionicActionSheet;
+            this.CommonService = CommonService;
             this.mineResource = $resource(JDB.appHost + '/user/:action', {
                 action: '@action'
             }, {
@@ -21,7 +23,7 @@ var JDB;
                     isArray: false,
                     needAccessToken: true,
                     params: {
-                        action: 'save'
+                        action: 'perfinfo'
                     }
                 },
                 login: {
@@ -37,46 +39,51 @@ var JDB;
                     method: 'POST',
                     isArray: false,
                     needAccessToken: false,
-                    //needLogin: false,
                     params: {
-                        action: ''
+                        action: 'verifycode'
                     }
                 },
                 register: {
                     method: 'POST',
                     isArray: false,
                     needAccessToken: false,
-                    //needLogin: false,
                     params: {
-                        action: ''
+                        action: 'register'
+                    }
+                },
+                getInvitateCode: {
+                    method: 'POST',
+                    isArray: false,
+                    needAccessToken: true,
+                    params: {
+                        action: 'makeinvitatecode'
+                    }
+                },
+                createInvitateCode: {
+                    method: 'POST',
+                    isArray: false,
+                    needAccessToken: true,
+                    params: {
+                        action: 'makeinvitatecode'
                     }
                 }
             });
         }
         Mine.prototype.saveUserData = function (args) {
-            return this.$rootScope.requestHandler(this.mineResource.saveData, args);
+            return this.$rootScope.requestHandler(this.mineResource.saveData, args, true);
         };
         Mine.prototype.login = function (args) {
-            //var defer = this.$q.defer();
-            //this.mineResource.login(args,function(res){
-            //    console.log(res);
-            //    defer.resolve(res);
-            //}, function(err){
-            //    console.log(err);
-            //    defer.reject(err);
-            //});
-            //return defer.promise;
             return this.$rootScope.requestHandler(this.mineResource.login, args, true);
         };
         Mine.prototype.logout = function () {
             window.localStorage.clear();
             this.$rootScope.User = null;
         };
-        Mine.prototype.sendSMSCode = function () {
-            return this.$rootScope.requestHandler(this.mineResource.smsCode, null);
+        Mine.prototype.sendSMSCode = function (args) {
+            return this.$rootScope.requestHandler(this.mineResource.smsCode, args, true);
         };
         Mine.prototype.register = function (args) {
-            return this.$rootScope.requestHandler(this.mineResource.register, args);
+            return this.$rootScope.requestHandler(this.mineResource.register, args, true);
         };
         Mine.prototype.changeUserHeader = function (callback) {
             if (userHeaderSheet) {
@@ -100,9 +107,30 @@ var JDB;
             });
             return null;
         };
+        //邀请码
+        Mine.prototype.createInvitateCode = function (args) {
+            return this.$rootScope.requestHandler(this.mineResource.invitateCode, args, true);
+        };
+        //上传头像
+        Mine.prototype.uploadHeadImg = function (file, processFn) {
+            return this.CommonService.uploadFile({
+                url: '/user/perfinfo',
+                fields: {
+                    phone: this.$rootScope.User.phone
+                },
+                file: file,
+                progressFn: processFn
+            });
+        };
+        Mine.prototype.getInviteCode = function (args) {
+            return this.$rootScope.requestHandler(this.mineResource.getInvitateCode, args, true);
+        };
+        Mine.prototype.createInviteCode = function (args) {
+            return this.$rootScope.requestHandler(this.mineResource.createInvitateCode, args, true);
+        };
         return Mine;
     })();
-    Mine.$inject = ['$rootScope', '$q', '$resource', '$ionicActionSheet'];
+    Mine.$inject = ['$rootScope', '$q', '$resource', '$ionicActionSheet', 'CommonService'];
     JDB.ServiceModule.service('MineService', Mine);
 })(JDB || (JDB = {}));
 //# sourceMappingURL=mine.js.map

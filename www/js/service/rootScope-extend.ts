@@ -39,7 +39,7 @@ module JDB {
             $rootScope.loading = angular.bind(this, this.loading);
             $rootScope.back = angular.bind(this ,this.back);
             $rootScope.setAccessToken = angular.bind(this, this.setAccessToken);
-
+            $rootScope.getAccessToken = angular.bind(this, this.getAccessToken);
         }
 
         //创建模式窗口
@@ -100,8 +100,11 @@ module JDB {
                 defer.reject(err);
             }
             if(isPost){
-                requestFn({},this.param(args),successFn,errFn);
+                var para = this.param(args);
+                console.log(para);
+                requestFn({},para,successFn,errFn);
             }else {
+                console.log(args);
                 requestFn(args,successFn,errFn);
             }
             return defer.promise;
@@ -151,19 +154,24 @@ module JDB {
             }
         }
 
+        getAccessToken(){
+            this.$rootScope.accessToken = localStorage.getItem('accessToken');
+            return this.$rootScope.accessToken;
+        }
+
         //类似Jquery 的$.param
         param(obj: any): string{
             var result = [],
                 add = function(value,key){
-                    value = angular.isFunction(value)? value(): (value == null? '': value);
-                    result[result.length] = encodeURIComponent( key ) + "=" + encodeURIComponent( value );
+                    if(obj.hasOwnProperty(key)){
+                        value = angular.isFunction(value)? value(): (value == null? '': value);
+                        result[result.length] = encodeURIComponent( key ) + "=" + encodeURIComponent( value );
+                    }
                 };
             angular.forEach(obj, add);
             return result.join('&').replace(/%20/g, '+');
         }
-
     }
-
 
     RootScopeExtend.$inject = ['$rootScope', '$q', '$ionicModal', '$state', '$ionicLoading', '$ionicScrollDelegate', 'CommonService', '$stateParams'];
     ServiceModule.service('RootScopeExtendService', RootScopeExtend);

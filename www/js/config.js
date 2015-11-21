@@ -13,8 +13,10 @@ var JDB;
                 if (!config.hasOwnProperty('needAccessToken')) {
                     config.needAccessToken = false;
                 }
-                config.headers['x-access-token'] = $rootScope.accessToken;
-                config.headers['Content-Type'] = 'application/x-www-form-urlencoded;charset=utf-8';
+                config.headers['x-access-token'] = $rootScope.getAccessToken();
+                if (config.method == 'POST' && !config['file']) {
+                    config.headers['Content-Type'] = 'application/x-www-form-urlencoded;charset=utf-8';
+                }
                 if (config.needAccessToken) {
                     if (config.hasOwnProperty('needLogin') && config.needLogin) {
                         config.needLogin = true;
@@ -24,13 +26,7 @@ var JDB;
                     config.needLogin = false;
                 }
                 if (!config.hasOwnProperty('cache')) {
-                    if ($rootScope.accessToken) {
-                        config.params = angular.extend({
-                            'accessToken': $rootScope.accessToken
-                        }, config);
-                        deferred.resolve(config);
-                    }
-                    else if (config.needAccessToken && !$rootScope.accessToken) {
+                    if (config.needAccessToken && !$rootScope.accessToken) {
                         var tempConfig = angular.extend({
                             'accessToken': ''
                         }, config, {
@@ -40,7 +36,7 @@ var JDB;
                             tag: 1001,
                             needLogin: config.needLogin
                         });
-                        deferred.reject(config);
+                        deferred.reject(tempConfig);
                     }
                     else {
                         deferred.resolve(config);
@@ -54,7 +50,6 @@ var JDB;
             response: function (response) {
                 var accessToken = response.headers('x-access-token');
                 if (accessToken && accessToken != $rootScope.accessToken) {
-                    console.log(accessToken);
                     $rootScope.setAccessToken(accessToken);
                 }
                 return response;
@@ -62,7 +57,6 @@ var JDB;
             responseError: function (rejection) {
                 switch (rejection.tag) {
                     case 1001:
-                        console.log(rejection);
                         $rootScope.$emit('event:need-login');
                         break;
                 }

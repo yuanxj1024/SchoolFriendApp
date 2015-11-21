@@ -1,0 +1,29 @@
+@charset "utf-8";
+//基于话题分类
+
+.report-wrap{
+  .list{
+    .item{
+      padding-top: 10px;
+      padding-bottom: 10px;
+    }
+  }
+
+  .tip{
+    padding: 5px 10px;
+    color: $main-font-color2;
+  }
+  .report-content{
+    margin: 5px 10px;
+    border: 1px solid $main-font-color3;
+    width: 94%;
+    -webkit-border-radius: 5px;
+    -moz-border-radius: 5px;
+    border-radius: 5px;
+  }
+  .btn-wrap{
+    padding: 0 10px;
+    width: 100%;
+    margin: 0 auto;
+  }
+}

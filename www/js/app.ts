@@ -15,30 +15,31 @@ module JDB {
     'use strict';
 
     //后台数据地址
-    export var appHost: string = 'http://192.168.253.1:8080/jdb/mobile';
+    export var appHost: string = 'http://172.17.7.1:8080/jdb/mobile';
     //版本号
     export var AppVersion: string = '0.2.1';
     //类型模块
     export var TypeModule: ng.IModule = angular.module('JDB.types', ['ionic']);
     //控制器模块
-    export var CtrlModule: ng.IModule = angular.module('JDB.controllers', ['ionic','once']);
+    export var CtrlModule: ng.IModule = angular.module('JDB.controllers', ['ionic','once', 'ngFileUpload']);
     //服务模块
-    export var ServiceModule: ng.IModule = angular.module('JDB.services', ['ngResource']);
+    export var ServiceModule: ng.IModule = angular.module('JDB.services', ['ngResource', 'ngFileUpload']);
     //自定义指令模块
     export var DirectiveModule: ng.IModule = angular.module('JDB.directives', ['ionic','once']);
     //预加载模块
     export var RecolveModule: any = {};
 
     //应用程序对象
-    export var AppModule: ng.IModule = angular.module('JDB', ['ionic','once', 'JDB.types', 'JDB.controllers', 'JDB.services']);
+    export var AppModule: ng.IModule = angular.module('JDB', ['ionic','once', 'JDB.types', 'JDB.controllers', 'JDB.services', 'ngFileUpload']);
 
     //根作用域
     export interface IJDBRootScopeService extends ng.IRootScopeService {
         //授权校验码
         accessToken: string;
         setAccessToken: Function;
+        getAccessToken: Function;
         //当前用户
-        User: IUser;
+        User: any;
         //通用请求处理函数
         requestHandler:Function;
 
@@ -80,6 +81,7 @@ module JDB {
         $rootScope.$on('$stateChangeStart', function(e,toState,toParams,fromState,fromParams){
             toState.fromState = fromState.name;
             toState.fromParams = JSON.stringify(fromParams);
+            AuthService.verify();
         });
 
         $rootScope.$on('event:need-login', function(){

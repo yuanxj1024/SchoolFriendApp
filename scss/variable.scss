@@ -78,6 +78,10 @@ $main-font-color4:#f8f8f8;
   background-color:$main-font-color3!important;
 }
 
+.button.button-positive{
+  border-color:  $main-header-bg-color;
+  background-color: $main-header-bg-color;
+}
 .button-blue{
   background-color: $main-header-bg-color;
   color: #fff!important;

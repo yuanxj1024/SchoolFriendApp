@@ -3,6 +3,7 @@
  */
 
 /// <reference path="../../app.ts" />
+/// <reference path="../../service/common.ts" />
 
 module JDB {
     'use strict';
@@ -25,7 +26,14 @@ module JDB {
         register(args:any): ng.IPromise<any>;
         //修改头像
         changeUserHeader(callback:any):ng.IPromise<any>;
-
+        //生成新的邀请码
+        createInvitateCode(args:any):ng.IPromise<any>;
+        //上传头像
+        uploadHeadImg(file,processFn): ng.IPromise<any>;
+        //获取邀请码
+        getInviteCode(args: any): ng.IPromise<any>;
+        //生成新的邀请码
+        createInviteCode(args: any): ng.IPromise<any>;
     }
 
     interface IMineResource  extends ng.resource.IResourceClass<ng.resource.IResource<any>> {
@@ -37,6 +45,9 @@ module JDB {
         smsCode(params:Object, data:Object,success?:Function,error?:Function);
         //注册
         register(params:Object, data:Object,success?:Function,error?:Function);
+        //邀请码
+        getInvitateCode(params:Object, data:Object,success?:Function,error?:Function);
+        createInvitateCode(params:Object, data:Object,success?:Function,error?:Function);
 
     }
 
@@ -46,7 +57,8 @@ module JDB {
             public $rootScope: IJDBRootScopeService,
             public $q: ng.IQService,
             public $resource: ng.resource.IResourceService,
-            public $ionicActionSheet: Ionic.IActionSheet
+            public $ionicActionSheet: Ionic.IActionSheet,
+            public CommonService: ICommonService
         ){
             this.mineResource = <IMineResource> $resource(appHost + '/user/:action', {
                 action: '@action'
@@ -56,7 +68,7 @@ module JDB {
                     isArray: false,
                     needAccessToken: true,
                     params:{
-                        action: 'save'
+                        action: 'perfinfo'
                     }
                 },
                 login: {
@@ -72,51 +84,58 @@ module JDB {
                     method: 'POST',
                     isArray: false,
                     needAccessToken: false,
-                    //needLogin: false,
                     params:{
-                        action: ''
+                        action: 'verifycode'
                     }
                 },
                 register: {
                     method: 'POST',
                     isArray: false,
                     needAccessToken: false,
-                    //needLogin: false,
                     params:{
-                        action: ''
+                        action: 'register'
                     }
+                },
+                getInvitateCode:{
+                    method: 'POST',
+                    isArray: false,
+                    needAccessToken: true,
+                    params:{
+                        action: 'makeinvitatecode'
+                    }
+                },
+                createInvitateCode:{
+                    method: 'POST',
+                    isArray: false,
+                    needAccessToken: true,
+                    params:{
+                        action: 'makeinvitatecode'
+                    }
+
                 }
             });
         }
 
         saveUserData(args:any): ng.IPromise<any> {
-            return this.$rootScope.requestHandler(this.mineResource.saveData, args);
+            return this.$rootScope.requestHandler(this.mineResource.saveData, args, true);
         }
 
         login(args: any): ng.IPromise<any> {
-            //var defer = this.$q.defer();
-            //this.mineResource.login(args,function(res){
-            //    console.log(res);
-            //    defer.resolve(res);
-            //}, function(err){
-            //    console.log(err);
-            //    defer.reject(err);
-            //});
-            //return defer.promise;
             return this.$rootScope.requestHandler(this.mineResource.login, args, true);
         }
 
         logout(){
+
             window.localStorage.clear();
             this.$rootScope.User = null;
         }
 
-        sendSMSCode(): ng.IPromise<any> {
-            return this.$rootScope.requestHandler(this.mineResource.smsCode,null);
+        sendSMSCode(args:any): ng.IPromise<any> {
+            return this.$rootScope.requestHandler(this.mineResource.smsCode,args,true);
         }
 
         register(args){
-            return this.$rootScope.requestHandler(this.mineResource.register, args);
+            return this.$rootScope.requestHandler(this.mineResource.register, args,true);
         }
 
         changeUserHeader(callback): ng.IPromise<any> {
@@ -143,10 +162,36 @@ module JDB {
 
             return null;
         }
+        //邀请码
+        createInvitateCode(args:any):ng.IPromise<any>{
+
+            return this.$rootScope.requestHandler(this.mineResource.invitateCode,args, true);
+
+        }
+
+        //上传头像
+        uploadHeadImg(file,processFn): ng.IPromise<any>{
+            return this.CommonService.uploadFile({
+                url: '/user/perfinfo',
+                fields:{
+                    phone: this.$rootScope.User.phone
+                },
+                file: file,
+                progressFn:processFn
+            });
+        }
+
+        getInviteCode(args: any): ng.IPromise<any>{
+            return this.$rootScope.requestHandler(this.mineResource.getInvitateCode, args, true);
+        }
+        createInviteCode(args: any): ng.IPromise<any>{
+            return this.$rootScope.requestHandler(this.mineResource.createInvitateCode, args, true);
+        }
+
 
 
     }
 
-    Mine.$inject = ['$rootScope', '$q', '$resource', '$ionicActionSheet'];
+    Mine.$inject = ['$rootScope', '$q', '$resource', '$ionicActionSheet', 'CommonService'];
     ServiceModule.service('MineService', Mine);
 }

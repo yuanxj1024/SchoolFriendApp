@@ -1,4 +1,4 @@
-<ion-modal-view>
+<ion-modal-view ng-controller="ReleaseTopicCtrl">
   <ion-header-bar class=" top-header-bg-color2">
     <button class="button button-clear back-button" ng-click="cancel()">
       取消
@@ -7,43 +7,11 @@
   </ion-header-bar>
   <ion-content class="has-header choose-category-wrap">
     <div class="category-list list">
-      <a class="item selected item-icon-left">
+      <a ng-class="{'true':'selected'}[currentCategory().id == item.id]" class="item  item-icon-left" ng-repeat="item in categoryList track by $index" ng-click="categoryItemClicked(item)">
         <i class="icon ion-ios-checkmark"></i>
         <div class="info">
-          <h3>商机</h3>
-          <p>说明</p>
-        </div>
-      </a>
-      <!-- -->
-      <a class="item item-icon-left">
-        <i class="icon ion-ios-circle-outline"></i>
-        <div class="info">
-          <h3>招聘</h3>
-          <p>说明</p>
-        </div>
-      </a>
-      <!-- -->
-      <a class="item item-icon-left">
-        <i class="icon ion-ios-circle-outline"></i>
-        <div class="info">
-          <h3>校企</h3>
-          <p>说明</p>
-        </div>
-      </a>
-      <!-- -->
-      <a class="item item-icon-left">
-        <i class="icon ion-ios-circle-outline"></i>
-        <div class="info">
-          <h3>杂谈</h3>
-          <p>说明</p>
-        </div>
-      </a>
-      <!-- -->
-      <a class="item item-icon-left">
-        <i class="icon ion-ios-circle-outline"></i>
-        <div class="info">
-          <h3>咨询</h3>
-          <p>说明</p>
+          <h3 once-text="item.typeName"></h3>
+          <p once-text="item.typeDesc">说明</p>
         </div>
       </a>
       <!-- -->

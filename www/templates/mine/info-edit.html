@@ -1,75 +1,75 @@
-<ion-view ng-controller="MineCtrl">
+<ion-view ng-controller="UserInfoCtrl">
   <ion-header-bar class="top-header-bg-color">
     <button class="button button-clear" ui-sref="jdb.info">
-      <i class="icon ion-ios-arrow-left"></i>
+      <i class="ion-ios-arrow-left"></i>
       取消
     </button>
     <h1 class="title" once-text="tagName"></h1>
   </ion-header-bar>
   <ion-content class="info-edit-wrap main-body-bg-color" scrollbar-y='false' scroll="false">
-    <form name="frmEdit" id="frmEdit" novalidate>
+    <form name="frmEdit" id="frmEdit" novalidate ng-submit="saveInfo(frmEdit.$valid)">
       <div class="edit-item-wrap" ng-switch="editTag">
         <div class="list margintop22" ng-switch-when="2">
           <label class="item item-input">
-            <input type="text" placeholder="请输入英文名">
+            <input type="text" placeholder="请输入英文名" ng-model="userForm.enRealName">
           </label>
         </div>
         <!-- -->
         <div class="list margintop22" ng-switch-when="4">
           <label class="item item-input">
-            <input type="text" placeholder="请输入微信">
+            <input type="text" placeholder="请输入微信" ng-model="userForm.weixin">
           </label>
         </div>
         <!-- -->
         <div class="list margintop22" ng-switch-when="5">
           <label class="item item-input">
-            <input type="text" placeholder="请输入邮箱">
+            <input type="text" placeholder="请输入邮箱" ng-model="userForm.email">
           </label>
         </div>
         <!-- -->
         <div class="list margintop22" ng-switch-when="7">
           <label class="item item-input">
-            <input type="text" placeholder="请输入院系">
+            <input type="text" placeholder="请输入院系" ng-model="userForm.department">
           </label>
         </div>
         <!-- -->
         <div class="list margintop22" ng-switch-when="8">
           <label class="item item-input">
-            <input type="text" placeholder="请输入年级">
+            <input type="text" placeholder="请输入年级" ng-model="userForm.grade">
           </label>
         </div>
         <!-- -->
         <div class="list margintop22" ng-switch-when="9">
           <label class="item item-input">
-            <input type="text" placeholder="请输入公司">
+            <input type="text" placeholder="请输入公司" ng-model="userForm.company">
           </label>
         </div>
         <!-- -->
         <div class="list margintop22" ng-switch-when="10">
           <label class="item item-input">
-            <input type="text" placeholder="请输入职位">
+            <input type="text" placeholder="请输入职位" ng-model="userForm.title">
           </label>
         </div>
         <!-- -->
         <div class="list margintop22" ng-switch-when="11">
           <label class="item item-input">
-            <textarea cols="30" rows="5" placeholder="请输入备注"></textarea>
+            <textarea cols="30" rows="5" placeholder="请输入备注" ng-model="userForm.remark"></textarea>
           </label>
         </div>
         <!-- -->
         <div class="list margintop22 school-list" ng-switch-when="6">
-          <a class="item">西南交大</a>
-          <a class="item active">上海交大</a>
-          <a class="item">北京交大</a>
-          <a class="item">西安大</a>
-          <a class="item">台湾交大</a>
+          <a class="item" ng-click="selectSchool(item)" ng-class="{'true':'active'}[userForm.school == item]" ng-repeat="item in schoolList" once-text="item"></a>
+          <!--<a class="item active">上海交大</a>-->
+          <!--<a class="item">北京交大</a>-->
+          <!--<a class="item">西安大</a>-->
+          <!--<a class="item">台湾交大</a>-->
         </div>
 
 
 
       </div>
       <div class="btn-wrap txt-center" ng-hide="editTag == 6">
-        <button class="button button-blue">保存</button>
+        <button class="button button-positive">保存</button>
       </div>
     </form>
   </ion-content>
