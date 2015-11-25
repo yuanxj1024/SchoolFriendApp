@@ -56,7 +56,7 @@ var JDB;
                     isArray: false,
                     needAccessToken: true,
                     params: {
-                        action: 'makeinvitatecode'
+                        action: 'invitatecode'
                     }
                 },
                 createInvitateCode: {
@@ -64,7 +64,7 @@ var JDB;
                     isArray: false,
                     needAccessToken: true,
                     params: {
-                        action: 'makeinvitatecode'
+                        action: 'invitatecode'
                     }
                 }
             });
@@ -109,15 +109,15 @@ var JDB;
         };
         //邀请码
         Mine.prototype.createInvitateCode = function (args) {
-            return this.$rootScope.requestHandler(this.mineResource.invitateCode, args, true);
+            return this.$rootScope.requestHandler(this.mineResource.createInvitateCode, args, true);
         };
         //上传头像
         Mine.prototype.uploadHeadImg = function (file, processFn) {
             return this.CommonService.uploadFile({
                 url: '/user/perfinfo',
-                fields: {
-                    phone: this.$rootScope.User.phone
-                },
+                //fields:{
+                phone: this.$rootScope.User.phone,
+                //},
                 file: file,
                 progressFn: processFn
             });

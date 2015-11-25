@@ -102,15 +102,27 @@
         padding: 10px;
         .user-img{
           @include flex(0,0,auto);
+          img{
+            width: 54px;
+            height: 54px;
+            -webkit-border-radius: 5px;
+            -moz-border-radius: 5px;
+            border-radius: 5px;
+          }
         }
         .topic-info-wrap{
           @include flex(0,1,auto);
           margin-left: 10px;
+          width: 100%;
           .name-block{
             position: relative;
             .name{
               font-size: 14px;
               margin-right: 5px;
+              max-width: 50px;
+              display: inline-block;
+              overflow: hidden;
+              height: 16px;
             }
             .send-time-wrap {
               position: absolute;
@@ -133,14 +145,16 @@
             max-height: 96px;
             position: relative;
             line-height: 16px;
-            &:after{
-              display: inline-block;
-              position: absolute;
-              content: '...';
-              right: 0;
-              bottom: 0;
-              background-color: #fff;
-              width: 16px;
+            &.more{
+              &:after{
+                display: inline-block;
+                position: absolute;
+                content: '...';
+                right: 0;
+                bottom: 0;
+                background-color: #fff;
+                width: 16px;
+              }
             }
           }
           .topic-tag{

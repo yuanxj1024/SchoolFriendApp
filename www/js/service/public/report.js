@@ -40,8 +40,8 @@ var JDB;
                 window.plugins.toast.showShortCenter('提交数据失败，请稍后重试');
             });
         };
-        Report.prototype.setReportObject = function (userID) {
-            currentReportUser = userID;
+        Report.prototype.setReportObject = function (arg) {
+            currentReportUser = arg;
         };
         Report.prototype.getReportObject = function () {
             return currentReportUser;

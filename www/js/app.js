@@ -13,7 +13,9 @@ var JDB;
 (function (JDB) {
     'use strict';
     //后台数据地址
-    JDB.appHost = 'http://172.17.7.1:8080/jdb/mobile';
+    JDB.appHost = 'http://172.17.70.1:8080/jdb/mobile';
+    //静态资源域
+    JDB.staticHost = JDB.appHost + '/image/showimage?picpath=';
     //版本号
     JDB.AppVersion = '0.2.1';
     //类型模块
@@ -25,11 +27,13 @@ var JDB;
     //自定义指令模块
     JDB.DirectiveModule = angular.module('JDB.directives', ['ionic', 'once']);
     //预加载模块
-    JDB.RecolveModule = {};
+    JDB.ResolvesModule = {};
     //应用程序对象
     JDB.AppModule = angular.module('JDB', ['ionic', 'once', 'JDB.types', 'JDB.controllers', 'JDB.services', 'ngFileUpload']);
     //程序启动入口
     var AppStart = function ($rootScope, $q, $state, RootScopeExtendService, AuthService) {
+        $rootScope.staticHost = JDB.staticHost;
+        AuthService.verify();
         /*业务处理*/
         /*事件定义*/
         $rootScope.$on('$stateChangeStart', function (e, toState, toParams, fromState, fromParams) {

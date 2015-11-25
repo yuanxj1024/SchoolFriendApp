@@ -14,11 +14,11 @@
     <div class="list">
       <div class="item user-head">
         <div class="user-img">
-          <img src="/img/2015.jpg" alt=""/>
+          <img ng-src="{{ staticHost + User.headPicPath }}" src="/img/2015.jpg" alt=""/>
         </div>
         <div class="user-info">
           <p><span once-text="User.realName|| User.username"></span> <i class="user-gender-famale"></i></p>
-          <p once-text="User.title"></p>
+          <p> <span once-text="User.company"></span> <span once-text="User.title"></span></p>
         </div>
         <div class="btn" ui-sref="jdb.info">
           <i class="ion-chevron-right right"></i>

@@ -27,7 +27,8 @@ module JDB {
             public $ionicLoading: Ionic.ILoading,
             public $ionicScrollDelegate: Ionic.IScrollDelegate,
             public CommonService: ICommonService,
-            public $stateParams: ng.ui.IStateParamsService
+            public $stateParams: ng.ui.IStateParamsService,
+            public $injector: ng.auto.IInjectorService
         ){
             $rootScope.createModal = angular.bind(this, this.createmodal);
             $rootScope.requestHandler = angular.bind(this, this.requestHandler);
@@ -40,6 +41,7 @@ module JDB {
             $rootScope.back = angular.bind(this ,this.back);
             $rootScope.setAccessToken = angular.bind(this, this.setAccessToken);
             $rootScope.getAccessToken = angular.bind(this, this.getAccessToken);
+            $rootScope.runResolve = angular.bind(this, this.runResolve);
         }
 
         //创建模式窗口
@@ -101,10 +103,8 @@ module JDB {
             }
             if(isPost){
                 var para = this.param(args);
-                console.log(para);
                 requestFn({},para,successFn,errFn);
             }else {
-                console.log(args);
                 requestFn(args,successFn,errFn);
             }
             return defer.promise;
@@ -171,9 +171,20 @@ module JDB {
             angular.forEach(obj, add);
             return result.join('&').replace(/%20/g, '+');
         }
+        //运行依赖
+        runResolve(ctrlName:string){
+            if(!JDB.ResolvesModule.hasOwnProperty(ctrlName)){
+                return ;
+            }
+            var promise:any = {}, self = this;
+            angular.forEach(ResolvesModule[ctrlName], function(res,key){
+                promise[ctrlName] = self.$injector.invoke(res);
+            });
+            return self.$q.all(promise);
+        }
     }
 
-    RootScopeExtend.$inject = ['$rootScope', '$q', '$ionicModal', '$state', '$ionicLoading', '$ionicScrollDelegate', 'CommonService', '$stateParams'];
+    RootScopeExtend.$inject = ['$rootScope', '$q', '$ionicModal', '$state', '$ionicLoading', '$ionicScrollDelegate', 'CommonService', '$stateParams', '$injector'];
     ServiceModule.service('RootScopeExtendService', RootScopeExtend);
 }
 

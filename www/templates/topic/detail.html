@@ -1,0 +1,129 @@
+<ion-view class="activity-detail-wrap" >
+  <!--<ion-header-bar class="top-header-bg-color">-->
+    <!--<button class="button button-clear" ui-sref="jdb.home">-->
+      <!--<i class="ion-ios-arrow-left"></i>-->
+      <!--返回-->
+    <!--</button>-->
+    <!--<h1 class="title">话题详情</h1>-->
+    <!--<button class="button button-clear" ng-click="showMoreSheet()">-->
+      <!--<i class="icon ion-more"></i>-->
+    <!--</button>-->
+  <!--</ion-header-bar>-->
+  <ion-nav-bar class="top-header-bg-color">
+    <ion-nav-back-button class="button-icon">
+      <i class="ion-ios-arrow-left"></i>
+    </ion-nav-back-button>
+    <ion-nav-buttons side="right">
+      <!--<button class="button button-clear" ng-click="showMoreSheet()">-->
+      <!--<i class="icon ion-more"></i>-->
+      <!--</button>-->
+    </ion-nav-buttons>
+  </ion-nav-bar>
+  <ion-nav-title>话题详情</ion-nav-title>
+  <ion-content class="main-body-bg-color has-footer has-header detail-content topic-detail" scrollbar-y='false'>
+
+    <div class="detail-content-wrap">
+      <div class="top">
+        <img  ng-src="{{staticHost +item.createUser.alumnus.headPicPath }}" src="/img/topic-user-img.png" alt="" class="head-img"/>
+        <div class="info">
+          <div class="top">
+            <span class="name" once-text="model.topic.createUser.alumnus.realName"></span><i class="split">|</i>
+            <span class="light-color" once-text="model.topic.createUser.alumnus.grade"></span>
+            <span class="light-color" once-text="model.topic.createUser.alumnus.school"></span>
+          </div>
+          <div class="bottom">
+            <span class="light-color" once-text="model.topic.createUser.alumnus.company"></span>
+            <span class="light-color" once-text="model.topic.createUser.alumnus.title"></span>
+          </div>
+          <div class="time right light-color" once-text="model.topic.timePast"></div>
+        </div>
+      </div>
+      <div class="content" once-text="model.topic.content">
+      </div>
+      <div class="imgs">
+        <img ng-repeat="img in model.topic.picPath.split(',')" ng-src="{{staticHost + img}}"/>
+      </div>
+      <div class="tags">
+        <a href="" class="tag" once-text="model.topic.topicType.typeName"></a>
+      </div>
+
+    </div>
+
+    <div class="home-wrap detail-comment-wrap">
+      <div class="topic-wrap">
+        <div class="header border-bottom">
+          <span>{{model.comments.length || 0}}</span>人评论
+          <!--<i></i>-->
+          <!--<span>张三</span>-->
+          <!--<a class="active" href="">热门</a><a href="">最新</a><a href="">好友</a>-->
+          <i class="ion-chevron-down right"></i>
+        </div>
+        <div class="sub-item" ng-repeat="item in model.comments track by item.id">
+          <div class="topic-user">
+            <div class="user-img"><img class="img" ng-src="{{ staticHost + ''}}" src="/img/topic-user-img.png" alt=""/></div>
+            <div class="topic-info-wrap">
+              <div class="name-block">
+                <span class="name" once-text="item.commentUser.alumnus.realName"></span>
+                <div class="send-time-wrap">
+                  <div class="send-time" ng-click="showReplayModal(item.id)"><i class="ion-chatbubble-working" ng-click="openActionSheet(1)"></i>&nbsp;回复(<span once-text="item.childCmtCount"></span>)</div>
+                </div>
+              </div>
+              <div class="job light-color">
+                <span>昨天14:23</span>
+              </div>
+              <div class="content" >
+                <pre once-text="item.content"></pre>
+              </div>
+              <div class="re-comment border-bottom" ng-if="item.parentTopicCmt.commentUser!=null">
+                <span once-text="item.commentUser.alumnus.realName" class="name"></span>
+                回复
+                <span class="name" once-text="item.parentTopicCmt.commentUser.alumnus.realName"></span>
+                <span once-text="item.parentTopicCmt.content"></span>
+              </div>
+            </div>
+          </div>
+        </div>
+        <!-- -->
+        <!--<div class="sub-item">-->
+          <!--<div class="topic-user">-->
+            <!--<div class="user-img"><img class="img" src="/img/topic-user-img.png" alt=""/></div>-->
+            <!--<div class="topic-info-wrap">-->
+              <!--<div class="name-block">-->
+                <!--<span class="name">王鑫</span>-->
+                <!--<div class="send-time-wrap">-->
+                  <!--<div class="send-time"><i class="ion-chatbubble-working" ng-click="openActionSheet(1)"></i>&nbsp;回复(1)</div>-->
+                <!--</div>-->
+              <!--</div>-->
+              <!--<div class="job light-color">-->
+                <!--<span>昨天14:23</span>-->
+              <!--</div>-->
+              <!--<div class="content">-->
+                <!--马云的面子工程吧。多试试，反正暂时对-->
+                <!--支付宝其他的功能也不报游戏王，起点低-->
+                <!--一成了也许有一天有人就笑了我了其他的-->
+                <!--功能也不报游戏王，起起点低一成了也许有起点低一成-->
+                <!--了也许有起点低一成了也许有点低一成了也许有-->
+                <!--支付宝其他的功能也不报游戏王，起点低-->
+                <!--一天有人其他的功能也不报游戏王也许..-->
+              <!--</div>-->
+              <!--<div class="re-comment border-bottom">-->
+                <!--<span class="name">张三</span>回复<span class="name">王鑫</span>你你看着办班你看着办班你看着办班你看着办班看着办班-->
+              <!--</div>-->
+            <!--</div>-->
+          <!--</div>-->
+        <!--</div>-->
+
+      </div>
+    </div>
+  </ion-content>
+  <!--<div class="detail-footer topic-detail-footer">-->
+    <!--<span class="btn-detail comment border-top" ui-sref="jdb.activity-member"><i class="ion-android-textsms"></i>2342</span>-->
+    <!--<span class="btn-detail btn-detail-join">立即报名</span>-->
+    <!--<span class="btn-detail btn-detail-join">立即报名</span>-->
+  <!--</div>-->
+  <div class=" topic-detail-footer">
+    <a href=""><i class="icon-op share"></i>{{model.topic.sv}}</a>
+    <a href="#" ng-click="showReplayModal()"><i class="icon-op comments"></i>{{model.topic.pv}}</a>
+    <a href="#" ng-class="{'true': 'active'}[model.topic.isLiked]" ng-click="likeTopic(item)"><i class="icon-op perfect"></i>{{model.topic.lv}}</a>
+  </div>
+</ion-view>

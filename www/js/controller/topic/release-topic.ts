@@ -51,8 +51,6 @@ module JDB {
             $scope.categoryItemClicked = angular.bind(this, this.categoryItemClicked);
             $scope.save = angular.bind(this, this.save);
 
-            console.log($scope.currentCategory());
-
             this.init();
 
         }
@@ -90,14 +88,17 @@ module JDB {
             if(!this.validate()){
                 return ;
             }
+            var self = this;
             this.$scope.topicForm['topicType.id'] = this.$scope.currentCategory().id;
+
             this.$scope.topicForm.picPath = this.$scope.topicForm.picPath.join(',');
 
             this.TopicService.createTopic(this.$scope.topicForm).then(function(res){
-                //console.log(res);
                 if(res.code == 0){
                     window.plugins.toast.showShortCenter('发布成功!');
                     this.$scope.cancel();
+                    self.$rootScope.$emit('event:refresh-home');
+
                 }else{
                     window.plugins.toast.showShortCenter(res.error || '数据保存失败，请稍后重试');
                 }
@@ -113,7 +114,7 @@ module JDB {
 
         chooseImage(){
             this.CommonService.showChooseImg().then(function(index){
-                console.log('choose image:' + index);
+                //console.log('choose image:' + index);
             });
         }
 
@@ -137,7 +138,6 @@ module JDB {
         }
 
         removeImg(item){
-            console.log(item);
             var list = [];
             angular.forEach(this.$scope.uploadImgs,function(i){
                 if(item.name != i.name){

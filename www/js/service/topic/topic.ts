@@ -8,6 +8,7 @@
 module JDB {
     'use strict';
 
+    declare var window;
     //数据缓存
     var dataCache:any = {};
 
@@ -20,15 +21,37 @@ module JDB {
         createTopic(args: any): ng.IPromise<any>;
         //获取话题分类
         topicCategory(args: any): ng.IPromise<any>;
-
         //设置发布时选中的话题分类
         selectedCategory(args:any):any;
+        //点赞
+        likeTopic(args: any): ng.IPromise<any>;
+        //详细页
+        detail(args: any): ng.IPromise<any>;
+        //
+        replyModal(args:any): void;
+        //回复
+        reply(args: any): ng.IPromise<any>;
+
+        //屏蔽用户
+        ignoreUser(args: any): void;
+
+    }
+
+    //话题类型
+    export enum TopicType {
+        Hot = 1,
+        Newest = 2,
+        Friends = 3
     }
 
     interface ITopicResource  extends ng.resource.IResourceClass<ng.resource.IResource<any>> {
         list(params:Object, data:Object,success?:Function,error?:Function);
         createTopic(params:Object, data:Object,success?:Function,error?:Function);
         topicCategory(params:Object, data:Object,success?:Function,error?:Function);
+        likeTopic(params:Object, data:Object,success?:Function,error?:Function);
+        detail(params:Object, data:Object,success?:Function,error?:Function);
+        reply(params:Object, data:Object,success?:Function,error?:Function);
+        ignoreUser(params:Object, data:Object,success?:Function,error?:Function);
     }
 
     class Topic implements ITopicService {
@@ -48,7 +71,7 @@ module JDB {
                     needAccessToken: true,
                     isArray: false,
                     params:{
-                        action: 'queryTopic'
+                        action: 'query'
                     }
                 },
                 createTopic: {
@@ -66,6 +89,38 @@ module JDB {
                     params: {
                         action: 'querytopictype'
                     }
+                },
+                likeTopic: {
+                    method: 'POST',
+                    needAccessToken: true,
+                    isArray: false,
+                    params: {
+                        action: 'lv'
+                    }
+                },
+                detail: {
+                    method: 'GET',
+                    needAccessToken: true,
+                    isArray: false,
+                    params: {
+                        action: 'view'
+                    }
+                },
+                reply: {
+                    method: 'POST',
+                    needAccessToken: true,
+                    isArray: false,
+                    params: {
+                        action: 'createtopiccmt'
+                    }
+                },
+                ignoreUser: {
+                    method: 'POST',
+                    needAccessToken: true,
+                    isArray: false,
+                    params: {
+                        action: 'shield'
+                    }
                 }
             });
 
@@ -73,9 +128,10 @@ module JDB {
         //话题列表
         list(arg: any):ng.IPromise<any> {
             arg = angular.extend({
+                //phone: this.$rootScope.User.phone,
                 pageSize: 5,
                 curPage: 1,
-                labelId: 1
+                labelId: TopicType.Newest
             }, arg);
             return this.$rootScope.requestHandler(this.topicResource.list, arg);
         }
@@ -109,6 +165,54 @@ module JDB {
                 dataCache.selectedCategory = item;
             }
             return dataCache.selectedCategory || {id: 0, name: '商机'};
+        }
+
+        likeTopic(args:any): ng.IPromise<any> {
+            if(args.isLiked){
+                return null;
+            }
+            args.isLiked = true;
+            return this.$rootScope.requestHandler(this.topicResource.likeTopic, {
+                phone: this.$rootScope.User.phone,
+                id: args.id
+            }, true).then(function(res){
+                if(res && res.code == 0){
+                    args.isLiked = true;
+                    args.lv += 1;
+                }else{
+                    args.isLiked = false;
+                }
+            });
+        }
+
+        detail(args: any): ng.IPromise<any> {
+            args = angular.extend({
+                phone: this.$rootScope.User.phone
+            }, args);
+            return this.$rootScope.requestHandler(this.topicResource.detail,args);
+        }
+
+        replyModal(args:any): void{
+            var scope:any = this.$rootScope.$new();
+            scope.params = args;
+            this.$rootScope.createModal('/templates/topic/reply-modal.html', scope);
+
+        }
+
+        reply(args: any): ng.IPromise<any>{
+            return this.$rootScope.requestHandler(this.topicResource.reply, args, true);
+        }
+
+        ignoreUser(args: any): void{
+            this.$rootScope.requestHandler(this.topicResource.ignoreUser, args, true).then(function(result){
+                if(result && result.code == 0){
+                    window.plugins.toast.showShortCenter('操作成功');
+                }else{
+                    window.plugins.toast.showShortCenter('操作失败');
+                }
+            }, function(err){
+                window.plugins.toast.showShortCenter('操作失败');
+            });
         }
 
     }

@@ -83,7 +83,6 @@ module JDB {
                 }
                 return deferred.promise;
             },
-
             response: function(response: IJDBHttpPromiseCallbackArg<any>): IJDBHttpPromiseCallbackArg<any> {
                 var accessToken = response.headers('x-access-token');
                 if(accessToken && accessToken!= $rootScope.accessToken){

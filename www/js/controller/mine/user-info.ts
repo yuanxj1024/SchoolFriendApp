@@ -114,7 +114,7 @@ module JDB {
                 if(result && result.code == 0){
                     window.plugins.toast.showShortCenter('信息保存成功!');
                     self.AuthService.setUser(self.$scope.userForm);
-                    self.$state.go('jdb.home');
+                    self.$state.go('jdb.info');
                 }else {
                     window.plugins.toast.showShortCenter('数据保存失败,稍后重试');
                 }

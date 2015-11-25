@@ -15,7 +15,9 @@ module JDB {
     'use strict';
 
     //后台数据地址
-    export var appHost: string = 'http://172.17.7.1:8080/jdb/mobile';
+    export var appHost: string = 'http://172.17.70.1:8080/jdb/mobile';
+    //静态资源域
+    export var staticHost: string  = appHost + '/image/showimage?picpath=';
     //版本号
     export var AppVersion: string = '0.2.1';
     //类型模块
@@ -27,7 +29,7 @@ module JDB {
     //自定义指令模块
     export var DirectiveModule: ng.IModule = angular.module('JDB.directives', ['ionic','once']);
     //预加载模块
-    export var RecolveModule: any = {};
+    export var ResolvesModule: any = {};
 
     //应用程序对象
     export var AppModule: ng.IModule = angular.module('JDB', ['ionic','once', 'JDB.types', 'JDB.controllers', 'JDB.services', 'ngFileUpload']);
@@ -61,8 +63,10 @@ module JDB {
         back: Function;
         //单次事件绑定
         $once: Function;
-        ///类似Jquery的$.param
-
+        //运行依赖
+        runResolve: Function;
+        //图片静态地址
+        staticHost: string;
     }
 
     //程序启动入口
@@ -73,6 +77,8 @@ module JDB {
         RootScopeExtendService: IRootScopeExtend,
         AuthService: IAuthService
     ){
+        $rootScope.staticHost = staticHost;
+        AuthService.verify();
 
         /*业务处理*/
 

@@ -9,6 +9,13 @@ var JDB;
     'use strict';
     //数据缓存
     var dataCache = {};
+    //话题类型
+    (function (TopicType) {
+        TopicType[TopicType["Hot"] = 1] = "Hot";
+        TopicType[TopicType["Newest"] = 2] = "Newest";
+        TopicType[TopicType["Friends"] = 3] = "Friends";
+    })(JDB.TopicType || (JDB.TopicType = {}));
+    var TopicType = JDB.TopicType;
     var Topic = (function () {
         function Topic($rootScope, $q, $resource, $ionicModal, CommonService) {
             this.$rootScope = $rootScope;
@@ -24,7 +31,7 @@ var JDB;
                     needAccessToken: true,
                     isArray: false,
                     params: {
-                        action: 'queryTopic'
+                        action: 'query'
                     }
                 },
                 createTopic: {
@@ -42,15 +49,48 @@ var JDB;
                     params: {
                         action: 'querytopictype'
                     }
+                },
+                likeTopic: {
+                    method: 'POST',
+                    needAccessToken: true,
+                    isArray: false,
+                    params: {
+                        action: 'lv'
+                    }
+                },
+                detail: {
+                    method: 'GET',
+                    needAccessToken: true,
+                    isArray: false,
+                    params: {
+                        action: 'view'
+                    }
+                },
+                reply: {
+                    method: 'POST',
+                    needAccessToken: true,
+                    isArray: false,
+                    params: {
+                        action: 'createtopiccmt'
+                    }
+                },
+                ignoreUser: {
+                    method: 'POST',
+                    needAccessToken: true,
+                    isArray: false,
+                    params: {
+                        action: 'shield'
+                    }
                 }
             });
         }
         //话题列表
         Topic.prototype.list = function (arg) {
             arg = angular.extend({
+                //phone: this.$rootScope.User.phone,
                 pageSize: 5,
                 curPage: 1,
-                labelId: 1
+                labelId: 2 /* Newest */
             }, arg);
             return this.$rootScope.requestHandler(this.topicResource.list, arg);
         };
@@ -84,6 +124,50 @@ var JDB;
                 dataCache.selectedCategory = item;
             }
             return dataCache.selectedCategory || { id: 0, name: '商机' };
+        };
+        Topic.prototype.likeTopic = function (args) {
+            if (args.isLiked) {
+                return null;
+            }
+            args.isLiked = true;
+            return this.$rootScope.requestHandler(this.topicResource.likeTopic, {
+                phone: this.$rootScope.User.phone,
+                id: args.id
+            }, true).then(function (res) {
+                if (res && res.code == 0) {
+                    args.isLiked = true;
+                    args.lv += 1;
+                }
+                else {
+                    args.isLiked = false;
+                }
+            });
+        };
+        Topic.prototype.detail = function (args) {
+            args = angular.extend({
+                phone: this.$rootScope.User.phone
+            }, args);
+            return this.$rootScope.requestHandler(this.topicResource.detail, args);
+        };
+        Topic.prototype.replyModal = function (args) {
+            var scope = this.$rootScope.$new();
+            scope.params = args;
+            this.$rootScope.createModal('/templates/topic/reply-modal.html', scope);
+        };
+        Topic.prototype.reply = function (args) {
+            return this.$rootScope.requestHandler(this.topicResource.reply, args, true);
+        };
+        Topic.prototype.ignoreUser = function (args) {
+            this.$rootScope.requestHandler(this.topicResource.ignoreUser, args, true).then(function (result) {
+                if (result && result.code == 0) {
+                    window.plugins.toast.showShortCenter('操作成功');
+                }
+                else {
+                    window.plugins.toast.showShortCenter('操作失败');
+                }
+            }, function (err) {
+                window.plugins.toast.showShortCenter('操作失败');
+            });
         };
         return Topic;
     })();

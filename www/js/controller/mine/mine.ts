@@ -6,6 +6,7 @@
 /// <reference path="../../app.ts" />
 /// <reference path="../../service/common.ts" />
 /// <reference path="../../service/mine/mine.ts" />
+/// <reference path="../../service/auth.ts" />
 //我的
 
 module JDB {
@@ -37,12 +38,13 @@ module JDB {
             public MineService: IMineService,
             public $state: ng.ui.IStateService,
             public CommonService: ICommonService,
-            public Upload: any
+            public Upload: any,
+            public AuthService: IAuthService
         ){
             $scope.logout = angular.bind(MineService, MineService.logout);
             $scope.upload = angular.bind(this ,this.upload);
 
-            $scope.tempFile =  '/img/discover-user-head.png';
+            $scope.tempFile = staticHost + this.$rootScope.User.headPicPath ;// '/img/discover-user-head.png';
 
             $scope.editTag = $stateParams['tag'];
             $scope.tagName = window.JDBTypes.InfoEditTags[$scope.editTag];
@@ -63,20 +65,38 @@ module JDB {
         }
 
         upload(file) {
+            var self = this;
             this.$scope.tempFile = file;
-            console.log(file);
-
-            this.MineService.uploadHeadImg(file,function(evt){
-                console.log(evt);
-            }).then(function(res){
-                console.log(res);
-            },function(res){
-                console.log(res);
+            this.CommonService.uploadFile({
+                file: file,
+                fields:{
+                    phone: this.$rootScope.User.phone
+                }
+            }).then(function(result){
+                if(result.data.code == 0){
+                    self.MineService.saveUserData({
+                        headPicPath: result.data.data,
+                        phone: self.$rootScope.User.phone
+                    }).then(function(result){
+                        self.AuthService.setUser(result.data.alumnus);
+                    });
+                }
+            }, function(err){
+                window.plugins.toast.showShortCenter('头像上传失败');
             });
+            //console.log(file);
+            //
+            //this.MineService.uploadHeadImg(file,function(evt){
+            //    console.log(evt);
+            //}).then(function(res){
+            //    console.log(res);
+            //},function(res){
+            //    console.log(res);
+            //});
         }
 
     }
 
-    Mine.$inject = ['$rootScope', '$scope', '$stateParams', 'MineService', '$state', 'CommonService', 'Upload'];
+    Mine.$inject = ['$rootScope', '$scope', '$stateParams', 'MineService', '$state', 'CommonService', 'Upload', 'AuthService'];
     CtrlModule.controller('MineCtrl', Mine);
 }

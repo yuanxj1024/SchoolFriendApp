@@ -270,7 +270,21 @@ var JDB;
             },
             views: {
                 'tab-main': {
-                    templateUrl: 'templates/topic/default.html'
+                    templateUrl: 'templates/topic/default.html',
+                    controller: 'TopListCtrl',
+                    resolve: JDB.ResolvesModule['TopicDetailCtrl']
+                }
+            }
+        }).state('jdb.topic-detial', {
+            url: '/topic/detial',
+            params: {
+                detailID: ''
+            },
+            views: {
+                'tab-main': {
+                    templateUrl: 'templates/topic/detail.html',
+                    resolve: JDB.ResolvesModule['TopicDetailCtrl'],
+                    controller: 'TopicDetailCtrl'
                 }
             }
         }).state('jdb.contact', {

@@ -11,7 +11,7 @@ var JDB;
     //modal对象集合
     var modalList = {};
     var RootScopeExtend = (function () {
-        function RootScopeExtend($rootScope, $q, $ionicModal, $state, $ionicLoading, $ionicScrollDelegate, CommonService, $stateParams) {
+        function RootScopeExtend($rootScope, $q, $ionicModal, $state, $ionicLoading, $ionicScrollDelegate, CommonService, $stateParams, $injector) {
             this.$rootScope = $rootScope;
             this.$q = $q;
             this.$ionicModal = $ionicModal;
@@ -20,6 +20,7 @@ var JDB;
             this.$ionicScrollDelegate = $ionicScrollDelegate;
             this.CommonService = CommonService;
             this.$stateParams = $stateParams;
+            this.$injector = $injector;
             $rootScope.createModal = angular.bind(this, this.createmodal);
             $rootScope.requestHandler = angular.bind(this, this.requestHandler);
             $rootScope.stateGo = angular.bind(this, this.stateGo);
@@ -31,6 +32,7 @@ var JDB;
             $rootScope.back = angular.bind(this, this.back);
             $rootScope.setAccessToken = angular.bind(this, this.setAccessToken);
             $rootScope.getAccessToken = angular.bind(this, this.getAccessToken);
+            $rootScope.runResolve = angular.bind(this, this.runResolve);
         }
         //创建模式窗口
         RootScopeExtend.prototype.createmodal = function (url, scope) {
@@ -90,11 +92,9 @@ var JDB;
             }
             if (isPost) {
                 var para = this.param(args);
-                console.log(para);
                 requestFn({}, para, successFn, errFn);
             }
             else {
-                console.log(args);
                 requestFn(args, successFn, errFn);
             }
             return defer.promise;
@@ -156,9 +156,20 @@ var JDB;
             angular.forEach(obj, add);
             return result.join('&').replace(/%20/g, '+');
         };
+        //运行依赖
+        RootScopeExtend.prototype.runResolve = function (ctrlName) {
+            if (!JDB.ResolvesModule.hasOwnProperty(ctrlName)) {
+                return;
+            }
+            var promise = {}, self = this;
+            angular.forEach(JDB.ResolvesModule[ctrlName], function (res, key) {
+                promise[ctrlName] = self.$injector.invoke(res);
+            });
+            return self.$q.all(promise);
+        };
         return RootScopeExtend;
     })();
-    RootScopeExtend.$inject = ['$rootScope', '$q', '$ionicModal', '$state', '$ionicLoading', '$ionicScrollDelegate', 'CommonService', '$stateParams'];
+    RootScopeExtend.$inject = ['$rootScope', '$q', '$ionicModal', '$state', '$ionicLoading', '$ionicScrollDelegate', 'CommonService', '$stateParams', '$injector'];
     JDB.ServiceModule.service('RootScopeExtendService', RootScopeExtend);
 })(JDB || (JDB = {}));
 //# sourceMappingURL=rootScope-extend.js.map
