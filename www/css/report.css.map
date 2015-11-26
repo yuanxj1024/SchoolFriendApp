@@ -1,0 +1,7 @@
+{
+"version": 3,
+"mappings": "AAKI,wBAAK;EACH,WAAW,EAAE,IAAI;EACjB,cAAc,EAAE,IAAI",
+"sources": ["../../scss/report.scss"],
+"names": [],
+"file": "report.css"
+}

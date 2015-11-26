@@ -1,0 +1,7 @@
+{
+"version": 3,
+"mappings": "AAGE,mBAAK;EACH,YAAY,EAAE,CAAC",
+"sources": ["../../scss/message.scss"],
+"names": [],
+"file": "message.css"
+}

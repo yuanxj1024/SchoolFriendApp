@@ -1,0 +1,7 @@
+{
+"version": 3,
+"mappings": "AAKM,wCAAU;EACR,KAAK,EAAE,IAAI;EACX,MAAM,EAAE,IAAI;EACZ,SAAS,EAAE,IAAI;EACf,UAAU,EAAE,IAAI;EAChB,UAAU,EAAE,IAAI;EAChB,WAAW,EAAE,IAAI",
+"sources": ["../../scss/new-friends.scss"],
+"names": [],
+"file": "new-friends.css"
+}

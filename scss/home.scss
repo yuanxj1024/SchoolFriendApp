@@ -102,7 +102,7 @@
         padding: 10px;
         .user-img{
           @include flex(0,0,auto);
-          img{
+          img,.user-head-img{
             width: 54px;
             height: 54px;
             -webkit-border-radius: 5px;
