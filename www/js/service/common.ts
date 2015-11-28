@@ -44,7 +44,9 @@ module JDB {
         uploadFile(args: IUploadFileArgs): ng.IPromise<any>;
 
         //显示举报内容
-        showReport: Function
+        showReport: Function;
+        //打开评论
+        replyModal(args:any): void;
 
     }
 
@@ -220,8 +222,18 @@ module JDB {
             return defer.promise;
         }
 
-        showReport(){
-            this.$rootScope.createModal('/templates/part/report-modal.html');
+        showReport(args: any){
+            var scope:any = this.$rootScope.$new();
+            scope.typeName =  args.typeName||'';
+            scope.id = args.id|| 0;
+            this.$rootScope.createModal('/templates/part/report-modal.html', scope);
+        }
+
+        //显示评论界面
+        replyModal(args:any): void{
+            var scope:any = this.$rootScope.$new();
+            scope.params = args;
+            this.$rootScope.createModal('/templates/topic/reply-modal.html', scope);
         }
     }
 

@@ -1,82 +1,95 @@
 <ion-view class="activity-create-wrap" ng-controller="ActivityCreateCtrl">
   <ion-header-bar class="top-header-bg-color">
-    <button class="button button-clear" ui-sref="jdb.activity">
+    <button class="button button-clear" ui-sref="jdb.home">
       <i class="ion-ios-arrow-left"></i>
       返回
     </button>
     <h1 class="title">创建活动</h1>
   </ion-header-bar>
   <ion-content class="main-body-bg-color" scrollbar-y='false'>
-    <div class="list">
-      <div class="item">
-        <i class="input-icon title"></i>
-        <input type="text" placeholder="请输入活动标题（1-30个字）"/>
-      </div>
-      <!-- -->
-      <div class="item">
-        <i class="input-icon start-time"></i>
-        <input type="text" placeholder="请输入开始时间"/>
-      </div>
-      <!-- -->
-      <div class="item">
-        <i class="input-icon start-time"></i>
-        <input type="text" placeholder="请输入结束时间"/>
-      </div>
-      <!-- -->
-      <div class="item">
-        <i class="input-icon city"></i>
-        <input type="text" placeholder="请输入举办城市"/>
-      </div>
-      <!-- -->
-      <div class="item">
-        <i class="input-icon address"></i>
-        <input type="text" placeholder="请输入详细地址"/>
-      </div>
-      <!-- -->
-      <div class="item">
-        <i class="input-icon count"></i>
-        <input type="text" placeholder="请输入允许参见的人数"/>
-      </div>
-      <!-- -->
-      <div class="item">
-        <i class="input-icon money"></i>
-        <input type="text" placeholder="请输入参加活动的费用"/>
-      </div>
-      <!-- -->
-      <div class="item">
-        <i class="input-icon content"></i>
-        <textarea placeholder="请输入活动内容" class="activity-content" rows="10"></textarea>
-      </div>
-      <!-- -->
-      <div class="item">
-        <div class="img-list">
-          <div class="img-item">
-            <img src="/img/2015.jpg" alt=""/>
-            <i class="ion-ios-close-empty"></i>
+    <form name="frmActivity" novalidate ng-submit="save(frmActivity.$valid)">
+      <div class="list">
+        <div class="item">
+          <i class="input-icon title"></i>
+          <input ng-model="activityForm.title" ng-required="true" maxlength="30" minlength="1" type="text" placeholder="请输入活动标题（1-30个字）"/>
+        </div>
+        <!-- -->
+        <div class="item">
+          <i class="input-icon start-time"></i>
+          <ionic-datepicker input-obj="startDateObj">
+            <input ng-model="activityForm.sDate" ng-required="true" class="short" type="text" placeholder="请输入开始日期"/>
+          </ionic-datepicker>
+          <ionic-timepicker input-obj="startTimeObj">
+          <input ng-model="activityForm.sTime" ng-required="true" class="short" type="text" placeholder="请输入开始时间"/>
+          </ionic-timepicker>
+        </div>
+        <!-- -->
+        <div class="item">
+          <i class="input-icon start-time"></i>
+
+          <ionic-datepicker input-obj="endDateObj">
+          <input ng-model="activityForm.eDate" ng-required="true" class="short" type="text" placeholder="请输入结束日期"/>
+          </ionic-datepicker>
+          <ionic-timepicker input-obj="endTimeObj">
+          <input ng-model="activityForm.eTime" ng-required="true" class="short" type="text" placeholder="请输入结束时间"/>
+          </ionic-timepicker>
+        </div>
+        <!-- -->
+        <div class="item">
+          <i class="input-icon city"></i>
+          <input ng-model="activityForm.city" ng-required="true" type="text" placeholder="请输入举办城市"/>
+        </div>
+        <!-- -->
+        <div class="item">
+          <i class="input-icon address"></i>
+          <input ng-model="activityForm.address" ng-required="true" type="text" placeholder="请输入详细地址"/>
+        </div>
+        <!-- -->
+        <div class="item">
+          <i class="input-icon count"></i>
+          <input ng-model="activityForm.personLimit" ng-required="true" type="number" placeholder="请输入允许参见的人数"/>
+        </div>
+        <!-- -->
+        <div class="item">
+          <i class="input-icon money"></i>
+          <input ng-model="activityForm.joinFee" type="text" placeholder="请输入参加活动的费用"/>
+        </div>
+        <!-- -->
+        <div class="item">
+          <i class="input-icon content"></i>
+          <textarea ng-model="activityForm.activityDesc" placeholder="请输入活动内容" class="activity-content" rows="10"></textarea>
+        </div>
+        <!-- -->
+        <div class="item">
+          <div class="img-list">
+            <div class="img-item">
+              <img src="/img/2015.jpg" alt=""/>
+              <i class="ion-ios-close-empty"></i>
+            </div>
+            <i class="btn-add-image left" ng-click="showImageSheet()"></i>
+            <span class="img-tip">请添加活动图片（必填）</span>
           </div>
-          <i class="btn-add-image left" ng-click="showImageSheet()"></i>
-          <span class="img-tip">请添加活动图片（必填）</span>
         </div>
       </div>
-    </div>
 
-    <div class="list">
-      <div class="item">
-        <span>更多选项</span>
-        <i class="input-icon down"></i>
+      <div class="list">
+        <div class="item">
+          <span>更多选项</span>
+          <i class="input-icon down"></i>
+        </div>
+        <div class="item">
+          <i class="input-icon person"></i>
+          <input ng-model="activityForm.contactMan" type="text" placeholder="联系人（选填）"/>
+        </div>
+        <div class="item">
+          <i class="input-icon tel"></i>
+          <input ng-model="activityForm.contactPhone" type="text" placeholder="联系电话（选填）"/>
+        </div>
       </div>
-      <div class="item">
-        <i class="input-icon person"></i>
-        <input type="text" placeholder="联系人（选填）"/>
+      <div class="btn-wrap">
+        <button class="button button-positive button-block">创建</button>
       </div>
-      <div class="item">
-        <i class="input-icon tel"></i>
-        <input type="text" placeholder="联系电话（选填）"/>
-      </div>
-    </div>
-    <div class="btn-wrap">
-      <button class="button button-positive button-block">创建</button>
-    </div>
-  <!---->
+    </form>
+    <!---->
   </ion-content>
 </ion-view>

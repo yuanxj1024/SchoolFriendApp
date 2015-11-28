@@ -18,7 +18,8 @@ module JDB {
             .state('jdb',{
                 url: '/jdb',
                 abstract: true,
-                templateUrl: 'templates/tabs.html'
+                templateUrl: 'templates/tabs.html',
+                controller: 'TabCtrl'
             })
             //首页
             .state('jdb.home',{
@@ -26,19 +27,19 @@ module JDB {
                 views: {
                     'tab-main':{
                         templateUrl: 'templates/home.html',
-                        controller: 'HomeCtrl'
+                        controller: 'TabCtrl'
                     }
                 }
             })
             //活动
-            .state('jdb.activity',{
-                url: '/activity',
-                views: {
-                    'tab-main':{
-                        templateUrl: 'templates/activity/default.html'
-                    }
-                }
-            })
+            //.state('jdb.activity',{
+            //    url: '/activity',
+            //    views: {
+            //        'tab-main':{
+            //            templateUrl: 'templates/activity/default.html'
+            //        }
+            //    }
+            //})
             //发布活动
             .state('jdb.activity-add',{
                 url: '/activity/add',
@@ -52,7 +53,8 @@ module JDB {
             .state('jdb.activity-member',{
                 url: '/activity/member',
                 params: {
-                    id: ''
+                    //表示查看当前活动的参加人员
+                    activityID: ''
                 },
                 views: {
                     'tab-main':{
@@ -60,27 +62,29 @@ module JDB {
                     }
                 }
             })
-            //发布活动
+            //活动 - 详情
             .state('jdb.activity-detail',{
                 url: '/activity/detail',
                 params: {
-                    id: ''
+                    detailID: ''
                 },
                 views: {
                     'tab-main':{
-                        templateUrl: 'templates/activity/detail.html'
+                        templateUrl: 'templates/activity/detail.html',
+                        controller: 'ActivityDetailCtrl',
+                        resolve: ResolvesModule['ActivityDetailCtrl']
                     }
                 }
             })
             //发现
-            .state('jdb.discover',{
-                url: '/discover',
-                views: {
-                    'tab-main':{
-                        templateUrl: 'templates/discover/default.html',
-                    }
-                }
-            })
+            //.state('jdb.discover',{
+            //    url: '/discover',
+            //    views: {
+            //        'tab-main':{
+            //            templateUrl: 'templates/discover/default.html',
+            //        }
+            //    }
+            //})
             //个人名片
             .state('jdb.usercard',{
                 url: '/usercard',
@@ -112,14 +116,14 @@ module JDB {
                 }
             })
             //消息
-            .state('jdb.message',{
-                url: '/message',
-                views: {
-                    'tab-main':{
-                        templateUrl: 'templates/message/default.html'
-                    }
-                }
-            })
+            //.state('jdb.message',{
+            //    url: '/message',
+            //    views: {
+            //        'tab-main':{
+            //            templateUrl: 'templates/message/default.html'
+            //        }
+            //    }
+            //})
             //消息
             .state('jdb.chat',{
                 url: '/message/chat',
@@ -129,17 +133,17 @@ module JDB {
                     }
                 }
             })
-            //我的
-            .state('jdb.mine',{
-                url: '/mine',
-                params:{
-                },
-                views: {
-                    'tab-main':{
-                        templateUrl: 'templates/mine/default.html'
-                    }
-                }
-            })
+            ////我的
+            //.state('jdb.mine',{
+            //    url: '/mine',
+            //    params:{
+            //    },
+            //    views: {
+            //        'tab-main':{
+            //            templateUrl: 'templates/mine/default.html'
+            //        }
+            //    }
+            //})
             //个人信息
             .state('jdb.info',{
                 url: '/mine/info',
@@ -165,7 +169,7 @@ module JDB {
                 url: '/mine/group',
                 params:{
                     action: 'group',
-                    from: 'jdb.mine'
+                    from: 'jdb.home'
                 },
                 views: {
                     'tab-main':{

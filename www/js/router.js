@@ -11,20 +11,14 @@ var JDB;
         $stateProvider.state('jdb', {
             url: '/jdb',
             abstract: true,
-            templateUrl: 'templates/tabs.html'
+            templateUrl: 'templates/tabs.html',
+            controller: 'TabCtrl'
         }).state('jdb.home', {
             url: '/home',
             views: {
                 'tab-main': {
                     templateUrl: 'templates/home.html',
-                    controller: 'HomeCtrl'
-                }
-            }
-        }).state('jdb.activity', {
-            url: '/activity',
-            views: {
-                'tab-main': {
-                    templateUrl: 'templates/activity/default.html'
+                    controller: 'TabCtrl'
                 }
             }
         }).state('jdb.activity-add', {
@@ -37,7 +31,8 @@ var JDB;
         }).state('jdb.activity-member', {
             url: '/activity/member',
             params: {
-                id: ''
+                //表示查看当前活动的参加人员
+                activityID: ''
             },
             views: {
                 'tab-main': {
@@ -47,18 +42,13 @@ var JDB;
         }).state('jdb.activity-detail', {
             url: '/activity/detail',
             params: {
-                id: ''
+                detailID: ''
             },
             views: {
                 'tab-main': {
-                    templateUrl: 'templates/activity/detail.html'
-                }
-            }
-        }).state('jdb.discover', {
-            url: '/discover',
-            views: {
-                'tab-main': {
-                    templateUrl: 'templates/discover/default.html'
+                    templateUrl: 'templates/activity/detail.html',
+                    controller: 'ActivityDetailCtrl',
+                    resolve: JDB.ResolvesModule['ActivityDetailCtrl']
                 }
             }
         }).state('jdb.usercard', {
@@ -86,26 +76,11 @@ var JDB;
                     templateUrl: 'templates/discover/new-friends.html'
                 }
             }
-        }).state('jdb.message', {
-            url: '/message',
-            views: {
-                'tab-main': {
-                    templateUrl: 'templates/message/default.html'
-                }
-            }
         }).state('jdb.chat', {
             url: '/message/chat',
             views: {
                 'tab-main': {
                     templateUrl: 'templates/message/chat-box.html'
-                }
-            }
-        }).state('jdb.mine', {
-            url: '/mine',
-            params: {},
-            views: {
-                'tab-main': {
-                    templateUrl: 'templates/mine/default.html'
                 }
             }
         }).state('jdb.info', {
@@ -129,7 +104,7 @@ var JDB;
             url: '/mine/group',
             params: {
                 action: 'group',
-                from: 'jdb.mine'
+                from: 'jdb.home'
             },
             views: {
                 'tab-main': {

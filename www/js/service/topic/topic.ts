@@ -28,7 +28,7 @@ module JDB {
         //详细页
         detail(args: any): ng.IPromise<any>;
         //
-        replyModal(args:any): void;
+        //replyModal(args:any): void;
         //回复
         reply(args: any): ng.IPromise<any>;
 
@@ -192,12 +192,12 @@ module JDB {
             return this.$rootScope.requestHandler(this.topicResource.detail,args);
         }
 
-        replyModal(args:any): void{
-            var scope:any = this.$rootScope.$new();
-            scope.params = args;
-            this.$rootScope.createModal('/templates/topic/reply-modal.html', scope);
-
-        }
+        //replyModal(args:any): void{
+        //    var scope:any = this.$rootScope.$new();
+        //    scope.params = args;
+        //    this.$rootScope.createModal('/templates/topic/reply-modal.html', scope);
+        //
+        //}
 
         reply(args: any): ng.IPromise<any>{
             return this.$rootScope.requestHandler(this.topicResource.reply, args, true);

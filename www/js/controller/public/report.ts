@@ -23,6 +23,10 @@ module JDB {
 
         //reportContent: string;
         reportForm: any;
+        //类型
+        typeName:string;
+        //被举报编号
+        id:number;
     }
 
     var category = [
@@ -56,7 +60,8 @@ module JDB {
                 phone: this.$rootScope.User.phone,
                 reason: this.$scope.selectedCategory,
                 otherInfo:this.$scope.reportForm.content,
-                assoId: this.ReportService.getReportObject()
+                assoId: this.$scope.id,
+                'type': this.$scope.typeName
             },function(){
                 this.$scope.cancel();
             }.bind(this));

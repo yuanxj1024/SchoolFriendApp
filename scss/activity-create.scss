@@ -46,6 +46,9 @@
       input{
         display: inline-block;
         width: 80%;
+        &.short{
+          width: 40%;
+        }
       }
 
       .input-icon{

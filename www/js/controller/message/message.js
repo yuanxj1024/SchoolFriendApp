@@ -13,6 +13,9 @@ var JDB;
             this.$scope = $scope;
             this.CommonService = CommonService;
             $scope.showAddSheet = angular.bind(this, this.showAddSheet);
+            $rootScope.$once('event:refresh-all-slide-view', function () {
+                console.log('message refresh');
+            });
         }
         Message.prototype.showAddSheet = function () {
             var self = this;

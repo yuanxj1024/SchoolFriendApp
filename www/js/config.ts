@@ -85,6 +85,11 @@ module JDB {
             },
             response: function(response: IJDBHttpPromiseCallbackArg<any>): IJDBHttpPromiseCallbackArg<any> {
                 var accessToken = response.headers('x-access-token');
+                //console.log(response);
+                //console.log(response['data']);
+                if(response['data']['code'] && response['data']['code'] == 122){
+                    $rootScope.$emit('event:need-login');
+                }
                 if(accessToken && accessToken!= $rootScope.accessToken){
                     $rootScope.setAccessToken(accessToken);
                 }

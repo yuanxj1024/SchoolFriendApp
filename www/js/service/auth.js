@@ -7,7 +7,7 @@
 var JDB;
 (function (JDB) {
     'use strict';
-    var userKey = 'authUser', loginModal = null;
+    JDB.userKey = 'authUser', JDB.loginModal = null;
     var Auth = (function () {
         function Auth($rootScope, $resource, $q, $ionicModal, CommonService) {
             this.$rootScope = $rootScope;
@@ -31,7 +31,7 @@ var JDB;
         Auth.prototype.verify = function () {
             var temp;
             if (!this.$rootScope.User) {
-                temp = window.localStorage.getItem(userKey);
+                temp = window.localStorage.getItem(JDB.userKey);
             }
             if (temp && typeof temp == 'string') {
                 this.$rootScope.User = JSON.parse(temp);
@@ -46,7 +46,7 @@ var JDB;
             if (user === void 0) { user = null; }
             if (user) {
                 this.$rootScope.User = user;
-                window.localStorage.setItem(userKey, JSON.stringify(user));
+                window.localStorage.setItem(JDB.userKey, JSON.stringify(user));
             }
         };
         Auth.prototype.getUser = function (args) {
@@ -62,27 +62,27 @@ var JDB;
             return defer.promise;
         };
         Auth.prototype.showLoginModal = function () {
-            if (loginModal) {
+            if (JDB.loginModal) {
                 return null;
             }
-            loginModal = {};
+            JDB.loginModal = {};
             var subScope = this.$rootScope.$new();
             subScope.$on('modal.removed', function () {
-                loginModal = null;
+                JDB.loginModal = null;
             });
             subScope.cancel = function () {
-                loginModal.remove();
-                loginModal = null;
+                JDB.loginModal.remove();
+                JDB.loginModal = null;
             };
             this.$ionicModal.fromTemplateUrl('', {
                 scope: subScope,
                 animation: 'slide-in-up'
             }).then(function (modal) {
-                loginModal = modal;
+                JDB.loginModal = modal;
             });
         };
         Auth.prototype.userLogout = function () {
-            localStorage.removeItem(userKey);
+            localStorage.removeItem(JDB.userKey);
             localStorage.removeItem('accessToken');
         };
         Auth.prototype.accessToken = function (key) {

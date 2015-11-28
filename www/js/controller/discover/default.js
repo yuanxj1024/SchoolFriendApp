@@ -16,6 +16,9 @@ var JDB;
             this.UserService = UserService;
             $scope.openUserCard = angular.bind(this, this.openUserCard);
             //$scope.openUserCard(1);
+            $rootScope.$once('event:refresh-all-slide-view', function () {
+                console.log('discover refresh');
+            });
         }
         Discover.prototype.openUserCard = function (item) {
             //this.UserService.openUserCard(1).then(function(res){

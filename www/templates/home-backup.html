@@ -1,0 +1,118 @@
+<ion-view view-title="交大邦" hide-back-button="true" class="home-wrap">
+  <ion-nav-bar class="main-header">
+    <ion-nav-buttons side="left">
+      <button class="button button-clear btn-search" ng-click="openSearchModal()">
+      </button>
+    </ion-nav-buttons>
+    <ion-nav-buttons side="right">
+      <button class="button button-clear btn-release" ng-click="openReleaseTopic()">
+      </button>
+    </ion-nav-buttons>
+  </ion-nav-bar>
+  <ion-content class="main-body-bg-color has-main-menu" scrollbar-y='false'>
+    <div class="main-top-menu">
+      <div class="sub-item" ng-click="openLogin()"><a class="menu-icon shangji" href="">商机</a></div>
+      <div class="sub-item" ui-sref="jdb.reginfo"><a class="menu-icon zhaopin" href="">招聘</a></div>
+      <div class="sub-item" ui-sref="jdb.resetpwd"><a class="menu-icon xiaoqi" href="">校企</a></div>
+      <div class="sub-item"><a class="menu-icon zatan" ui-sref="jdb.topic({tag:4})">杂谈</a></div>
+      <div class="sub-item"><a class="menu-icon zixun" ui-sref="jdb.topic({tag:5})">咨询</a></div>
+    </div>
+    <div class="topic-wrap">
+      <div class="header">
+        <!--<a class="active" href="">热门</a>-->
+        <a ng-class="{'true': 'active'}[topicType == 2]" href="#" ng-click="changeTopicType(2)">最新</a>
+        <a ng-class="{'true': 'active'}[topicType == 3]" href="#" ng-click="changeTopicType(3)">好友</a>
+      </div>
+      <!-- -->
+      <div class="sub-item" ng-repeat="item in topicList track by item.id">
+        <div class="topic-user">
+          <div class="user-img"><img ng-src="{{staticHost +item.createUser.alumnus.headPicPath }}" class="user-head-img" src="/img/topic-user-img.png" alt=""/></div>
+          <div class="topic-info-wrap">
+            <div class="name-block">
+              <span class="name" once-text="item.createUser.alumnus.realName"></span><i class="split">|</i>
+              <span class="light-color" once-text="item.createUser.alumnus.grade"></span>
+              <span class="light-color" once-text="item.createUser.alumnus.school"></span>
+              <div class="send-time-wrap">
+                <div class="send-time light-color" >
+                  <span once-text="item.timePast"></span>
+                  <i class="ion-chevron-down" ng-click="openActionSheet(item.createUser)"></i>
+                  <!--<div class="topic-hover-menu">-->
+                    <!--<a href="">举报</a>-->
+                    <!--<a href="">删除好友</a>-->
+                    <!--<a href="">不看TA的话题</a>-->
+                  <!--</div>-->
+                </div>
+              </div>
+            </div>
+            <div class="job light-color">
+              <span  once-text="item.createUser.alumnus.company"></span>
+              <span once-text="item.createUser.alumnus.title"></span>
+            </div>
+            <div ui-sref="jdb.topic-detial({detailID: {{item.id}} })" class="content more" once-text="item.content">
+            </div>
+            <div class="topic-tag">
+              <a href="" once-text="item.topicType.typeName"></a>
+            </div>
+          </div>
+        </div>
+        <div class="topic-op">
+          <a href=""><i class="icon-op share"></i>{{item.sv}}</a>
+          <a href=""><i class="icon-op comments"></i>{{item.pv}}</a>
+          <a href="#" ng-class="{'true': 'active'}[item.isLiked]" ng-click="likeTopic(item)"><i class="icon-op perfect"></i>{{item.lv}}</a>
+        </div>
+      </div>
+      <!-- -->
+      <!--<div class="sub-item">-->
+        <!--<div class="topic-user">-->
+          <!--<div class="user-img"><img src="/img/topic-user-img.png" alt=""/></div>-->
+          <!--<div class="topic-info-wrap">-->
+            <!--<div class="name-block">-->
+              <!--<span class="name">王鑫</span><i class="split">|</i>-->
+              <!--<span class="light-color">09级</span>-->
+              <!--<span class="light-color">北交大</span>-->
+              <!--<div class="send-time-wrap">-->
+                <!--<div class="send-time light-color" href="">3小时前<i class="ion-chevron-down"></i>-->
+                  <!--<div class="topic-hover-menu ng-hide">-->
+                    <!--<a href="">举报</a>-->
+                    <!--<a href="">删除好友</a>-->
+                    <!--<a href="">不看TA的话题</a>-->
+                  <!--</div>-->
+                <!--</div>-->
+              <!--</div>-->
+            <!--</div>-->
+            <!--<div class="job light-color">-->
+              <!--<span>百度</span>-->
+              <!--<span>产品经理</span>-->
+            <!--</div>-->
+            <!--<div class="content">-->
+              <!--马云的面子工程吧。多试试，反正暂时对-->
+              <!--支付宝其他的功能也不报游戏王，起点低-->
+              <!--一成了也许有一天有人就笑了我了其他的-->
+              <!--功能也不报游戏王，起起点低一成了也许有起点低一成-->
+              <!--了也许有起点低一成了也许有点低一成了也许有-->
+              <!--支付宝其他的功能也不报游戏王，起点低-->
+              <!--一天有人其他的功能也不报游戏王也许..-->
+            <!--</div>-->
+            <!--<div class="content-imgs">-->
+              <!--<img class="topic-content-img" src="/img/abc.png" alt=""/>-->
+              <!--<img class="topic-content-img" src="/img/abc.png" alt=""/>-->
+              <!--<img class="topic-content-img" src="/img/abc.png" alt=""/>-->
+              <!--<img class="topic-content-img" src="/img/abc.png" alt=""/>-->
+            <!--</div>-->
+            <!--<div class="topic-tag">-->
+              <!--<a href="">商机</a>-->
+            <!--</div>-->
+          <!--</div>-->
+        <!--</div>-->
+        <!--<div class="topic-op">-->
+          <!--<a href=""><i class="icon-op share"></i>45</a>-->
+          <!--<a href=""><i class="icon-op comments"></i>145</a>-->
+          <!--<a href="" class="active"><i class="icon-op perfect"></i>23</a>-->
+        <!--</div>-->
+      <!--</div>-->
+
+      <!-- -->
+    </div>
+  </ion-content>
+  <div ng-include="'/templates/part/main-menu.html'"></div>
+</ion-view>

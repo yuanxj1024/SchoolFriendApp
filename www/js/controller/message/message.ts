@@ -24,6 +24,9 @@ module JDB {
             $scope.showAddSheet = angular.bind(this, this.showAddSheet);
 
 
+            $rootScope.$once('event:refresh-all-slide-view',function(){
+                console.log('message refresh');
+            });
         }
 
         showAddSheet() {

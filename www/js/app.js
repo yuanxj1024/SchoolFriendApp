@@ -13,7 +13,7 @@ var JDB;
 (function (JDB) {
     'use strict';
     //后台数据地址
-    JDB.appHost = 'http://172.17.70.1:8080/jdb/mobile';
+    JDB.appHost = 'http://172.22.224.1:8080/jdb/mobile';
     //静态资源域
     JDB.staticHost = JDB.appHost + '/image/showimage?picpath=';
     //版本号
@@ -21,7 +21,7 @@ var JDB;
     //类型模块
     JDB.TypeModule = angular.module('JDB.types', ['ionic']);
     //控制器模块
-    JDB.CtrlModule = angular.module('JDB.controllers', ['ionic', 'once', 'ngFileUpload']);
+    JDB.CtrlModule = angular.module('JDB.controllers', ['ionic', 'ionic-datepicker', 'ionic-timepicker', 'once', 'ngFileUpload']);
     //服务模块
     JDB.ServiceModule = angular.module('JDB.services', ['ngResource', 'ngFileUpload']);
     //自定义指令模块
@@ -29,7 +29,7 @@ var JDB;
     //预加载模块
     JDB.ResolvesModule = {};
     //应用程序对象
-    JDB.AppModule = angular.module('JDB', ['ionic', 'once', 'JDB.types', 'JDB.controllers', 'JDB.services', 'ngFileUpload']);
+    JDB.AppModule = angular.module('JDB', ['ionic', 'ionic-datepicker', 'ionic-timepicker', 'once', 'JDB.types', 'JDB.controllers', 'JDB.services', 'ngFileUpload']);
     //程序启动入口
     var AppStart = function ($rootScope, $q, $state, RootScopeExtendService, AuthService) {
         $rootScope.staticHost = JDB.staticHost;

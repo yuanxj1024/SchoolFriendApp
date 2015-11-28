@@ -149,11 +149,12 @@ var JDB;
             }, args);
             return this.$rootScope.requestHandler(this.topicResource.detail, args);
         };
-        Topic.prototype.replyModal = function (args) {
-            var scope = this.$rootScope.$new();
-            scope.params = args;
-            this.$rootScope.createModal('/templates/topic/reply-modal.html', scope);
-        };
+        //replyModal(args:any): void{
+        //    var scope:any = this.$rootScope.$new();
+        //    scope.params = args;
+        //    this.$rootScope.createModal('/templates/topic/reply-modal.html', scope);
+        //
+        //}
         Topic.prototype.reply = function (args) {
             return this.$rootScope.requestHandler(this.topicResource.reply, args, true);
         };

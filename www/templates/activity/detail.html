@@ -1,6 +1,6 @@
-<ion-view ng-controller="ActivityDetailCtrl" class="activity-detail-wrap">
+<ion-view class="activity-detail-wrap">
   <ion-header-bar class="top-header-bg-color">
-    <button class="button button-clear" ui-sref="jdb.activity">
+    <button class="button button-clear" ui-sref="jdb.home">
       <i class="ion-ios-arrow-left"></i>
       返回
     </button>
@@ -11,36 +11,29 @@
   </ion-header-bar>
   <ion-content class="main-body-bg-color has-footer has-header detail-content" scrollbar-y='false'>
     <div class="detail-info-wrap">
-      <h5 class="title">
-        复旦大学互联网研究学院研究生导师物联网产业新趋势论坛
+      <h5 class="title" once-text="model.activity.title">
       </h5>
       <div class="creater padding-lr-10">
-        <img class="user-head" src="/img/2015.jpg" alt=""/>
-        <span class="name left">北京交大&nbsp;王鑫</span>
-        <span class="right">浏览2332次</span>
+        <img class="user-head" ng-src="{{staticHost + model.activity.createUser.alumnus.headPicPath}}" src="/img/2015.jpg" alt=""/>
+        <span class="name left"> <span once-text="model.activity.createUser.alumnus.school"></span>&nbsp;<span once-text="model.activity.createUser.alumnus.realName"></span></span>
+        <span class="right">浏览<span once-text="model.activity.pv"></span>次</span>
       </div>
       <div class="activity-img-wrap">
-        <img class="activity-img" src="/img/2015.jpg" alt=""/>
+        <img class="activity-img" ng-src="{{staticHost + model.activity.picPath}}" src="/img/2015.jpg" alt=""/>
         <i class="img-tag joining"></i>
       </div>
       <div class="detail-attr-wrap border-bottom">
-        <div class="attr-item"><span class="title">时间：</span><span>2015.12.23</span></div>
-        <div class="attr-item"><span class="title">地点：</span><span>很多产品经理都会经历转型之痛</span></div>
-        <div class="attr-item"><span class="title">人数：</span><span>234人<span class="joined">（45人已报名）</span> </span></div>
-        <div class="attr-item"><span class="title">费用：</span><span>2342元/人</span></div>
+        <div class="attr-item"><span class="title">时间：</span><span once-text="model.activity.startTime"></span></div>
+        <div class="attr-item"><span class="title">地点：</span><span once-text="model.activity.address"></span></div>
+        <div class="attr-item"><span class="title">人数：</span><span><span once-text="model.activity.personLimit"></span>人<span class="joined"> (<span once-text="model.activity.joinUsers.length"></span>人已报名）</span> </span></div>
+        <div class="attr-item"><span class="title">费用：</span><span once-text="model.activity.joinFee"></span>元/人</div>
       </div>
       <div class="detail-content-wrap padding-lr-10 border-bottom">
-        <pre>移动互联网和万物互联的分岔口，很多产品经理都会经历转型之痛。从软件到互联网从互联网到移动互联网，每一次时代的进化都伴随着产品底层思想的巨变。如今产品经理不仅仅是一个2D产品的创造者，无处不在的3D硬件、错综复杂的多维交互、各种入口的产品形态、只能用一句话来形容，产品经理的日子越来越苦逼了。万众创业大批产品被大浪拍打得无影无踪。如何抓住互联网的本质抓住产品的精髓？
-
-时间：2015年11月7日 星期六 下午1：00-4：45
-
-地点：北京市朝阳区酒仙桥路6号院2号楼360大厦A座一层发布厅
- 
-福利：子超将为当天到场的产品小伙伴们建立永久的微信产品交流群，提供子超第一时间的产品感悟和分享。</pre>
+        <pre once-text="model.activity.activityDesc"></pre>
       </div>
       <div class="detail-attr-wrap">
-        <div class="attr-item"><span class="title">联系人：</span><span>王鑫</span></div>
-        <div class="attr-item"><span class="title">电话：</span><span>1234123213223</span></div>
+        <div class="attr-item"><span class="title">联系人：</span><span once-text="model.activity.createUser.alumnus.realName"></span></div>
+        <div class="attr-item"><span class="title">电&nbsp;&nbsp;&nbsp;话：</span><span once-text="model.activity.createUser.alumnus.phone"></span></div>
       </div>
     </div>
 
@@ -51,69 +44,36 @@
           <!--<a class="active" href="">热门</a><a href="">最新</a><a href="">好友</a>-->
           <i class="ion-chevron-down right"></i>
         </div>
-        <div class="sub-item">
+        <div ng-repeat="item in model.comments track by item.id" class="sub-item">
           <div class="topic-user">
-            <div class="user-img"><img class="img" src="/img/topic-user-img.png" alt=""/></div>
+            <div class="user-img"><img ng-src="{{staticHost + item.commentUser.alumnus.headPicPath}}" class="img" src="/img/topic-user-img.png" alt=""/></div>
             <div class="topic-info-wrap">
               <div class="name-block">
-                <span class="name">王鑫</span>
-                <div class="send-time-wrap">
-                  <div class="send-time"><i class="ion-chatbubble-working" ng-click="openActionSheet(1)"></i>&nbsp;回复(1)</div>
+                <span class="name" once-text="item.commentUser.alumnus.realName"></span>
+                <div class="send-time-wrap"  ng-click="reply(item.id)">
+                  <div class="send-time"><i class="ion-chatbubble-working"></i>&nbsp;回复(<span once-text="item.childCmtCount || 0">0</span>)</div>
                 </div>
               </div>
               <div class="job light-color">
-                <span>昨天14:23</span>
+                <span once-text="item.timePast"></span>
               </div>
               <div class="content">
-                马云的面子工程吧。多试试，反正暂时对
-                支付宝其他的功能也不报游戏王，起点低
-                一成了也许有一天有人就笑了我了其他的
-                功能也不报游戏王，起起点低一成了也许有起点低一成
-                了也许有起点低一成了也许有点低一成了也许有
-                支付宝其他的功能也不报游戏王，起点低
-                一天有人其他的功能也不报游戏王也许..
+                <pre once-text="item.content"></pre>
               </div>
-              <div class="re-comment border-bottom">
-                <span class="name">张三</span>回复<span class="name">王鑫</span>你你看着办班你看着办班你看着办班你看着办班看着办班
-              </div>
-            </div>
-          </div>
-        </div>
-        <!-- -->
-        <div class="sub-item">
-          <div class="topic-user">
-            <div class="user-img"><img class="img" src="/img/topic-user-img.png" alt=""/></div>
-            <div class="topic-info-wrap">
-              <div class="name-block">
-                <span class="name">王鑫</span>
-                <div class="send-time-wrap">
-                  <div class="send-time"><i class="ion-chatbubble-working" ng-click="openActionSheet(1)"></i>&nbsp;回复(1)</div>
-                </div>
-              </div>
-              <div class="job light-color">
-                <span>昨天14:23</span>
-              </div>
-              <div class="content">
-                马云的面子工程吧。多试试，反正暂时对
-                支付宝其他的功能也不报游戏王，起点低
-                一成了也许有一天有人就笑了我了其他的
-                功能也不报游戏王，起起点低一成了也许有起点低一成
-                了也许有起点低一成了也许有点低一成了也许有
-                支付宝其他的功能也不报游戏王，起点低
-                一天有人其他的功能也不报游戏王也许..
-              </div>
-              <div class="re-comment border-bottom">
-                <span class="name">张三</span>回复<span class="name">王鑫</span>你你看着办班你看着办班你看着办班你看着办班看着办班
+              <div class="re-comment border-bottom" ng-if="item.parentAtvCmt.commentUser">
+                <span class="name" once-text="item.commentUser.alumnus.realName"></span>回复<span class="name" once-text="item.parentAtvCmt.commentUser.alumnus.realName"></span>{{item.parentAtvCmt.content }}
               </div>
             </div>
           </div>
         </div>
 
+        <!-- -->
+
       </div>
     </div>
   </ion-content>
   <div class="detail-footer">
-    <span class="btn-detail comment border-top" ui-sref="jdb.activity-member"><i class="ion-android-textsms"></i>2342</span>
-    <span class="btn-detail btn-detail-join">立即报名</span>
+    <span ng-click="reply()" class="btn-detail comment border-top" ><i class="ion-android-textsms"></i>{{model.comments.length||0}}</span>
+    <span ng-click="join()" class="btn-detail btn-detail-join" ng-class="{true:'invalid'}[model.join == 1]">立即报名</span>
   </div>
 </ion-view>

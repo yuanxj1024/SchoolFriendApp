@@ -8987,6 +8987,10 @@ a {
 .light-color {
   color: #999999; }
 
+.slider {
+  overflow: initial;
+  height: 100%; }
+
 .main-header {
   color: #fff; }
   .main-header .button {
@@ -9769,6 +9773,7 @@ a {
       position: relative; }
       .mine-release-join .mine-group-list .item h2 {
         height: 35px;
+        line-height: 35px;
         font-size: 15px;
         margin: 0;
         white-space: initial;
@@ -10164,6 +10169,8 @@ a {
   .activity-create-wrap .list .item input {
     display: inline-block;
     width: 80%; }
+    .activity-create-wrap .list .item input.short {
+      width: 40%; }
   .activity-create-wrap .list .item .input-icon {
     float: left;
     background-repeat: no-repeat;
@@ -11028,6 +11035,10 @@ a {
 
 .light-color {
   color: #999999; }
+
+.slider {
+  overflow: initial;
+  height: 100%; }
 
 .toastWrap {
   display: -webkit-box;

@@ -30,7 +30,7 @@ module JDB {
         accessToken(key:string):string;
     }
 
-    var userKey: string = 'authUser',
+    export var userKey: string = 'authUser',
         loginModal:Ionic.IModal  = null;
 
 

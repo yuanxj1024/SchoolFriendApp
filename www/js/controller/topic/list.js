@@ -4,17 +4,19 @@
  */
 /// <reference path="../../app.ts" />
 /// <reference path="../../service/topic/topic.ts" />
+/// <reference path="../../service/common.ts" />
 //话题列表
 var JDB;
 (function (JDB) {
     'use strict';
     var TopicList = (function () {
-        function TopicList($rootScope, $scope, $stateParams, currentDetail, TopicService) {
+        function TopicList($rootScope, $scope, $stateParams, currentDetail, TopicService, CommonService) {
             this.$rootScope = $rootScope;
             this.$scope = $scope;
             this.$stateParams = $stateParams;
             this.currentDetail = currentDetail;
             this.TopicService = TopicService;
+            this.CommonService = CommonService;
             $scope.changeTabs = angular.bind(this, this.changeTabs);
             $scope.closeTip = angular.bind(this, this.closeTip);
             $scope.showReplayModal = angular.bind(this, this.showReplayModal);
@@ -82,9 +84,10 @@ var JDB;
         };
         TopicList.prototype.showReplayModal = function (id) {
             if (id === void 0) { id = null; }
-            this.TopicService.replyModal({
+            this.CommonService.replyModal({
                 topicID: this.currentDetail.topic.id,
-                parentID: id
+                parentID: id,
+                action: 'topic'
             });
         };
         return TopicList;
@@ -113,7 +116,7 @@ var JDB;
             return defer.promise;
         }]
     };
-    TopicList.$inject = ['$rootScope', '$scope', '$stateParams', 'currentDetail', 'TopicService'];
+    TopicList.$inject = ['$rootScope', '$scope', '$stateParams', 'currentDetail', 'TopicService', 'CommonService'];
     JDB.CtrlModule.controller('TopListCtrl', TopicList);
     JDB.CtrlModule.controller('TopicDetailCtrl', TopicList);
     JDB.CtrlModule.controller('TopicReplyCtrl', TopicList);

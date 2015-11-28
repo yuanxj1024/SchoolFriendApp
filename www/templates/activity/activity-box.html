@@ -1,0 +1,40 @@
+<div ng-controller="ActivityCtrl" class="activity-wrap">
+  <ion-header-bar class="top-header-bg-color">
+    <button class="button button-clear" ng-click="chooseLocation()">
+      全国
+      <i class="ion-ios-arrow-down"></i>
+    </button>
+    <h1 class="title">活动</h1>
+    <button class="button button-clear" ui-sref="jdb.activity-add">
+      <i class="icon ion-ios-plus-outline"></i>
+    </button>
+  </ion-header-bar>
+  <ion-content scrollbar-y='false' class="main-body-bg-color has-footer mine-group-wrap mine-release-join">
+    <div class="list mine-group-list">
+      <a ng-repeat="item in dataList track by item.id" class="item item-thumbnail-left" ng-class="{1:'doing',2:'un-start',3:'done',4:'doing',5:'done'}[item.state]" href="#" ui-sref="jdb.activity-detail({detailID:item.id})">
+        <img class="mine-item-img" src="/img/2015.jpg">
+        <h2 once-text="item.title"></h2>
+        <p><i class="ion-ios-location-outline"></i> <span once-text="item.address"></span></p>
+        <p><span once-text="item.startTime"></span>开始</p>
+      </a>
+      <!-- -->
+      <!--<a class="item item-thumbnail-left doing" href="#">-->
+      <!--<img class="mine-item-img" src="/img/2015.jpg">-->
+      <!--<h2>580元16G苹果手机升级128G？ 苹果称不对此进行回应</h2>-->
+      <!--<p><i class="ion-ios-location-outline"></i>（北京朝阳）国家大剧院</p>-->
+      <!--<p>2015-11-15 09:12开始</p>-->
+      <!--</a>-->
+      <!-- -->
+    </div>
+  </ion-content>
+  <div class="ng-hide location-backdrop" ng-click="isShowLocation = !isShowLocation" ng-show="isShowLocation">
+    <div class="location-wrap">
+      <span class="active">全国</span>
+      <span ng-click="locationSelected('北京')">北京</span><span>全国</span><span>全国</span><span>全国</span><span>全国</span><span>全国</span><span>全国</span><span>全国</span>
+    </div> 188 1006 8671
+
+  </div>
+  <!--<div class="backdrop"></div>-->
+
+  <div ng-include="'/templates/part/main-menu.html'"></div>
+</div>

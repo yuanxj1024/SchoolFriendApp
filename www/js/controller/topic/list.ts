@@ -4,6 +4,7 @@
  */
 /// <reference path="../../app.ts" />
 /// <reference path="../../service/topic/topic.ts" />
+/// <reference path="../../service/common.ts" />
 
 //话题列表
 
@@ -49,7 +50,8 @@ module JDB {
             public $scope: ITopicListScope,
             public $stateParams: ng.ui.IStateParamsService,
             public currentDetail: any,
-            public TopicService: ITopicService
+            public TopicService: ITopicService,
+            public CommonService: ICommonService
         ){
             $scope.changeTabs = angular.bind(this, this.changeTabs);
             $scope.closeTip = angular.bind(this ,this.closeTip);
@@ -129,9 +131,10 @@ module JDB {
         }
 
         showReplayModal(id = null){
-            this.TopicService.replyModal({
+            this.CommonService.replyModal({
                 topicID:  this.currentDetail.topic.id,
-                parentID: id
+                parentID: id,
+                action: 'topic'
             });
         }
 
@@ -164,7 +167,7 @@ module JDB {
         }]
     };
 
-    TopicList.$inject = ['$rootScope', '$scope', '$stateParams', 'currentDetail', 'TopicService'];
+    TopicList.$inject = ['$rootScope', '$scope', '$stateParams', 'currentDetail', 'TopicService', 'CommonService'];
     CtrlModule.controller('TopListCtrl', TopicList);
     CtrlModule.controller('TopicDetailCtrl', TopicList);
 

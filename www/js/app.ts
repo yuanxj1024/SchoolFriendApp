@@ -15,7 +15,7 @@ module JDB {
     'use strict';
 
     //后台数据地址
-    export var appHost: string = 'http://172.17.70.1:8080/jdb/mobile';
+    export var appHost: string = 'http://172.22.224.1:8080/jdb/mobile';
     //静态资源域
     export var staticHost: string  = appHost + '/image/showimage?picpath=';
     //版本号
@@ -23,7 +23,7 @@ module JDB {
     //类型模块
     export var TypeModule: ng.IModule = angular.module('JDB.types', ['ionic']);
     //控制器模块
-    export var CtrlModule: ng.IModule = angular.module('JDB.controllers', ['ionic','once', 'ngFileUpload']);
+    export var CtrlModule: ng.IModule = angular.module('JDB.controllers', ['ionic','ionic-datepicker','ionic-timepicker','once', 'ngFileUpload']);
     //服务模块
     export var ServiceModule: ng.IModule = angular.module('JDB.services', ['ngResource', 'ngFileUpload']);
     //自定义指令模块
@@ -32,7 +32,7 @@ module JDB {
     export var ResolvesModule: any = {};
 
     //应用程序对象
-    export var AppModule: ng.IModule = angular.module('JDB', ['ionic','once', 'JDB.types', 'JDB.controllers', 'JDB.services', 'ngFileUpload']);
+    export var AppModule: ng.IModule = angular.module('JDB', ['ionic','ionic-datepicker','ionic-timepicker','once', 'JDB.types', 'JDB.controllers', 'JDB.services', 'ngFileUpload']);
 
     //根作用域
     export interface IJDBRootScopeService extends ng.IRootScopeService {
@@ -42,6 +42,7 @@ module JDB {
         getAccessToken: Function;
         //当前用户
         User: any;
+        localUser: Function;
         //通用请求处理函数
         requestHandler:Function;
 
@@ -67,6 +68,8 @@ module JDB {
         runResolve: Function;
         //图片静态地址
         staticHost: string;
+        //首页slide-veiw切换
+        goHoveView: Function;
     }
 
     //程序启动入口

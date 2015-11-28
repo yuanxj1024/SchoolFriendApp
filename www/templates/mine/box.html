@@ -1,0 +1,78 @@
+<div ng-controller="MineCtrl">
+  <ion-header-bar class="top-header-bg-color">
+    <button class="button button-clear" ui-sref="jdb.home">
+      <i class="ion-ios-arrow-left"></i>
+      首页
+    </button>
+    <h1 class="title">我的</h1>
+  </ion-header-bar>
+  <ion-content class="mine-default-wrap main-body-bg-color" scrollbar-y='false'>
+    <!--<button ui-sref="jdb.invite">邀请码</button>-->
+    <!--<button ui-sref="jdb.info">个人信息</button>-->
+    <!--<button ui-sref="jdb.reginfo">完善信息</button>-->
+    <!--<button ui-sref="jdb.resetpwd">重置密码</button>-->
+    <div class="list">
+      <div class="item user-head">
+        <div class="user-img">
+          <img ng-src="{{ staticHost + User.headPicPath }}" src="/img/2015.jpg" alt=""/>
+        </div>
+        <div class="user-info">
+          <p><span once-text="User.realName|| User.username"></span> <i class="user-gender-famale"></i></p>
+          <p> <span once-text="User.company"></span> <span once-text="User.title"></span></p>
+        </div>
+        <div class="btn" ui-sref="jdb.info">
+          <i class="ion-chevron-right right"></i>
+        </div>
+      </div>
+    </div>
+    <!---->
+    <div class="list">
+      <div class="item item-icon-left">
+        <i class="icon  item-icon mine-group"></i>
+        <div class="info-wrap" ui-sref="jdb.minegroup({id:User.id})">
+          <div class="title">我的圈子</div>
+          <div class="btn">
+            138<i class="ion-chevron-right"></i>
+          </div>
+        </div>
+      </div>
+      <div class="item item-icon-left">
+        <i class="icon  item-icon mine-topic"></i>
+        <div class="info-wrap no-border" ui-sref="jdb.minetopic({id:User.id})">
+          <div class="title">我的话题</div>
+          <div class="btn">
+            138<i class="ion-chevron-right"></i>
+          </div>
+        </div>
+      </div>
+    </div>
+    <!-- -->
+    <div class="list-title">活动</div>
+    <div class="list">
+      <div class="item item-icon-left">
+        <i class="icon  item-icon mine-release"></i>
+        <div class="info-wrap" ui-sref="jdb.minerelease({id:User.id})">
+          <div class="title">我的发布</div>
+          <div class="btn">
+            138<i class="ion-chevron-right"></i>
+          </div>
+        </div>
+      </div>
+      <div class="item item-icon-left">
+        <i class="icon  item-icon mine-join"></i>
+        <div class="info-wrap no-border" ui-sref="jdb.minejoin({id:User.id})">
+          <div class="title">我参加的</div>
+          <div class="btn">
+            138<i class="ion-chevron-right"></i>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="btn-wrap txt-center">
+      <button ui-sref="jdb.invite" class="button button-blue no-border">邀请好友</button>
+      <button ng-click="logout" class="button">退&nbsp;&nbsp;出</button>
+    </div>
+
+  </ion-content>
+  <div ng-include="'/templates/part/main-menu.html'"></div>
+</div>

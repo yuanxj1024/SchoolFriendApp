@@ -33,6 +33,8 @@ var JDB;
             $rootScope.setAccessToken = angular.bind(this, this.setAccessToken);
             $rootScope.getAccessToken = angular.bind(this, this.getAccessToken);
             $rootScope.runResolve = angular.bind(this, this.runResolve);
+            $rootScope.localUser = angular.bind(this, this.localUser);
+            $rootScope.goHoveView = angular.bind(this, this.goHoveView);
         }
         //创建模式窗口
         RootScopeExtend.prototype.createmodal = function (url, scope) {
@@ -166,6 +168,20 @@ var JDB;
                 promise[ctrlName] = self.$injector.invoke(res);
             });
             return self.$q.all(promise);
+        };
+        RootScopeExtend.prototype.localUser = function () {
+            var user = window.localStorage.getItem(JDB.userKey);
+            if (user && typeof user == 'string') {
+                user = JSON.parse(user);
+            }
+            if (user) {
+                this.$rootScope.User = user;
+            }
+            return user || {};
+        };
+        //首页slide-veiw切换
+        RootScopeExtend.prototype.goHoveView = function (index) {
+            this.$rootScope.$emit('event:change-slide-veiw', index);
         };
         return RootScopeExtend;
     })();

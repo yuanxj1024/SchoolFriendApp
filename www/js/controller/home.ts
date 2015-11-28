@@ -109,18 +109,20 @@ module JDB {
             });
         }
 
-        openActionSheet(user){
+        openActionSheet(topic){
             var self = this;
-            console.log(user);
-            this.ReportService.setReportObject(user);
+            //this.ReportService.setReportObject(topic);
             this.CommonService.showDropMenu(null).then(function(index){
                 console.log(index);
                 if(index == 0){
-                    self.CommonService.showReport();
+                    self.CommonService.showReport({
+                        typeName: '话题',
+                        id: topic.id
+                    });
                 }else if(index == 2){
                     self.TopicService.ignoreUser({
                         phone: self.$rootScope.User.phone,
-                        tphone: user.alumnus.phone
+                        tphone: topic.alumnus.phone
                     });
                 }
             }.bind(this));

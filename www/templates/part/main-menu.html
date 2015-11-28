@@ -1,9 +1,16 @@
 <div class="bar bar-footer main-menu--footer">
   <div class="main-menu-wrap">
-    <div class="m-item"><a class="main-icon home" ui-sref-active="active" ui-sref="jdb.home">交大邦</a></div>
-    <div class="m-item"><a class="main-icon activity" ui-sref-active="active" ui-sref="jdb.activity">活动</a></div>
-    <div class="m-item"><a class="main-icon discover" ui-sref-active="active" ui-sref="jdb.discover">发现</a></div>
-    <div class="m-item"><a class="main-icon message" ui-sref-active="active" ui-sref="jdb.message">消息</a></div>
-    <div class="m-item"><a class="main-icon mine" ui-sref-active="active" ui-sref="jdb.mine" href="">我的</a></div>
+    <!--<div class="m-item"><a class="main-icon home" ui-sref-active="active" ui-sref="jdb.home">交大邦</a></div>-->
+    <!--<div class="m-item"><a class="main-icon activity" ui-sref-active="active" ui-sref="jdb.activity">活动</a></div>-->
+    <!--<div class="m-item"><a class="main-icon discover" ui-sref-active="active" ui-sref="jdb.discover">发现</a></div>-->
+    <!--<div class="m-item"><a class="main-icon message" ui-sref-active="active" ui-sref="jdb.message">消息</a></div>-->
+    <!--<div class="m-item"><a class="main-icon mine" ui-sref-active="active" ui-sref="jdb.mine" href="">我的</a></div>-->
+
+
+    <div class="m-item" ng-click="changeSlide(0)"><a class="main-icon home" ng-class="{true:'active'}[selectedIndex == 0]">交大邦</a></div>
+    <div class="m-item" ng-click="changeSlide(1)"><a class="main-icon activity" ng-class="{true:'active'}[selectedIndex == 1]">活动</a></div>
+    <div class="m-item" ng-click="changeSlide(2)"><a class="main-icon discover" ng-class="{true:'active'}[selectedIndex == 2]">发现</a></div>
+    <div class="m-item" ng-click="changeSlide(3)"><a class="main-icon message" ng-class="{true:'active'}[selectedIndex == 3]">消息</a></div>
+    <div class="m-item" ng-click="changeSlide(4)"><a class="main-icon mine" ng-class="{true:'active'}[selectedIndex == 4]">我的</a></div>
   </div>
 </div>

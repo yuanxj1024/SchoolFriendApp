@@ -27,6 +27,9 @@ module JDB {
             $scope.openUserCard = angular.bind(this, this.openUserCard);
 
             //$scope.openUserCard(1);
+            $rootScope.$once('event:refresh-all-slide-view',function(){
+                console.log('discover refresh');
+            });
         }
 
         openUserCard(item){

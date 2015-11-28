@@ -15,8 +15,8 @@ module JDB {
     export interface IReportService {
         //举报
         report(args: any, cb:any): void;
-        setReportObject(args:any):void;
-        getReportObject():any;
+        //setReportObject(args:any):void;
+        //getReportObject():any;
 
     }
 
@@ -59,12 +59,12 @@ module JDB {
             });
         }
 
-        setReportObject(arg:any){
-            currentReportUser = arg;
-        }
-        getReportObject(){
-            return currentReportUser;
-        }
+        //setReportObject(arg:any){
+        //    currentReportUser = arg;
+        //}
+        //getReportObject(){
+        //    return currentReportUser || {};
+        //}
 
     }
 

@@ -58,7 +58,9 @@ var JDB;
                     window.plugins.toast.showExShortCenter('登陆成功');
                     self.$scope.cancel();
                     //self.$rootScope.stateGo('jdb.home');
-                    self.$rootScope.$emit('event:refresh-home');
+                    //self.$rootScope.$emit('event:refresh-home');
+                    self.$rootScope.$emit('event:refresh-all-slide-view');
+                    self.$rootScope.stateGo('jdb.home');
                 }
                 else {
                     window.plugins.toast.showExShortCenter(res.error);
@@ -178,7 +180,8 @@ var JDB;
         };
         LoginReg.prototype.resetBack = function () {
             this.$scope.resetStep = 1;
-            this.$rootScope.stateGo('jdb.mine');
+            //this.$rootScope.stateGo('jdb.mine');
+            this.$rootScope.goHoveView(4);
         };
         return LoginReg;
     })();

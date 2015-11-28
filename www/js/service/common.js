@@ -147,8 +147,17 @@ var JDB;
             });
             return defer.promise;
         };
-        Common.prototype.showReport = function () {
-            this.$rootScope.createModal('/templates/part/report-modal.html');
+        Common.prototype.showReport = function (args) {
+            var scope = this.$rootScope.$new();
+            scope.typeName = args.typeName || '';
+            scope.id = args.id || 0;
+            this.$rootScope.createModal('/templates/part/report-modal.html', scope);
+        };
+        //显示评论界面
+        Common.prototype.replyModal = function (args) {
+            var scope = this.$rootScope.$new();
+            scope.params = args;
+            this.$rootScope.createModal('/templates/topic/reply-modal.html', scope);
         };
         return Common;
     })();
