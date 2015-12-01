@@ -11,7 +11,7 @@ var JDB;
     //modal对象集合
     var modalList = {};
     var RootScopeExtend = (function () {
-        function RootScopeExtend($rootScope, $q, $ionicModal, $state, $ionicLoading, $ionicScrollDelegate, CommonService, $stateParams, $injector) {
+        function RootScopeExtend($rootScope, $q, $ionicModal, $state, $ionicLoading, $ionicScrollDelegate, CommonService, $stateParams, $injector, $window, $ionicHistory) {
             this.$rootScope = $rootScope;
             this.$q = $q;
             this.$ionicModal = $ionicModal;
@@ -21,6 +21,8 @@ var JDB;
             this.CommonService = CommonService;
             this.$stateParams = $stateParams;
             this.$injector = $injector;
+            this.$window = $window;
+            this.$ionicHistory = $ionicHistory;
             $rootScope.createModal = angular.bind(this, this.createmodal);
             $rootScope.requestHandler = angular.bind(this, this.requestHandler);
             $rootScope.stateGo = angular.bind(this, this.stateGo);
@@ -35,6 +37,7 @@ var JDB;
             $rootScope.runResolve = angular.bind(this, this.runResolve);
             $rootScope.localUser = angular.bind(this, this.localUser);
             $rootScope.goHoveView = angular.bind(this, this.goHoveView);
+            $rootScope.openUserCard = angular.bind(this, this.openUserCard);
         }
         //创建模式窗口
         RootScopeExtend.prototype.createmodal = function (url, scope) {
@@ -108,10 +111,10 @@ var JDB;
         };
         //返回前一路由
         RootScopeExtend.prototype.goBack = function (name, params) {
-            if (name === void 0) { name = ''; }
-            if (params === void 0) { params = {}; }
-            name = this.$stateParams['from'] || name;
-            this.$state.go(name, params);
+            //name = this.$stateParams['from'] || name;
+            //this.$state.go(name, params);
+            //this.$window.history.go(-1);
+            this.$ionicHistory.goBack();
         };
         RootScopeExtend.prototype.back = function () {
             var current = this.$state.current;
@@ -183,9 +186,15 @@ var JDB;
         RootScopeExtend.prototype.goHoveView = function (index) {
             this.$rootScope.$emit('event:change-slide-veiw', index);
         };
+        //打开个人明信片
+        RootScopeExtend.prototype.openUserCard = function (phone) {
+            this.CommonService.showUserCardModal({
+                phone: phone
+            });
+        };
         return RootScopeExtend;
     })();
-    RootScopeExtend.$inject = ['$rootScope', '$q', '$ionicModal', '$state', '$ionicLoading', '$ionicScrollDelegate', 'CommonService', '$stateParams', '$injector'];
+    RootScopeExtend.$inject = ['$rootScope', '$q', '$ionicModal', '$state', '$ionicLoading', '$ionicScrollDelegate', 'CommonService', '$stateParams', '$injector', '$window', '$ionicHistory'];
     JDB.ServiceModule.service('RootScopeExtendService', RootScopeExtend);
 })(JDB || (JDB = {}));
 //# sourceMappingURL=rootScope-extend.js.map

@@ -131,7 +131,7 @@ var JDB;
             }
             args.isLiked = true;
             return this.$rootScope.requestHandler(this.topicResource.likeTopic, {
-                phone: this.$rootScope.User.phone,
+                phone: this.$rootScope.localUser().phone,
                 id: args.id
             }, true).then(function (res) {
                 if (res && res.code == 0) {

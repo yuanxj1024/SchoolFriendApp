@@ -1,52 +1,62 @@
-<ion-view ng-controller="GroupDetailCtrl">
+<ion-view >
   <ion-header-bar class="top-header-bg-color">
-    <button class="button button-clear" ng-click="goBack('jdb.message')">
+    <button class="button button-clear" ng-click="goBack()">
       <i class="ion-ios-arrow-left"></i>
     </button>
     <h1 class="title">圈子信息</h1>
+    <button class="button button-clear" ng-click="showActionSheet()">
+      <i class="icon ion-more"></i>
+    </button>
   </ion-header-bar>
   <ion-content class="main-body-bg-color group-detail-wrap" scrollbar-y='false' scroll="false">
     <div class="detail-info padding">
       <img class="group-img" src="/img/2015.jpg" alt=""/>
-      <h5 class="title">芭蕾舞的基础形态的圈子</h5>
-      <p class="intro">简介：这里是圈子的简介这里是圈子的简介这里是圈子的简介这里是圈子的简介</p>
+      <h5 class="title" once-text="model.circle.title"></h5>
+      <div class="intro">
+        <pre once-text="model.circle.introduce"></pre>
+      </div>
     </div>
     <div class="detail-member-wrap padding">
-      <div class="header">
+      <div class="header" ng-click="showMembers()">
         <span class="title">圈内成员</span>
-        <span class="count right">45人<i class="ion-chevron-right"></i></span>
+        <span class="count right">{{memberCount}}人<i class="ion-chevron-right"></i></span>
       </div>
       <div class="member-list">
-        <div class="member-item">
-          <img class="head-img" src="/img/2015.jpg" alt=""/>
-          <span class="name">李世民</span>
+
+        <div class="member-item" ng-repeat="item in members track by item.id">
+          <img class="head-img" ng-src="{{staticHost + item.user.alumnus.headPicPath}}" alt=""/>
+          <span class="name" once-text="item.user.alumnus.realName"></span>
         </div>
-        <div class="member-item">
-          <img class="head-img" src="/img/2015.jpg" alt=""/>
-          <span class="name">李世民</span>
-        </div>
+        <!--<div class="member-item">-->
+          <!--<img class="head-img" src="/img/2015.jpg" alt=""/>-->
+          <!--<span class="name">李世民</span>-->
+        <!--</div>-->
         <div class="member-item" ng-click="openChooseMember('add')">
           <img class="head-img" src="/img/group-detail-add.png" alt="添加成员"/>
         </div>
       </div>
     </div>
     <div class="control-wrap list">
-      <div class="item">
+      <div class="item" ng-click="modifyNickName()">
         我的圈子昵称
         <i class="right icon ion-chevron-right"></i>
       </div>
-      <div class="item" ui-sref="jdb.group-manage">
-        圈子管理
-        <i class="right icon ion-chevron-right"></i>
-      </div>
+      <!--<div class="item" ui-sref="jdb.new-friends">-->
+        <!--新朋友-->
+        <!--<i class="right icon ion-chevron-right"></i>-->
+      <!--</div>-->
+      <!--<div class="item" ui-sref="jdb.group-manage">-->
+        <!--圈子管理-->
+        <!--<i class="right icon ion-chevron-right"></i>-->
+      <!--</div>-->
     </div>
     <div class="control-wrap list">
-      <div class="item">举报
+      <div class="item" ng-click="report()">举报
         <i class="right icon ion-chevron-right"></i>
       </div>
     </div>
     <div class="btn-quit">
-      <button class="button button-positive button-block">退出/解散圈子</button>
+      <button ng-click="quitGroup()" class="button button-positive button-block">退出/解散圈子</button>
     </div>
   </ion-content>
 

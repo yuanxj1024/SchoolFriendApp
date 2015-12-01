@@ -17,6 +17,8 @@ var JDB;
             this.$filter = $filter;
             $scope.showImageSheet = angular.bind(this, this.showImageSheet);
             $scope.save = angular.bind(this, this.save);
+            $scope.upload = angular.bind(this, this.upload);
+            $scope.removeImg = angular.bind(this, this.removeImg);
             this.init();
             this.initDatePicker();
         }
@@ -38,7 +40,8 @@ var JDB;
                 otherInfo: '',
                 contactMan: '',
                 contactPhone: '',
-                contactEmail: ''
+                contactEmail: '',
+                phone: this.$rootScope.localUser().phone
             };
         };
         ActivityCreate.prototype.initDatePicker = function () {
@@ -116,20 +119,86 @@ var JDB;
             });
         };
         ActivityCreate.prototype.validate = function (valid) {
-            var msg = '';
-            if (!valid) {
-                msg = '请将信息填写完整';
+            var msg = '', form = this.$scope.activityForm;
+            //if(!valid){
+            //    msg = '请将信息填写完整';
+            //} else
+            if (!form.title) {
+                msg = '请填写标题';
             }
-            else if (msg) {
+            else if (!form.picPath) {
+                msg = '请上传活动图片';
+            }
+            else if (!form.city) {
+                msg = '请填写举办城市';
+            }
+            else if (!form.address) {
+                msg = '请填写具体地址';
+            }
+            else if (!form.activityDesc) {
+                msg = '请填写活动详情';
+            }
+            else if (!form.sTime) {
+                msg = '请选择开始时间';
+            }
+            else if (!form.eTime) {
+                msg = '请选择结束时间';
+            }
+            else if (!form.sDate) {
+                msg = '请选择开始日期';
+            }
+            else if (!form.eDate) {
+                msg = '请选择结束日期';
+            }
+            if (msg) {
                 window.plugins.toast.showShortCenter(msg);
                 return false;
             }
             return true;
         };
         ActivityCreate.prototype.save = function ($valid) {
-            console.log($valid);
-            if (this.validate($valid)) {
+            var self = this;
+            console.log(this.$scope.activityForm);
+            this.$scope.activityForm.startTime = this.$scope.activityForm.sDate + ' ' + this.$scope.activityForm.sTime + ':00';
+            this.$scope.activityForm.endTime = this.$scope.activityForm.eDate + ' ' + this.$scope.activityForm.eTime + ':00';
+            if (!this.validate($valid)) {
+                return;
             }
+            this.ActivityService.saveData(this.$scope.activityForm).then(function (result) {
+                if (result && result.code == 0) {
+                    window.plugins.toast.showShortCenter('发布成功');
+                    self.$rootScope.goBack();
+                    self.$rootScope.$emit('event:refresh-activity-list');
+                }
+                else {
+                    window.plugins.toast.showShortCenter('发布失败，请稍后重试');
+                }
+            }, function (err) {
+                window.plugins.toast.showShortCenter('发布失败，请稍后重试');
+            });
+        };
+        ActivityCreate.prototype.upload = function (file) {
+            var self = this;
+            if (file) {
+                this.$scope.tempImg = file;
+            }
+            this.CommonService.uploadFile({
+                file: file
+            }).then(function (res) {
+                if (res.data.code == '0') {
+                    self.$scope.activityForm.picPath = res.data.data;
+                }
+                else {
+                    window.plugins.toast.showShortCenter('上传失败，请重试!');
+                    self.$scope.tempImg = '';
+                }
+            }, function (err) {
+                self.$scope.tempImg = '';
+            });
+        };
+        ActivityCreate.prototype.removeImg = function () {
+            this.$scope.tempImg = '';
+            this.$scope.activityForm.picPath = '';
         };
         return ActivityCreate;
     })();

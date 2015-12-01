@@ -62,12 +62,12 @@
         <!-- -->
         <div class="item">
           <div class="img-list">
-            <div class="img-item">
-              <img src="/img/2015.jpg" alt=""/>
-              <i class="ion-ios-close-empty"></i>
+            <div class="img-item" ng-if="tempImg">
+              <img  ngf-src="tempImg" alt=""/>
+              <i ng-click="removeImg()" class="ion-ios-close-empty"></i>
             </div>
-            <i class="btn-add-image left" ng-click="showImageSheet()"></i>
-            <span class="img-tip">请添加活动图片（必填）</span>
+            <i class="btn-add-image left" ngf-select="upload($file)"></i>
+            <span  ngf-select="upload($file)" class="img-tip">请添加活动图片（必填）</span>
           </div>
         </div>
       </div>

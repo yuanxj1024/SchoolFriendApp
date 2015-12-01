@@ -1,20 +1,22 @@
 /**
  * Created by AaronYuan on 11/14/15.
  */
-//话题
-
+// 发现
 /// <reference path="../../app.ts" />
 /// <reference path="../../service/Common.ts" />
 /// <reference path="../../service/user/user.ts" />
+/// <reference path="../../service/discover/discover.ts" />
+
 module JDB {
     'use strict';
 
     declare var window;
 
     interface IDiscoverScope extends ng.IScope {
-        //打开个人名片
-        openUserCard: Function;
-
+        currentPageIndex: number;
+        model: any;
+        bannerSlide:any;
+        slideClick: Function;
     }
 
     class Discover {
@@ -22,32 +24,64 @@ module JDB {
             public $rootScope: IJDBRootScopeService,
             public $scope: IDiscoverScope,
             public CommonService: ICommonService,
-            public UserService: IUserService
+            public UserService: IUserService,
+            public DiscoverService: IDiscoverService,
+            public $ionicSlideBoxDelegate: any,
+            public $timeout: any
         ){
-            $scope.openUserCard = angular.bind(this, this.openUserCard);
+            $scope.slideClick = angular.bind(this,this.slideClick);
 
-            //$scope.openUserCard(1);
+
+            $scope.bannerSlide = $ionicSlideBoxDelegate.$getByHandle('discover-slider');
+
+            var self = this;
+
             $rootScope.$once('event:refresh-all-slide-view',function(){
-                console.log('discover refresh');
+                self.init();
+            });
+
+            self.init();
+        }
+
+        init(){
+            this.$scope.currentPageIndex = 1;
+
+            this.refresh();
+        }
+
+        refreshSlideView(){
+            var self = this;
+            self.$timeout(function(){
+                self.$scope.bannerSlide.update();
+            },500);
+
+        }
+
+        refresh(){
+            var self = this;
+
+            this.DiscoverService.index({
+                phone: this.$rootScope.localUser().phone,
+                focusSize: 6,
+                circleSize: 4,
+                userSize: 5
+            }).then(function(result){
+                if(result && result.code == 0){
+                    self.$scope.model = result.data;
+                    self.refreshSlideView();
+                }
             });
         }
 
-        openUserCard(item){
-            //this.UserService.openUserCard(1).then(function(res){
-            //    console.log(123);
-            //});
-
-            this.CommonService.showUserCardModal({
-                id: item
-            }).then(function(){
-
-            },function(err){
-
-            });
+        slideClick(item){
+            this.$rootScope.stateGo('jdb.activity-detail',{
+                detailID: item.id
+            })
         }
+
 
     }
 
-    Discover.$inject = ['$rootScope','$scope', 'CommonService', 'UserService'];
+    Discover.$inject = ['$rootScope','$scope', 'CommonService', 'UserService', 'DiscoverService', '$ionicSlideBoxDelegate', '$timeout'];
     CtrlModule.controller('DiscoverCtrl', Discover);
 }

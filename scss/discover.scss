@@ -1,5 +1,5 @@
 @import "flex";
-
+@import "variable";
 @media (min--moz-device-pixel-ratio: 1.5),
 (-webkit-min-device-pixel-ratio: 1.5),
 (min-device-pixel-ratio: 1.5),
@@ -39,8 +39,8 @@
 .discover-home-wrap{
   .top-banner-wrap{
     height: 122px;
-    margin-bottom: 10px;
-    img{
+    //margin-bottom: 10px;
+    .discover-banner-item{
       width: 100%;
       max-height: 122px;
       height: 122px;
@@ -96,7 +96,7 @@
           }
         }
         span{
-          height: 16px;
+          height: 17px;
           font-size: 12px;
           display: inline-block;
           width: 100%;

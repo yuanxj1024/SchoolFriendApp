@@ -1,0 +1,35 @@
+<ion-view ng-controller="GroupListCtrl">
+
+  <ion-nav-bar class="top-header-bg-color">
+    <ion-nav-back-button class="button-icon">
+    <i class="ion-ios-arrow-left"></i>
+    </ion-nav-back-button>
+    <ion-nav-buttons side="right">
+      <button class="button button-clear">
+        <i class="icon ion-more"></i>
+      </button>
+    </ion-nav-buttons>
+  </ion-nav-bar>
+  <ion-nav-title once-text="viewTitle"></ion-nav-title>
+
+  <div class="mine-group-search-wrap list">
+    <div class="item item-input-inset main-body-bg-color">
+      <label class="item-input-wrapper">
+        <i class="icon ion-search placeholder-icon"></i>
+        <input ng-click="openSearchModal()" type="text" placeholder="搜索">
+      </label>
+    </div>
+  </div>
+  <ion-content class="mine-group-wrap main-body-bg-color" scrollbar-y='false'>
+    <div class="list mine-group-list">
+
+      <a ng-repeat="item in dataList track by $index"  class="item item-thumbnail-left" ui-sref="jdb.group-detail({id:item.circle.id})">
+        <img class="mine-group-img" ng-src="{{staticHost + item.circle.iconPath}}">
+        <h2><span class="title left" once-text="item.circle.title"></span>
+          <span once-text="item.circle.count" class="count">9人</span></h2>
+        <p once-text="item.circle.introduce"></p>
+      </a>
+
+    </div>
+  </ion-content>
+</ion-view>

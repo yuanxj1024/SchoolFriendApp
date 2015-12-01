@@ -47,6 +47,8 @@ module JDB {
         showReport: Function;
         //打开评论
         replyModal(args:any): void;
+        showConfirm(title:string, tpl:string):ng.IPromise<any>;
+        showAlert(title:string, tpl:string): ng.IPromise<any>;
 
     }
 
@@ -198,12 +200,27 @@ module JDB {
         }
 
 
-        showConfirm(title:string, tpl:string){
-
-
+        showConfirm(title:string, tpl:string):ng.IPromise<any> {
+            var defer = this.$q.defer();
+            var confirmPopup = this.$ionicPopup.confirm({
+                title: title|| '提示',
+                template: tpl|| ''
+            });
+            confirmPopup.then(function(res) {
+                defer.resolve(res);
+            });
+            return defer.promise;
         }
-        showAlert(title:string, tpl:string){
-
+        showAlert(title:string, tpl:string): ng.IPromise<any>{
+            var defer = this.$q.defer();
+            var alertPopup = this.$ionicPopup.alert({
+                title: title,
+                template:tpl
+            });
+            alertPopup.then(function(res) {
+                console.log('Thank you for not eating my delicious ice cream cone');
+            });
+            return defer.promise;
         }
         //上传文件
         uploadFile(args: IUploadFileArgs): ng.IPromise<any> {
@@ -228,6 +245,7 @@ module JDB {
             scope.id = args.id|| 0;
             this.$rootScope.createModal('/templates/part/report-modal.html', scope);
         }
+
 
         //显示评论界面
         replyModal(args:any): void{

@@ -28,7 +28,7 @@ module JDB {
         init(){
             this.$scope.replyForm = {
                 content: '',
-                phone: this.$rootScope.User.phone
+                phone: this.$rootScope.localUser().phone
             };
         }
 
@@ -87,7 +87,6 @@ module JDB {
             }, function(err){
                 window.plugins.toast.showShortCenter('回复失败，稍后重试');
             });
-
         }
     }
 

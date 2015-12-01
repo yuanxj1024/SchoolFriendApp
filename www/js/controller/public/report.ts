@@ -57,7 +57,7 @@ module JDB {
 
         save(){
             this.ReportService.report({
-                phone: this.$rootScope.User.phone,
+                phone: this.$rootScope.localUser().phone,
                 reason: this.$scope.selectedCategory,
                 otherInfo:this.$scope.reportForm.content,
                 assoId: this.$scope.id,

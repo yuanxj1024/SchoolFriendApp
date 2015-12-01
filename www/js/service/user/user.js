@@ -13,7 +13,7 @@ var JDB;
             this.$q = $q;
             this.$resource = $resource;
             this.CommonService = CommonService;
-            this.userResource = $resource(JDB.appHost + '/', {
+            this.userResource = $resource(JDB.appHost + '/user/:action', {
                 action: '@action'
             }, {
                 list: {
@@ -30,6 +30,22 @@ var JDB;
                     isArray: false,
                     params: {
                         action: 'list'
+                    }
+                },
+                nearby: {
+                    method: 'GET',
+                    needAccessToken: true,
+                    isArray: false,
+                    params: {
+                        action: 'querynearusers'
+                    }
+                },
+                viewUserInfo: {
+                    method: 'POST',
+                    needAccessToken: true,
+                    isArray: false,
+                    params: {
+                        action: 'viewuser'
                     }
                 }
             });
@@ -63,6 +79,13 @@ var JDB;
                 window.plugins.toast.showShortCenter('用户名片加载失败。');
             });
             return defer.promise;
+        };
+        //附近的好友
+        User.prototype.friendList = function (args) {
+            return this.$rootScope.requestHandler(this.userResource.nearby, args);
+        };
+        User.prototype.viewUserInfo = function (args) {
+            return this.$rootScope.requestHandler(this.userResource.viewUserInfo, args, true);
         };
         return User;
     })();

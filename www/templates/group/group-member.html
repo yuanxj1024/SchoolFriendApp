@@ -1,0 +1,22 @@
+<ion-modal-view ng-controller="GroupMemberCtrl">
+  <ion-header-bar class="top-header-bg-color">
+    <button class="button button-clear back-button" ng-click="cancel()">
+      <i class="ion-ios-arrow-left"></i>
+    </button>
+    <h1 class="title">圈子成员</h1>
+  </ion-header-bar>
+
+  <ion-content class="mine-group-wrap main-body-bg-color nearby-wrap" scrollbar-y='false'>
+    <div class="list mine-group-list">
+      <div ng-repeat="item in members track by item.id" class="item item-thumbnail-left" href="#" ng-click="openUserCard(item.phone)">
+        <img class="mine-group-img" ng-src="{{staticHost + item.user.alumnus.headPicPath}}">
+        <h2>
+          <span class="title" once-text="item.user.alumnus.realName"></span>
+          <span class="grade"><span once-text="item.user.alumnus.grade"></span>&nbsp;<span once-text="item.user.alumnus.school"></span></span>
+          <span class="distance right">{{(item.user.alumnus.distance/1000 || 0).toFixed(2)}}km</span>
+        </h2>
+        <p once-text="item.user.alumnus.company"></p>
+      </div>
+    </div>
+  </ion-content>
+</ion-modal-view>

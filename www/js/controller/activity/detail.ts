@@ -56,6 +56,7 @@ module JDB {
                 self.$scope.detailID = data.id;
                 self.getDetail();
             });
+
         }
 
         init(){
@@ -140,7 +141,7 @@ module JDB {
         getDetail(){
             var self = this;
             this.ActivityService.detail({
-                phone: this.$rootScope.User.phone,
+                phone: this.$rootScope.localUser().phone,
                 id: this.$scope.detailID
             }).then(function(result){
                 if(result.code == 0){

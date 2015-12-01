@@ -1,0 +1,24 @@
+<ion-view ng-controller="GroupManageCtrl">
+  <ion-header-bar class="top-header-bg-color">
+    <button class="button button-clear back-button" ng-click="goBack()">
+      <i class="ion-ios-arrow-left"></i>
+    </button>
+    <h1 class="title">圈子昵称</h1>
+  </ion-header-bar>
+
+  <ion-content class="info-edit-wrap main-body-bg-color has-header" scrollbar-y='false' scroll="false">
+    <form name="frmEdit" id="frmEdit" novalidate ng-submit="saveInfo(frmEdit.$valid)">
+      <div class="edit-item-wrap">
+        <div class="list margintop22">
+          <label class="item item-input">
+            <input type="text" placeholder="请输入圈子昵称" ng-model="groupForm.name">
+          </label>
+        </div>
+
+      </div>
+      <div class="btn-wrap txt-center">
+        <button class="button button-positive">保存</button>
+      </div>
+    </form>
+  </ion-content>
+</ion-view>

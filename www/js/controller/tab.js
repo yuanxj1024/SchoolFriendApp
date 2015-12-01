@@ -7,11 +7,12 @@ var JDB;
 (function (JDB) {
     'use strict';
     var Tab = (function () {
-        function Tab($ionicSlideBoxDelegate, $scope, $timeout, $rootScope) {
+        function Tab($ionicSlideBoxDelegate, $scope, $timeout, $rootScope, $stateParams) {
             this.$ionicSlideBoxDelegate = $ionicSlideBoxDelegate;
             this.$scope = $scope;
             this.$timeout = $timeout;
             this.$rootScope = $rootScope;
+            this.$stateParams = $stateParams;
             $scope.slideView = $ionicSlideBoxDelegate.$getByHandle('main-slide');
             $scope.slideHasChanged = angular.bind(this, this.slideHasChanged);
             $scope.changeSlide = angular.bind(this, this.changeSlide);
@@ -22,6 +23,12 @@ var JDB;
             $rootScope.$once('event:change-slide-veiw', function (e, index) {
                 $scope.changeSlide(index);
             });
+            var self = this;
+            if ($stateParams['index']) {
+                $timeout(function () {
+                    self.changeSlide($stateParams['index']);
+                }, 800);
+            }
         }
         Tab.prototype.slideHasChanged = function (index) {
             this.$scope.selectedIndex = index;
@@ -33,7 +40,7 @@ var JDB;
         };
         return Tab;
     })();
-    Tab.$inject = ['$ionicSlideBoxDelegate', '$scope', '$timeout', '$rootScope'];
+    Tab.$inject = ['$ionicSlideBoxDelegate', '$scope', '$timeout', '$rootScope', '$stateParams'];
     JDB.CtrlModule.controller('TabCtrl', Tab);
 })(JDB || (JDB = {}));
 //# sourceMappingURL=tab.js.map

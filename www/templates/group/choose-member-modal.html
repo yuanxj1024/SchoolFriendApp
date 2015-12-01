@@ -7,7 +7,8 @@
   </ion-header-bar>
   <ion-content class="mine-group-wrap main-body-bg-color nearby-wrap has-footer" scrollbar-y='false'>
     <div class="list mine-group-list">
-      <div class="item selected item-thumbnail-left" href="#">
+
+      <div ng-repeat="item in dataList track by $index" class="item selected item-thumbnail-left" href="#">
         <img class="mine-group-img" src="/img/2015.jpg">
         <h2>
           <span class="title">佟大为</span>
@@ -16,14 +17,16 @@
         <p>育成集团</p>
         <i class="icon-select"></i>
       </div>
-      <div class="item item-thumbnail-left" href="#">
-        <img class="mine-group-img" src="/img/2015.jpg">
-        <h2>
-          <span class="title left">马伊琍</span>
-          <span class="grade">09&nbsp;西安交大</span>
-        </h2>
-        <p>牛娜毅力</p>
-        <i class="icon-select"></i>
+
+      <div class="item txt-center" ng-if="dataList.length <=0" href="#">
+        暂无数据
+        <!--<img class="mine-group-img" src="/img/2015.jpg">-->
+        <!--<h2>-->
+          <!--<span class="title left">马伊琍</span>-->
+          <!--<span class="grade">09&nbsp;西安交大</span>-->
+        <!--</h2>-->
+        <!--<p>牛娜毅力</p>-->
+        <!--<i class="icon-select"></i>-->
       </div>
     </div>
   </ion-content>

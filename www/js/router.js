@@ -15,6 +15,9 @@ var JDB;
             controller: 'TabCtrl'
         }).state('jdb.home', {
             url: '/home',
+            params: {
+                index: ''
+            },
             views: {
                 'tab-main': {
                     templateUrl: 'templates/home.html',
@@ -51,6 +54,16 @@ var JDB;
                     resolve: JDB.ResolvesModule['ActivityDetailCtrl']
                 }
             }
+        }).state('jdb.discover-group-list', {
+            url: '/discover/group-list',
+            params: {
+                action: 'all'
+            },
+            views: {
+                'tab-main': {
+                    templateUrl: 'templates/discover/group-list.html'
+                }
+            }
         }).state('jdb.usercard', {
             url: '/usercard',
             params: {
@@ -64,6 +77,10 @@ var JDB;
             }
         }).state('jdb.friend-request', {
             url: '/usercard/request',
+            params: {
+                phone: '',
+                name: ''
+            },
             views: {
                 'tab-main': {
                     templateUrl: 'templates/discover/friend-request.html'
@@ -203,6 +220,27 @@ var JDB;
                     templateUrl: 'templates/group/create.html'
                 }
             }
+        }).state('jdb.group-members', {
+            url: '/group/members',
+            params: {
+                groupID: ''
+            },
+            views: {
+                'tab-main': {
+                    templateUrl: 'templates/group/group-member.html'
+                }
+            }
+        }).state('jdb.group-rename', {
+            url: '/group/rename',
+            params: {
+                groupID: '',
+                name: ''
+            },
+            views: {
+                'tab-main': {
+                    templateUrl: 'templates/group/group-rename.html'
+                }
+            }
         }).state('jdb.group-add-member', {
             url: '/group/addMember',
             views: {
@@ -218,11 +256,16 @@ var JDB;
             },
             views: {
                 'tab-main': {
-                    templateUrl: 'templates/group/detail.html'
+                    templateUrl: 'templates/group/detail.html',
+                    controller: 'GroupDetailCtrl',
+                    resolve: JDB.ResolvesModule['GroupDetailCtrl']
                 }
             }
         }).state('jdb.group-manage', {
             url: '/group/manage',
+            params: {
+                groupID: ''
+            },
             views: {
                 'tab-main': {
                     templateUrl: 'templates/group/manage.html'

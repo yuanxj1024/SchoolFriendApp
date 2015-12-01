@@ -13,9 +13,13 @@ module JDB {
     export interface IUserService {
         //获取单个用户
         getUser(args: any): ng.IPromise<any>;
-
         //打开个人名片窗口
         openUserCard(args:any): ng.IPromise<any>;
+        //附近的好友
+        friendList(args: any): ng.IPromise<any>;
+        //查看信息
+        viewUserInfo(args:any): ng.IPromise<any>;
+
 
     }
 
@@ -24,6 +28,8 @@ module JDB {
         list(params:Object, data:Object,success?:Function,error?:Function);
         //获取单个用户信息
         getUser(params:Object, data:Object,success?:Function,error?:Function);
+        nearby(params:Object, data:Object,success?:Function,error?:Function);
+        viewUserInfo(params:Object, data:Object,success?:Function,error?:Function);
     }
 
     class User implements IUserService {
@@ -34,7 +40,7 @@ module JDB {
             public $resource: ng.resource.IResourceService,
             public CommonService: ICommonService
         ){
-            this.userResource = <IUserResource> $resource(appHost + '/', {
+            this.userResource = <IUserResource> $resource(appHost + '/user/:action', {
                 action: '@action'
             }, {
                 list: {
@@ -51,6 +57,22 @@ module JDB {
                     isArray: false,
                     params:{
                         action: 'list'
+                    }
+                },
+                nearby: {
+                    method: 'GET',
+                    needAccessToken: true,
+                    isArray: false,
+                    params:{
+                        action: 'querynearusers'
+                    }
+                },
+                viewUserInfo: {
+                    method: 'POST',
+                    needAccessToken: true,
+                    isArray: false,
+                    params:{
+                        action: 'viewuser'
                     }
                 }
             });
@@ -90,6 +112,16 @@ module JDB {
             return defer.promise;
         }
 
+        //附近的好友
+        friendList(args: any): ng.IPromise<any>{
+            return this.$rootScope.requestHandler(this.userResource.nearby, args);
+        }
+
+        viewUserInfo(args:any): ng.IPromise<any>{
+            return this.$rootScope.requestHandler(this.userResource.viewUserInfo, args, true);
+
+        }
+
 
     }
 
@@ -98,6 +130,3 @@ module JDB {
     ServiceModule.service('UserService', User);
 
 }
-
-
-

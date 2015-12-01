@@ -160,7 +160,7 @@ module JDB {
         cancelSignUp(args: any): ng.IPromise<any>{
             var defer = this.$q.defer();
             args = angular.extend({
-                phone: this.$rootScope.User.phone
+                phone: this.$rootScope.localUser().phone
             }, args);
             this.$rootScope.requestHandler(this.resource.cancelSignUp, args, true).then(function(result){
                 if(result && result.code == 0){

@@ -24,6 +24,9 @@ module JDB {
             //首页
             .state('jdb.home',{
                 url: '/home',
+                params: {
+                    index: ''
+                },
                 views: {
                     'tab-main':{
                         templateUrl: 'templates/home.html',
@@ -85,6 +88,28 @@ module JDB {
             //        }
             //    }
             //})
+            .state('jdb.discover-group-list',{
+                url: '/discover/group-list',
+                params:{
+                    action: 'all'
+                },
+                views: {
+                    'tab-main':{
+                        templateUrl: 'templates/discover/group-list.html',
+                    }
+                }
+            })
+            //.state('jdb.discover-friend-list',{
+            //    url: '/discover/friend-list',
+            //    params:{
+            //        action: 'discover'
+            //    },
+            //    views: {
+            //        'tab-main':{
+            //            templateUrl: 'templates/discover/friend-list.html',
+            //        }
+            //    }
+            //})
             //个人名片
             .state('jdb.usercard',{
                 url: '/usercard',
@@ -98,8 +123,13 @@ module JDB {
                     }
                 }
             })
+            //发送好友申请
             .state('jdb.friend-request',{
                 url: '/usercard/request',
+                params: {
+                    phone: '',
+                    name: ''
+                },
                 views: {
                     'tab-main':{
                         templateUrl: 'templates/discover/friend-request.html',
@@ -289,6 +319,30 @@ module JDB {
                     }
                 }
             })
+            //圈子成员
+            .state('jdb.group-members',{
+                url: '/group/members',
+                params: {
+                    groupID: ''
+                },
+                views: {
+                    'tab-main':{
+                        templateUrl: 'templates/group/group-member.html'
+                    }
+                }
+            })
+            .state('jdb.group-rename',{
+                url: '/group/rename',
+                params: {
+                    groupID: '',
+                    name: ''
+                },
+                views: {
+                    'tab-main':{
+                        templateUrl: 'templates/group/group-rename.html'
+                    }
+                }
+            })
             //圈子 - 邀请成员
             .state('jdb.group-add-member',{
                 url: '/group/addMember',
@@ -307,13 +361,18 @@ module JDB {
                 },
                 views: {
                     'tab-main':{
-                        templateUrl: 'templates/group/detail.html'
+                        templateUrl: 'templates/group/detail.html',
+                        controller: 'GroupDetailCtrl',
+                        resolve: ResolvesModule['GroupDetailCtrl']
                     }
                 }
             })
             //圈子 - 管理
             .state('jdb.group-manage',{
                 url: '/group/manage',
+                params:{
+                    groupID: ''
+                },
                 views: {
                     'tab-main':{
                         templateUrl: 'templates/group/manage.html'

@@ -11,21 +11,21 @@
   <ion-content class="has-header main-body-bg-color">
     <div class="user-card-wrap">
       <div class="info-wrap">
-        <img class="head-img" src="/img/2015.jpg" alt=""/>
+        <img class="head-img" ng-src="{{staticHost + model.headPicPath}}" alt=""/>
         <div class="info-left">
-          <h5>王小二 <i class="gender male"></i></h5>
-          <span class="light-color">钰诚集团&nbsp;首席执行官</span>
-          <span class="light-color">IT互联网 <i class="split"></i>金融</span>
+          <h5><span once-text="model.realName"></span> <i class="gender male"></i></h5>
+          <span class="light-color"><span once-text="model.company"></span>&nbsp;<span once-text="model.title"></span></span>
+          <span class="light-color"><span once-text="model.department"></span> <i class="split"></i>金融</span>
         </div>
         <div class="me" ng-click="showSearch()">ME</div>
       </div>
       <div class="attribute-wrap">
-        <div class="attr-item"><i class="icon-img school"></i>北京交大</div>
-        <div class="attr-item yellow"><i class="icon-img grade"></i>2008</div>
-        <div class="attr-item"><i class="icon-img phone"></i>13691513508</div>
-        <div class="attr-item yellow"><i class="icon-img email"></i>asdfas@qq.com</div>
-        <div class="attr-item"><i class="icon-img wechat"></i>weixin</div>
-        <div class="attr-item yellow"><i class="icon-img remark"></i>互联网创业，抱大腿</div>
+        <div class="attr-item"><i class="icon-img school"></i><span once-text="model.school"></span></div>
+        <div class="attr-item yellow"><i class="icon-img grade"></i><span once-text="model.grade"></span></div>
+        <div class="attr-item"><i class="icon-img phone"></i><span once-text="model.phone"></span></div>
+        <div class="attr-item yellow"><i class="icon-img email"></i><span once-text="model.email"></span></div>
+        <div class="attr-item"><i class="icon-img wechat"></i><span once-text="model.weixin"></span></div>
+        <div ng-if="!!model.remark" class="attr-item yellow"><i class="icon-img remark"></i><span once-text="model.remark"></span></div>
       </div>
       <div class="link">
         <span class="title">加入Ta的圈子</span>
@@ -36,7 +36,7 @@
         <span class="right light-color">12人 <i class="ion-chevron-right"></i></span>
       </div>
       <div class="btn-wrap">
-        <button class="button button-positive button-block">发消息</button>
+        <button ng-click="sendMessage()" class="button button-positive button-block">发消息</button>
       </div>
     </div>
   </ion-content>

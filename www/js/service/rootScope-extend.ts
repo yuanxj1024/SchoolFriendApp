@@ -28,7 +28,9 @@ module JDB {
             public $ionicScrollDelegate: Ionic.IScrollDelegate,
             public CommonService: ICommonService,
             public $stateParams: ng.ui.IStateParamsService,
-            public $injector: ng.auto.IInjectorService
+            public $injector: ng.auto.IInjectorService,
+            public $window: any,
+            public $ionicHistory:any
         ){
             $rootScope.createModal = angular.bind(this, this.createmodal);
             $rootScope.requestHandler = angular.bind(this, this.requestHandler);
@@ -44,6 +46,7 @@ module JDB {
             $rootScope.runResolve = angular.bind(this, this.runResolve);
             $rootScope.localUser = angular.bind(this, this.localUser);
             $rootScope.goHoveView = angular.bind(this, this.goHoveView);
+            $rootScope.openUserCard = angular.bind(this, this.openUserCard);
         }
 
         //创建模式窗口
@@ -118,9 +121,11 @@ module JDB {
         }
 
         //返回前一路由
-        goBack(name:string='', params:any = {}){
-            name = this.$stateParams['from'] || name;
-            this.$state.go(name, params);
+        goBack(name, params){
+            //name = this.$stateParams['from'] || name;
+            //this.$state.go(name, params);
+            //this.$window.history.go(-1);
+            this.$ionicHistory.goBack();
         }
 
         back(){
@@ -202,10 +207,16 @@ module JDB {
         }
 
 
+        //打开个人明信片
+        openUserCard(phone:string): void{
+            this.CommonService.showUserCardModal({
+                phone: phone
+            });
+        }
 
     }
 
-    RootScopeExtend.$inject = ['$rootScope', '$q', '$ionicModal', '$state', '$ionicLoading', '$ionicScrollDelegate', 'CommonService', '$stateParams', '$injector'];
+    RootScopeExtend.$inject = ['$rootScope', '$q', '$ionicModal', '$state', '$ionicLoading', '$ionicScrollDelegate', 'CommonService', '$stateParams', '$injector', '$window', '$ionicHistory'];
     ServiceModule.service('RootScopeExtendService', RootScopeExtend);
 }
 

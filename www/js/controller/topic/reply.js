@@ -22,7 +22,7 @@ var JDB;
         TopicList.prototype.init = function () {
             this.$scope.replyForm = {
                 content: '',
-                phone: this.$rootScope.User.phone
+                phone: this.$rootScope.localUser().phone
             };
         };
         //回复，评论

@@ -47,6 +47,10 @@ module JDB {
                 console.log('activity refresh');
                 self.init();
             });
+
+            $rootScope.$once('event:refresh-activity-list',function(){
+                self.init();
+            });
         }
 
         init(){

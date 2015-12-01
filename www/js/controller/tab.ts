@@ -12,7 +12,8 @@ module JDB{
             public $ionicSlideBoxDelegate: any,
             public $scope: any,
             public $timeout: any,
-            public $rootScope: any
+            public $rootScope: any,
+            public $stateParams: any
         ){
             $scope.slideView = $ionicSlideBoxDelegate.$getByHandle('main-slide');
             $scope.slideHasChanged = angular.bind(this, this.slideHasChanged);
@@ -25,7 +26,14 @@ module JDB{
 
             $rootScope.$once('event:change-slide-veiw', function(e, index){
                 $scope.changeSlide(index);
-            })
+            });
+
+            var self = this;
+            if($stateParams['index']){
+                $timeout(function(){
+                    self.changeSlide($stateParams['index']);
+                },800);
+            }
         }
         slideHasChanged(index){
             this.$scope.selectedIndex = index;
@@ -39,6 +47,6 @@ module JDB{
     }
 
 
-   Tab.$inject = ['$ionicSlideBoxDelegate', '$scope', '$timeout', '$rootScope'];
+   Tab.$inject = ['$ionicSlideBoxDelegate', '$scope', '$timeout', '$rootScope', '$stateParams'];
     CtrlModule.controller('TabCtrl',Tab);
 }

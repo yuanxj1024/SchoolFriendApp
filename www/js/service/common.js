@@ -128,8 +128,26 @@ var JDB;
             return this.$rootScope.createModal('/templates/discover/user-card-modal.html', scope);
         };
         Common.prototype.showConfirm = function (title, tpl) {
+            var defer = this.$q.defer();
+            var confirmPopup = this.$ionicPopup.confirm({
+                title: title || '提示',
+                template: tpl || ''
+            });
+            confirmPopup.then(function (res) {
+                defer.resolve(res);
+            });
+            return defer.promise;
         };
         Common.prototype.showAlert = function (title, tpl) {
+            var defer = this.$q.defer();
+            var alertPopup = this.$ionicPopup.alert({
+                title: title,
+                template: tpl
+            });
+            alertPopup.then(function (res) {
+                console.log('Thank you for not eating my delicious ice cream cone');
+            });
+            return defer.promise;
         };
         //上传文件
         Common.prototype.uploadFile = function (args) {

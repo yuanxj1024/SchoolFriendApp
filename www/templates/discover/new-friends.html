@@ -1,23 +1,13 @@
-<ion-view>
+<!--<ion-view>-->
+<ion-modal-view ng-controller="NearbyCtrl">
   <ion-header-bar class="top-header-bg-color">
-    <button class="button button-clear" ui-sref="jdb.contact">
+    <button class="button button-clear back-button" ng-click="cancel()">
       <i class="ion-ios-arrow-left"></i>
     </button>
     <h1 class="title">新朋友</h1>
-    <button class="button button-clear">
-      <i class="icon ion-ios-trash-outline"></i>
-    </button>
   </ion-header-bar>
-  <div class="mine-group-search-wrap list">
-    <div class="item item-input-inset main-body-bg-color">
-      <label class="item-input-wrapper">
-        <i class="icon ion-search placeholder-icon"></i>
-        <input ng-click="openSearchModal()" type="text" placeholder="搜索">
-      </label>
-    </div>
-  </div>
 
-  <ion-content class="new-friends-wrap mine-group-wrap main-body-bg-color nearby-wrap has-header-search" scrollbar-y='false'>
+  <ion-content class="new-friends-wrap mine-group-wrap main-body-bg-color nearby-wrap" scrollbar-y='false'>
     <div class="list mine-group-list">
       <div class="item item-thumbnail-left item-icon-right" href="#">
         <img class="mine-group-img" src="/img/2015.jpg">
@@ -41,4 +31,5 @@
       </div>
     </div>
   </ion-content>
-</ion-view>
+<!--</ion-view>-->
+</ion-modal-view>

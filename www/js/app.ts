@@ -15,7 +15,7 @@ module JDB {
     'use strict';
 
     //后台数据地址
-    export var appHost: string = 'http://172.22.224.1:8080/jdb/mobile';
+    export var appHost: string = 'http://172.21.58.1:8080/jdb/mobile';
     //静态资源域
     export var staticHost: string  = appHost + '/image/showimage?picpath=';
     //版本号
@@ -30,10 +30,8 @@ module JDB {
     export var DirectiveModule: ng.IModule = angular.module('JDB.directives', ['ionic','once']);
     //预加载模块
     export var ResolvesModule: any = {};
-
     //应用程序对象
     export var AppModule: ng.IModule = angular.module('JDB', ['ionic','ionic-datepicker','ionic-timepicker','once', 'JDB.types', 'JDB.controllers', 'JDB.services', 'ngFileUpload']);
-
     //根作用域
     export interface IJDBRootScopeService extends ng.IRootScopeService {
         //授权校验码
@@ -70,6 +68,8 @@ module JDB {
         staticHost: string;
         //首页slide-veiw切换
         goHoveView: Function;
+        //打开个人明信片
+        openUserCard;
     }
 
     //程序启动入口

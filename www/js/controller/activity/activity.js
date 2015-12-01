@@ -29,6 +29,9 @@ var JDB;
                 console.log('activity refresh');
                 self.init();
             });
+            $rootScope.$once('event:refresh-activity-list', function () {
+                self.init();
+            });
         }
         Activity.prototype.init = function () {
             this.$scope.dataList = [];

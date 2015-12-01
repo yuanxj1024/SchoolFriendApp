@@ -8,6 +8,7 @@
 
 /// <reference path="../../app.ts" />
 /// <reference path="../../service/common.ts" />
+/// <reference path="../../service/group/group.ts" />
 
 //我的，列表页
 // 我的圈子，我的话题
@@ -22,8 +23,11 @@ module JDB {
 
         viewTitle: string;
 
-
         fromState: string;
+
+        currentPageIndex: number;
+
+        dataList: Array<any>;
 
     }
 
@@ -32,11 +36,17 @@ module JDB {
             public $rootScope: IJDBRootScopeService,
             public $scope: IGroupListScope,
             public $stateParams: ng.ui.IStateParamsService,
-            public CommonService: ICommonService
+            public CommonService: ICommonService,
+            public GroupService: IGroupService
         ){
             $scope.showDropMenu = angular.bind(CommonService ,CommonService.showDropMenu);
 
             this.$scope.viewTitle = '所有圈子';
+
+            this.init();
+        }
+        init(){
+            this.$scope.currentPageIndex = 1;
 
             this.renderView();
         }
@@ -45,7 +55,7 @@ module JDB {
             var action = this.$stateParams['action'];
             if(action == 'all'){
                 this.$scope.viewTitle = '所有圈子';
-                this.$scope.fromState = 'jdb.group';
+                //this.$scope.fromState = 'jdb.group';
                 this.refreshAllGroup();
             }else if(action == 'group'){
                 this.$scope.viewTitle = '我的圈子';
@@ -60,13 +70,22 @@ module JDB {
         }
 
         refreshAllGroup(){
+            var self = this;
 
+            this.GroupService.groupList({
+                phone: this.$rootScope.localUser().phone,
+                curPage: this.$scope.currentPageIndex,
+                pageSize: 8
+            }).then(function(result){
+                if(result && result.code == 0){
+                    self.$scope.dataList = result.data;
+                }
+            });
         }
-
 
 
     }
 
-    GroupList.$inject = ['$rootScope', '$scope', '$stateParams', 'CommonService'];
+    GroupList.$inject = ['$rootScope', '$scope', '$stateParams', 'CommonService','GroupService'];
     CtrlModule.controller('GroupListCtrl', GroupList);
 }

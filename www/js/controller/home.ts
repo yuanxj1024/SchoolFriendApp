@@ -121,7 +121,7 @@ module JDB {
                     });
                 }else if(index == 2){
                     self.TopicService.ignoreUser({
-                        phone: self.$rootScope.User.phone,
+                        phone: self.$rootScope.localUser().phone,
                         tphone: topic.alumnus.phone
                     });
                 }

@@ -1,31 +1,42 @@
 <ion-view ng-controller="NearbyCtrl">
-  <ion-header-bar class="top-header-bg-color">
-    <button class="button button-clear" ng-click="goBack('jdb.home')">
-      <i class="ion-ios-arrow-left"></i>
-      返回
-    </button>
-    <h1 class="title">附近的人</h1>
-  </ion-header-bar>
+  <ion-nav-bar class="top-header-bg-color">
+    <ion-nav-back-button class="button-icon">
+      <i class="ion-ios-arrow-left">&nbsp;</i>
+    </ion-nav-back-button>
+    <!--<ion-nav-buttons side="right">-->
+      <!--<button class="button button-clear">-->
+        <!--<i class="icon ion-more"></i>-->
+      <!--</button>-->
+    <!--</ion-nav-buttons>-->
+  </ion-nav-bar>
+  <ion-nav-title>附近的人</ion-nav-title>
+  <!--<ion-header-bar class="top-header-bg-color">-->
+    <!--<button class="button button-clear" ng-click="goBack('jdb.home')">-->
+      <!--<i class="ion-ios-arrow-left"></i>-->
+      <!--返回-->
+    <!--</button>-->
+    <!--<h1 class="title">附近的人</h1>-->
+  <!--</ion-header-bar>-->
   <ion-content class="mine-group-wrap main-body-bg-color nearby-wrap" scrollbar-y='false'>
     <div class="list mine-group-list">
-      <div class="item item-thumbnail-left" href="#">
-        <img class="mine-group-img" src="/img/2015.jpg">
+      <div ng-repeat="item in members track by item.user_id" class="item item-thumbnail-left" href="#" ng-click="openUserCard(item.phone)">
+        <img class="mine-group-img" ng-src="{{staticHost + item.headpic}}">
         <h2>
-          <span class="title">佟大为</span>
-          <span class="grade">09&nbsp;西安交大</span>
-          <span class="distance right">9km</span>
+          <span class="title" once-text="item.name"></span>
+          <span class="grade"><span once-text="item.grade"></span>&nbsp;<span once-text="item.school"></span></span>
+          <span class="distance right">{{(item.distance/1000).toFixed(2)}}km</span>
         </h2>
-        <p>育成集团</p>
+        <p once-text="item.company"></p>
       </div>
-      <div class="item item-thumbnail-left" href="#">
-        <img class="mine-group-img" src="/img/2015.jpg">
-        <h2>
-          <span class="title left">马伊琍</span>
-          <span class="grade">09&nbsp;西安交大</span>
-          <span class="distance right">9km</span>
-        </h2>
-        <p>牛娜毅力</p>
-      </div>
+      <!--<div class="item item-thumbnail-left" href="#">-->
+        <!--<img class="mine-group-img" src="/img/2015.jpg">-->
+        <!--<h2>-->
+          <!--<span class="title left">马伊琍</span>-->
+          <!--<span class="grade">09&nbsp;西安交大</span>-->
+          <!--<span class="distance right">9km</span>-->
+        <!--</h2>-->
+        <!--<p>牛娜毅力</p>-->
+      <!--</div>-->
     </div>
   </ion-content>
 </ion-view>
