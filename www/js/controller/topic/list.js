@@ -21,10 +21,12 @@ var JDB;
             $scope.closeTip = angular.bind(this, this.closeTip);
             $scope.showReplayModal = angular.bind(this, this.showReplayModal);
             $scope.likeTopic = angular.bind(TopicService, TopicService.likeTopic);
+            $scope.refresh = angular.bind(this, this.refresh);
             $scope.topicTag = $stateParams['tag'] || 1;
             $scope.topicTitle = window.JDBTypes.TopicTypes[$scope.topicTag];
             $scope.tabIndex = 2;
-            $scope.hasTip = true;
+            $scope.hasTip = !true;
+            $scope.hasMoreData = true;
             if (currentDetail) {
                 this.initDetail();
             }
@@ -44,7 +46,7 @@ var JDB;
             };
             this.$scope.topicList = [];
             this.$scope.currentPageIndex = 1;
-            this.refresh();
+            //this.refresh();
         };
         TopicList.prototype.initDetail = function () {
             this.$scope.model = this.currentDetail;
@@ -53,14 +55,18 @@ var JDB;
             var arg = {}, self = this;
             this.TopicService.list({
                 phone: this.$rootScope.User ? this.$rootScope.User.phone : 0,
-                curPage: this.$scope.currentPageIndex || 1,
+                curPage: this.$scope.currentPageIndex++,
                 typeId: this.$scope.topicTag,
-                labelId: this.$scope.tabIndex
+                labelId: this.$scope.tabIndex,
+                pageSize: 10
             }).then(function (res) {
-                if (res) {
+                if (res && res.code == 0) {
+                    self.$scope.hasMoreData = Math.ceil(res.data.totalCount / 10) > self.$scope.currentPageIndex;
                     self.$scope.topicList = res.data.resultList;
                 }
+                self.$scope.$broadcast('scroll.infiniteScrollComplete');
             }, function (err) {
+                self.$scope.$broadcast('scroll.infiniteScrollComplete');
                 window.plugins.toast.showShortCenter('数据记载失败,请重新进入。');
             });
         };

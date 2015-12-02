@@ -1,14 +1,9 @@
 <ion-view ng-controller="GroupListCtrl">
 
   <ion-nav-bar class="top-header-bg-color">
-    <!--<ion-nav-back-button class="button-icon">-->
-      <!--<i class="ion-ios-arrow-left"></i>-->
-    <!--</ion-nav-back-button>-->
-    <ion-nav-buttons side="left">
-      <button class="button button-clear" ui-sref="jdb.home({index:2})">
-        <i class="ion-ios-arrow-left"></i>
-      </button>
-    </ion-nav-buttons>
+    <ion-nav-back-button class="button-icon">
+      <i class="ion-ios-arrow-left"></i>
+    </ion-nav-back-button>
     <ion-nav-buttons side="right">
       <button class="button button-clear">
         <i class="icon ion-more"></i>
@@ -17,35 +12,29 @@
   </ion-nav-bar>
   <ion-nav-title once-text="viewTitle"></ion-nav-title>
 
-  <!--<ion-header-bar class="top-header-bg-color">-->
-    <!--<button class="button button-clear" ng-click="goBack('jdb.discover')">-->
-      <!--<i class="ion-ios-arrow-left"></i>-->
-    <!--</button>-->
-    <!--<h1 class="title" once-text="viewTitle"></h1>-->
-  <!--</ion-header-bar>-->
   <div class="mine-group-search-wrap list">
     <div class="item item-input-inset main-body-bg-color">
       <label class="item-input-wrapper">
         <i class="icon ion-search placeholder-icon"></i>
         <input ng-click="openSearchModal()" type="text" placeholder="搜索">
       </label>
-      <!--<button class="button button-small no-border">-->
-      <!--搜索-->
-      <!--</button>-->
     </div>
   </div>
   <ion-content class="mine-group-wrap main-body-bg-color" scrollbar-y='false'>
     <div class="list mine-group-list">
-      <a class="item item-thumbnail-left" ui-sref="jdb.group-detail({id:1,from:fromState})">
-        <img class="mine-group-img" src="/img/2015.jpg">
-        <h2><span class="title left">Pretty Hate Machine </span><span class="count">9人</span></h2>
-        <p>Nine Inch Nails</p>
-      </a>
-      <a class="item item-thumbnail-left" ui-sref="jdb.group-detail({id:1})">
-        <img class="mine-group-img" src="/img/2015.jpg">
-        <h2><span class="title left"> 580元16G苹果手机升级128G？ 苹果称不对此进行回应</span><span class="count">119人</span></h2>
-        <p>数万冻鸭变烤鸭世界偏见地图马伊琍保卫马伊琍保卫马伊琍保卫爱情</p>
+      <a ng-repeat="item in dataList track by $index"  class="item item-thumbnail-left" ui-sref="jdb.group-detail({id:item.id})">
+        <img class="mine-group-img" ng-src="{{staticHost + item.iconPath}}">
+        <h2><span class="title left" once-text="item.title"></span>
+          <span class="count">{{item.count}}人</span></h2>
+        <p once-text="item.introduce"></p>
       </a>
     </div>
+
+    <ion-infinite-scroll
+      ng-if="hasMoreData"
+      on-infinite="refresh()"
+      distance="0%"
+      immediate-check="true">
+    </ion-infinite-scroll>
   </ion-content>
 </ion-view>

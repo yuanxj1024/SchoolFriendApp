@@ -48,7 +48,6 @@ var JDB;
         };
         UserCard.prototype.initForRequest = function () {
             this.$scope.requestText = '我是' + this.$stateParams['name'];
-            console.log(this.$scope.requestText);
         };
         UserCard.prototype.showMore = function () {
             var self = this;

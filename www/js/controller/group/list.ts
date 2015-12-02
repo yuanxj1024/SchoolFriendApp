@@ -29,6 +29,9 @@ module JDB {
 
         dataList: Array<any>;
 
+        refresh: Function;
+
+        hasMoreData: boolean;
     }
 
     class GroupList {
@@ -40,13 +43,15 @@ module JDB {
             public GroupService: IGroupService
         ){
             $scope.showDropMenu = angular.bind(CommonService ,CommonService.showDropMenu);
-
-            this.$scope.viewTitle = '所有圈子';
+            $scope.refresh = angular.bind(this, this.refresh);
 
             this.init();
         }
         init(){
             this.$scope.currentPageIndex = 1;
+
+            this.$scope.hasMoreData = true;
+            this.$scope.dataList = [];
 
             this.renderView();
         }
@@ -55,18 +60,37 @@ module JDB {
             var action = this.$stateParams['action'];
             if(action == 'all'){
                 this.$scope.viewTitle = '所有圈子';
-                //this.$scope.fromState = 'jdb.group';
-                this.refreshAllGroup();
-            }else if(action == 'group'){
+            }else if(action == 'mine'){
                 this.$scope.viewTitle = '我的圈子';
-                this.$scope.fromState = 'jdb.minegroup';
+            }
+        }
+
+        refresh(){
+            var action = this.$stateParams['action'];
+            if(action == 'all'){
+                this.refreshAllGroup();
+            }else if(action == 'mine'){
                 this.refreshMineGroup();
             }
         }
 
         //我的圈子，初始化
         refreshMineGroup(){
+            var self = this;
 
+            this.GroupService.mineGroupList({
+                phone: this.$rootScope.localUser().phone,
+                curPage: this.$scope.currentPageIndex++,
+                pageSize: 10
+            }).then(function (result) {
+                if(result && result.code == 0){
+                    self.$scope.hasMoreData = Math.ceil(result.data.totalCount/ 10) > self.$scope.currentPageIndex;
+                    self.$scope.dataList = self.$scope.dataList.concat(result.data.resultList);
+                }
+                self.$scope.$broadcast('scroll.infiniteScrollComplete');
+            }, function(err){
+                self.$scope.$broadcast('scroll.infiniteScrollComplete');
+            });
         }
 
         refreshAllGroup(){
@@ -74,12 +98,16 @@ module JDB {
 
             this.GroupService.groupList({
                 phone: this.$rootScope.localUser().phone,
-                curPage: this.$scope.currentPageIndex,
-                pageSize: 8
+                curPage: this.$scope.currentPageIndex++,
+                pageSize: 10
             }).then(function(result){
                 if(result && result.code == 0){
-                    self.$scope.dataList = result.data;
+                    self.$scope.hasMoreData = Math.ceil(result.data.totalCount/ 10) > self.$scope.currentPageIndex;
+                    self.$scope.dataList = self.$scope.dataList.concat(result.data.resultList);
                 }
+                self.$scope.$broadcast('scroll.infiniteScrollComplete');
+            }, function(err){
+                self.$scope.$broadcast('scroll.infiniteScrollComplete');
             });
         }
 

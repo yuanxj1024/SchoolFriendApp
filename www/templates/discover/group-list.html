@@ -22,14 +22,19 @@
   </div>
   <ion-content class="mine-group-wrap main-body-bg-color" scrollbar-y='false'>
     <div class="list mine-group-list">
-
-      <a ng-repeat="item in dataList track by $index"  class="item item-thumbnail-left" ui-sref="jdb.group-detail({id:item.circle.id})">
-        <img class="mine-group-img" ng-src="{{staticHost + item.circle.iconPath}}">
-        <h2><span class="title left" once-text="item.circle.title"></span>
-          <span once-text="item.circle.count" class="count">9人</span></h2>
-        <p once-text="item.circle.introduce"></p>
+      <a ng-repeat="item in dataList track by $index"  class="item item-thumbnail-left" ui-sref="jdb.group-detail({id:item.id})">
+        <img class="mine-group-img" ng-src="{{staticHost + item.iconPath}}">
+        <h2><span class="title left" once-text="item.title"></span>
+          <span class="count">{{item.count}}人</span></h2>
+        <p once-text="item.introduce"></p>
       </a>
-
     </div>
+
+    <ion-infinite-scroll
+      ng-if="hasMoreData"
+      on-infinite="refresh()"
+      distance="0%"
+      immediate-check="true">
+    </ion-infinite-scroll>
   </ion-content>
 </ion-view>

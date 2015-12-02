@@ -19,7 +19,8 @@ module JDB {
         currentPageIndex: number;
         //话题列表
         dataList: Array<any>;
-
+        hasMoreData: boolean;
+        refresh: Function;
     }
 
     class Activity {
@@ -33,6 +34,7 @@ module JDB {
         ){
             $scope.chooseLocation = angular.bind(this, this.chooseLocation);
             $scope.locationSelected = angular.bind(this, this.locationSelected);
+            $scope.refresh = angular.bind(this ,this.refresh);
 
             $scope.isShowLocation = false;
 
@@ -56,8 +58,9 @@ module JDB {
         init(){
             this.$scope.dataList = [];
             this.$scope.currentPageIndex = 1;
+            this.$scope.hasMoreData = true;
 
-            this.refresh();
+            //this.refresh();
         }
 
         initForJoinMember(){
@@ -73,20 +76,20 @@ module JDB {
             });
 
         }
-
-
-
         refresh(args:any ={}){
             var self = this;
             args = angular.extend({
-                curPage: self.$scope.currentPageIndex,
-                pageSize: 5,
+                curPage: self.$scope.currentPageIndex++,
+                pageSize: 8,
                 phone: this.$rootScope.localUser().phone
             }, args);
             this.ActivityService.list(args).then(function(result){
-                console.log(result);
-                if(result){
-                    self.$scope.dataList = result.data;
+                if(result && result.code == 0){
+                    self.$scope.dataList = self.$scope.dataList.concat(result.data.resultList);
+                    self.$scope.hasMoreData = Math.ceil(result.data.totalCount/ 10) > self.$scope.currentPageIndex;
+                    self.$scope.$broadcast('scroll.infiniteScrollComplete');
+                }else{
+                    self.$scope.$broadcast('scroll.infiniteScrollComplete');
                 }
             });
 
@@ -95,19 +98,11 @@ module JDB {
         chooseLocation(){
             var self = this;
             this.$scope.isShowLocation = !this.$scope.isShowLocation;
-            //if(this.$scope.isShowLocation){
-            //    this.$ionicBackdrop.retain();
-            //}else{
-            //    self.$ionicBackdrop.release();
-            //}
         }
 
         locationSelected(item){
             console.log(item);
         }
-
-
-
     }
 
     Activity.$inject = ['$rootScope', '$scope', '$ionicBackdrop', '$timeout', 'ActivityService', '$stateParams'];

@@ -25,6 +25,11 @@ module JDB {
         //参见活动的人员列表
         joinMemberList(args: any):ng.IPromise<any>;
 
+        //我参与的活动列表
+        mineJoinList(args: any): ng.IPromise<any>;
+        //我发布的列表
+        mineCreateList(args: any): ng.IPromise<any>;
+
     }
 
     //1 报名中 2 已满员 3 已截止 4 进行中 5 已结束
@@ -45,6 +50,8 @@ module JDB {
         cancelSignUp(params:Object, data:Object,success?:Function,error?:Function);
         reply(params:Object, data:Object,success?:Function,error?:Function);
         joinMemberList(params:Object, data:Object,success?:Function,error?:Function);
+        mineJoinList(params:Object, data:Object,success?:Function,error?:Function);
+        mineCreateList(params:Object, data:Object,success?:Function,error?:Function);
     }
 
 
@@ -115,6 +122,22 @@ module JDB {
                     params:{
                         action: 'queryjoinusers'
                     }
+                },
+                mineJoinList: {
+                    method: 'GET',
+                    isArray: false,
+                    needAccessToken: true,
+                    params:{
+                        action: 'querymyjoinactivity'
+                    }
+                },
+                mineCreateList: {
+                    method: 'GET',
+                    isArray: false,
+                    needAccessToken: true,
+                    params:{
+                        action: 'querymyactivity'
+                    }
                 }
             });
 
@@ -180,6 +203,16 @@ module JDB {
         joinMemberList(args: any):ng.IPromise<any>{
             return this.$rootScope.requestHandler(this.resource.joinMemberList, args);
         }
+
+        //我参与的活动列表
+        mineJoinList(args: any): ng.IPromise<any>{
+            return this.$rootScope.requestHandler(this.resource.mineJoinList, args);
+        }
+        //我发布的列表
+        mineCreateList(args: any): ng.IPromise<any>{
+            return this.$rootScope.requestHandler(this.resource.mineCreateList, args);
+        }
+
     }
     Activity.$inject = ['$rootScope', '$q', '$resource'];
     ServiceModule.service('ActivityService', Activity);

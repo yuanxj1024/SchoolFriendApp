@@ -20,11 +20,16 @@ module JDB {
         viewTitle: string;
         //成员
         members: Array<any>;
+
         currentPageIndex: number;
         //后退
         back: Function;
         //圈子编号
         params: any;
+
+        refresh: Function;
+
+        hasMoreData: boolean;
     }
 
     class Nearby {
@@ -38,13 +43,25 @@ module JDB {
             public UserService: IUserService
         ){
 
+            $scope.refresh = angular.bind(this, this.refresh);
+
             $scope.viewTitle = '附近的人';
 
             this.init();
 
             console.log($scope.params);
             //if($stateParams['groupID']){
-            if($scope.params && $scope.params.groupID){
+            //this.refresh();
+        }
+
+        init(){
+            this.$scope.currentPageIndex = 1;
+            this.$scope.members = [];
+            this.$scope.hasMoreData = true;
+        }
+
+        refresh(){
+            if(this.$scope.params && this.$scope.params.groupID){
                 //$scope.viewTitle = '圈子成员';
                 this.initForGroupMembers();
             }else{
@@ -52,35 +69,40 @@ module JDB {
             }
         }
 
-        init(){
-            this.$scope.currentPageIndex = 1;
-        }
-
         initForNearby(){
             var self = this;
+            console.log('abc');
             this.UserService.friendList({
-                curPage: this.$scope.currentPageIndex,
+                curPage: this.$scope.currentPageIndex++,
                 pageSize: 10,
                 phone: this.$rootScope.localUser().phone
             }).then(function(result){
                 if(result && result.code == 0){
-                    self.$scope.members = result.data || [];
+                    //TODO
+                    self.$scope.hasMoreData = Math.ceil(result.data.totalCount/ 10) > self.$scope.currentPageIndex;
+                    self.$scope.members = self.$scope.members.concat(result.data || []);
                 }
+                self.$scope.$broadcast('scroll.infiniteScrollComplete');
             }, function(err){
+                self.$scope.$broadcast('scroll.infiniteScrollComplete');
             });
-
         }
 
         initForGroupMembers(){
             var self = this;
             this.GroupService.groupMembers({
                 pageSize: 10,
-                curPage:1,
+                curPage: this.$scope.currentPageIndex++,
                 circleid: this.$scope.params.groupID
             }).then(function(result){
                 if(result && result.code == 0){
-                    self.$scope.members =  result.data.resultList;
+                    //TODO
+                    self.$scope.hasMoreData = Math.ceil(result.data.totalCount/ 10) > self.$scope.currentPageIndex;
+                    self.$scope.members = self.$scope.members.concat(result.data.resultList);
                 }
+                self.$scope.$broadcast('scroll.infiniteScrollComplete');
+            }, function(){
+                self.$scope.$broadcast('scroll.infiniteScrollComplete');
             });
         }
     }

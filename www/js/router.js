@@ -120,8 +120,7 @@ var JDB;
         }).state('jdb.minegroup', {
             url: '/mine/group',
             params: {
-                action: 'group',
-                from: 'jdb.home'
+                action: 'mine'
             },
             views: {
                 'tab-main': {

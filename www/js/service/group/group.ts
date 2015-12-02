@@ -15,7 +15,7 @@ module JDB {
         //显示选择成员modal
         showChooseMemberModal(args: any): ng.IPromise<any>;
 
-        //圈子列表
+        //我的圈子列表
         mineGroupList(args: any): ng.IPromise<any>;
         //圈子列表
         groupList(args: any): ng.IPromise<any>;
@@ -171,7 +171,7 @@ module JDB {
         }
 
         mineGroupList(args:any): ng.IPromise<any>{
-            return this.$rootScope.requestHandler(this.mineGroupList, args);
+            return this.$rootScope.requestHandler(this.groupResource.mineGroupList, args);
         }
 
         //圈子列表
@@ -219,7 +219,7 @@ module JDB {
                     defer.resolve(result);
                     window.plugins.toast.showShortCenter('成功解散圈子');
                 }else{
-                    defer.reject(err);
+                    defer.reject(result);
                     window.plugins.toast.showShortCenter('圈子解散失败');
                 }
             },function(err){

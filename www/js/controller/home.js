@@ -11,19 +11,21 @@ var JDB;
 (function (JDB) {
     'use strict';
     var Home = (function () {
-        function Home($rootScope, $scope, TopicService, CommonService, AuthService, ReportService) {
+        function Home($rootScope, $scope, TopicService, CommonService, AuthService, ReportService, $timeout) {
             this.$rootScope = $rootScope;
             this.$scope = $scope;
             this.TopicService = TopicService;
             this.CommonService = CommonService;
             this.AuthService = AuthService;
             this.ReportService = ReportService;
+            this.$timeout = $timeout;
             $scope.openReleaseTopic = angular.bind(TopicService, TopicService.releaseTopicModal);
             //$scope.openSearchModal = angular.bind(CommonService, CommonService.showSearchModal);
             $scope.openActionSheet = angular.bind(this, this.openActionSheet);
             $scope.openLogin = angular.bind(this, CommonService.showLoginModal);
             $scope.changeTopicType = angular.bind(this, this.changeTopicType);
             $scope.likeTopic = angular.bind(this, this.likeTopic);
+            $scope.refresh = angular.bind(this, this.refresh);
             //$scope.openReleaseTopic();
             window.plugins.toast.showShortCenter('测试信息');
             var self = this;
@@ -36,7 +38,7 @@ var JDB;
             //self.AuthService.verify();
             this.$rootScope.$once('event:refresh-home', function () {
                 console.log('refresh home');
-                //self.init();
+                self.init();
                 self.refresh();
             });
             this.init();
@@ -46,7 +48,9 @@ var JDB;
             this.$scope.topicType = 2 /* Newest */;
             this.$scope.currentPage = 1;
             this.$scope.staticHost = JDB.staticHost;
-            this.refresh();
+            this.$scope.topicList = [];
+            this.$scope.hasMoreData = true;
+            //this.refresh();
         };
         //刷新页面
         Home.prototype.refresh = function () {
@@ -54,15 +58,17 @@ var JDB;
             this.TopicService.list({
                 phone: this.$rootScope.User ? this.$rootScope.User.phone : 0,
                 labelId: this.$scope.topicType || 2 /* Newest */,
-                curPage: this.$scope.currentPage || 1
+                curPage: this.$scope.currentPage++,
+                pageSize: 10
             }).then(function (res) {
-                if (res) {
-                    self.$scope.topicList = res.data.resultList;
+                if (res && res.code == 0) {
+                    self.$scope.hasMoreData = Math.ceil(res.data.totalCount / 10) > self.$scope.currentPage;
+                    self.$scope.topicList = self.$scope.topicList.concat(res.data.resultList || []);
                 }
-                console.log(res);
+                self.$scope.$broadcast('scroll.infiniteScrollComplete');
             }, function (err) {
-                //self.$rootScope.loading();
                 window.plugins.toast.showShortCenter('数据记载失败,请重新进入。');
+                self.$scope.$broadcast('scroll.infiniteScrollComplete');
             });
         };
         Home.prototype.openActionSheet = function (topic) {
@@ -95,7 +101,7 @@ var JDB;
         };
         return Home;
     })();
-    Home.$inject = ['$rootScope', '$scope', 'TopicService', 'CommonService', 'AuthService', 'ReportService'];
+    Home.$inject = ['$rootScope', '$scope', 'TopicService', 'CommonService', 'AuthService', 'ReportService', '$timeout'];
     JDB.CtrlModule.controller('HomeCtrl', Home);
 })(JDB || (JDB = {}));
 //# sourceMappingURL=home.js.map

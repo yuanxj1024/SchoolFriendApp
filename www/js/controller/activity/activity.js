@@ -17,6 +17,7 @@ var JDB;
             this.$stateParams = $stateParams;
             $scope.chooseLocation = angular.bind(this, this.chooseLocation);
             $scope.locationSelected = angular.bind(this, this.locationSelected);
+            $scope.refresh = angular.bind(this, this.refresh);
             $scope.isShowLocation = false;
             if ($stateParams['activityID']) {
                 this.initForJoinMember();
@@ -36,7 +37,8 @@ var JDB;
         Activity.prototype.init = function () {
             this.$scope.dataList = [];
             this.$scope.currentPageIndex = 1;
-            this.refresh();
+            this.$scope.hasMoreData = true;
+            //this.refresh();
         };
         Activity.prototype.initForJoinMember = function () {
             console.log(this.$stateParams);
@@ -54,25 +56,24 @@ var JDB;
             if (args === void 0) { args = {}; }
             var self = this;
             args = angular.extend({
-                curPage: self.$scope.currentPageIndex,
-                pageSize: 5,
+                curPage: self.$scope.currentPageIndex++,
+                pageSize: 8,
                 phone: this.$rootScope.localUser().phone
             }, args);
             this.ActivityService.list(args).then(function (result) {
-                console.log(result);
-                if (result) {
-                    self.$scope.dataList = result.data;
+                if (result && result.code == 0) {
+                    self.$scope.dataList = self.$scope.dataList.concat(result.data.resultList);
+                    self.$scope.hasMoreData = Math.ceil(result.data.totalCount / 10) > self.$scope.currentPageIndex;
+                    self.$scope.$broadcast('scroll.infiniteScrollComplete');
+                }
+                else {
+                    self.$scope.$broadcast('scroll.infiniteScrollComplete');
                 }
             });
         };
         Activity.prototype.chooseLocation = function () {
             var self = this;
             this.$scope.isShowLocation = !this.$scope.isShowLocation;
-            //if(this.$scope.isShowLocation){
-            //    this.$ionicBackdrop.retain();
-            //}else{
-            //    self.$ionicBackdrop.release();
-            //}
         };
         Activity.prototype.locationSelected = function (item) {
             console.log(item);

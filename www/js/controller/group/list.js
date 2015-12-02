@@ -22,39 +22,64 @@ var JDB;
             this.CommonService = CommonService;
             this.GroupService = GroupService;
             $scope.showDropMenu = angular.bind(CommonService, CommonService.showDropMenu);
-            this.$scope.viewTitle = '所有圈子';
+            $scope.refresh = angular.bind(this, this.refresh);
             this.init();
         }
         GroupList.prototype.init = function () {
             this.$scope.currentPageIndex = 1;
+            this.$scope.hasMoreData = true;
+            this.$scope.dataList = [];
             this.renderView();
         };
         GroupList.prototype.renderView = function () {
             var action = this.$stateParams['action'];
             if (action == 'all') {
                 this.$scope.viewTitle = '所有圈子';
-                //this.$scope.fromState = 'jdb.group';
+            }
+            else if (action == 'mine') {
+                this.$scope.viewTitle = '我的圈子';
+            }
+        };
+        GroupList.prototype.refresh = function () {
+            var action = this.$stateParams['action'];
+            if (action == 'all') {
                 this.refreshAllGroup();
             }
-            else if (action == 'group') {
-                this.$scope.viewTitle = '我的圈子';
-                this.$scope.fromState = 'jdb.minegroup';
+            else if (action == 'mine') {
                 this.refreshMineGroup();
             }
         };
         //我的圈子，初始化
         GroupList.prototype.refreshMineGroup = function () {
+            var self = this;
+            this.GroupService.mineGroupList({
+                phone: this.$rootScope.localUser().phone,
+                curPage: this.$scope.currentPageIndex++,
+                pageSize: 10
+            }).then(function (result) {
+                if (result && result.code == 0) {
+                    self.$scope.hasMoreData = Math.ceil(result.data.totalCount / 10) > self.$scope.currentPageIndex;
+                    self.$scope.dataList = self.$scope.dataList.concat(result.data.resultList);
+                }
+                self.$scope.$broadcast('scroll.infiniteScrollComplete');
+            }, function (err) {
+                self.$scope.$broadcast('scroll.infiniteScrollComplete');
+            });
         };
         GroupList.prototype.refreshAllGroup = function () {
             var self = this;
             this.GroupService.groupList({
                 phone: this.$rootScope.localUser().phone,
-                curPage: this.$scope.currentPageIndex,
-                pageSize: 8
+                curPage: this.$scope.currentPageIndex++,
+                pageSize: 10
             }).then(function (result) {
                 if (result && result.code == 0) {
-                    self.$scope.dataList = result.data;
+                    self.$scope.hasMoreData = Math.ceil(result.data.totalCount / 10) > self.$scope.currentPageIndex;
+                    self.$scope.dataList = self.$scope.dataList.concat(result.data.resultList);
                 }
+                self.$scope.$broadcast('scroll.infiniteScrollComplete');
+            }, function (err) {
+                self.$scope.$broadcast('scroll.infiniteScrollComplete');
             });
         };
         return GroupList;

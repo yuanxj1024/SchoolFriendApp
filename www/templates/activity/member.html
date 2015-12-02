@@ -31,5 +31,11 @@
       <!--</div>-->
     </div>
 
+    <ion-infinite-scroll
+      ng-if="hasMoreData"
+      on-infinite="refresh()"
+      distance="0%"
+      immediate-check="true">
+    </ion-infinite-scroll>
   </ion-content>
 </ion-view>

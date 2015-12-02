@@ -73,7 +73,6 @@ module JDB {
 
         initForRequest(){
             this.$scope.requestText = '我是'+ this.$stateParams['name'];
-            console.log(this.$scope.requestText);
         }
 
         showMore(){

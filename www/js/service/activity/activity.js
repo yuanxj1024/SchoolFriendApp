@@ -78,6 +78,22 @@ var JDB;
                     params: {
                         action: 'queryjoinusers'
                     }
+                },
+                mineJoinList: {
+                    method: 'GET',
+                    isArray: false,
+                    needAccessToken: true,
+                    params: {
+                        action: 'querymyjoinactivity'
+                    }
+                },
+                mineCreateList: {
+                    method: 'GET',
+                    isArray: false,
+                    needAccessToken: true,
+                    params: {
+                        action: 'querymyactivity'
+                    }
                 }
             });
         }
@@ -136,6 +152,14 @@ var JDB;
         };
         Activity.prototype.joinMemberList = function (args) {
             return this.$rootScope.requestHandler(this.resource.joinMemberList, args);
+        };
+        //我参与的活动列表
+        Activity.prototype.mineJoinList = function (args) {
+            return this.$rootScope.requestHandler(this.resource.mineJoinList, args);
+        };
+        //我发布的列表
+        Activity.prototype.mineCreateList = function (args) {
+            return this.$rootScope.requestHandler(this.resource.mineCreateList, args);
         };
         return Activity;
     })();

@@ -15,7 +15,7 @@ module JDB {
     'use strict';
 
     //后台数据地址
-    export var appHost: string = 'http://172.21.58.1:8080/jdb/mobile';
+    export var appHost: string = 'http://172.17.231.1:8080/jdb/mobile';
     //静态资源域
     export var staticHost: string  = appHost + '/image/showimage?picpath=';
     //版本号

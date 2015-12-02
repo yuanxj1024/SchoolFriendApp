@@ -1,13 +1,13 @@
 <ion-view>
   <ion-header-bar class="top-header-bg-color">
     <button class="button button-clear" ui-sref="jdb.home">
-      <i class="icon ion-ios-arrow-left"></i>
+      <i class="ion-ios-arrow-left"></i>
       首页
     </button>
     <h1 class="title" once-text="topicTitle"></h1>
   </ion-header-bar>
   <div class="topic-tab-header">
-    <div class="tip" ng-if="hasTip">
+    <div class="tip ng-hide" ng-if="hasTip">
       马云的面子工程吧。多试试，反正暂时对
       <i class="ion-ios-close-outline right" ng-click="closeTip()"></i>
     </div>
@@ -54,50 +54,13 @@
           <a href="" ng-class="{'true':'active'}[item.isLiked]" ng-click="likeTopic(item)"><i class="icon-op perfect"></i>{{item.lv || 0}}</a>
         </div>
       </div>
-
-      <!-- -->
-      <!--<div class="sub-item">-->
-        <!--<div class="topic-user">-->
-          <!--<div class="user-img"><img src="/img/topic-user-img.png" alt=""/></div>-->
-          <!--<div class="topic-info-wrap">-->
-            <!--<div class="name-block">-->
-              <!--<span class="name">王鑫</span><i class="split">|</i>-->
-              <!--<span class="light-color">09级</span>-->
-              <!--<span class="light-color">北交大</span>-->
-              <!--<div class="send-time-wrap">-->
-                <!--<div class="send-time light-color" href="">3小时前<i class="ion-chevron-down" ng-click="showDropMenu(1)"></i>-->
-                <!--</div>-->
-              <!--</div>-->
-            <!--</div>-->
-            <!--<div class="job light-color">-->
-              <!--<span>百度</span>-->
-              <!--<span>产品经理</span>-->
-            <!--</div>-->
-            <!--<div class="content">-->
-              <!--马云的面子工程吧。多试试，反正暂时对-->
-              <!--支付宝其他的功能也不报游戏王，起点低-->
-              <!--一成了也许有一天有人就笑了我了其他的-->
-              <!--功能也不报游戏王，起起点低一成了也许有起点低一成-->
-              <!--了也许有起点低一成了也许有点低一成了也许有-->
-              <!--支付宝其他的功能也不报游戏王，起点低-->
-              <!--一天有人其他的功能也不报游戏王也许..-->
-            <!--</div>-->
-            <!--<div class="content-imgs">-->
-              <!--<img class="topic-content-img" src="/img/abc.png" alt=""/>-->
-            <!--</div>-->
-            <!--<div class="topic-tag">-->
-              <!--<a href="">商机</a>-->
-            <!--</div>-->
-          <!--</div>-->
-        <!--</div>-->
-        <!--<div class="topic-op">-->
-          <!--<a href=""><i class="icon-op share"></i>45</a>-->
-          <!--<a href=""><i class="icon-op comments"></i>145</a>-->
-          <!--<a href=""><i class="icon-op perfect"></i>23</a>-->
-        <!--</div>-->
-      <!--</div>-->
-
       <!-- -->
     </div>
+    <ion-infinite-scroll
+      ng-if="hasMoreData"
+      on-infinite="refresh()"
+      distance="0%"
+      immediate-check="true">
+    </ion-infinite-scroll>
   </ion-content>
 </ion-view>

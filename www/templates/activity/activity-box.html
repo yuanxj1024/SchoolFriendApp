@@ -26,15 +26,17 @@
       <!--</a>-->
       <!-- -->
     </div>
+    <ion-infinite-scroll
+      ng-if="hasMoreData"
+      on-infinite="refresh()"
+      distance="0%"
+      immediate-check="true">
+    </ion-infinite-scroll>
   </ion-content>
   <div class="ng-hide location-backdrop" ng-click="isShowLocation = !isShowLocation" ng-show="isShowLocation">
     <div class="location-wrap">
       <span class="active">全国</span>
       <span ng-click="locationSelected('北京')">北京</span><span>全国</span><span>全国</span><span>全国</span><span>全国</span><span>全国</span><span>全国</span><span>全国</span>
-    </div> 188 1006 8671
-
+    </div>
   </div>
-  <!--<div class="backdrop"></div>-->
-
-  <div ng-include="'/templates/part/main-menu.html'"></div>
 </div>

@@ -39,6 +39,10 @@ module JDB {
         changeTopicType: Function;
 
         likeTopic: Function;
+
+        //上拉加载更多
+        refresh: Function;
+        hasMoreData: boolean;
     }
 
 
@@ -49,7 +53,8 @@ module JDB {
             public TopicService: ITopicService,
             public CommonService: ICommonService,
             public AuthService: IAuthService,
-            public ReportService: IReportService
+            public ReportService: IReportService,
+            public $timeout: any
         ){
             $scope.openReleaseTopic = angular.bind(TopicService, TopicService.releaseTopicModal);
             //$scope.openSearchModal = angular.bind(CommonService, CommonService.showSearchModal);
@@ -57,6 +62,7 @@ module JDB {
             $scope.openLogin = angular.bind(this,CommonService.showLoginModal);
             $scope.changeTopicType = angular.bind(this, this.changeTopicType);
             $scope.likeTopic = angular.bind(this, this.likeTopic);
+            $scope.refresh = angular.bind(this, this.refresh);
 
             //$scope.openReleaseTopic();
             window.plugins.toast.showShortCenter('测试信息');
@@ -74,7 +80,7 @@ module JDB {
 
             this.$rootScope.$once('event:refresh-home', function(){
                 console.log('refresh home');
-                //self.init();
+                self.init();
                 self.refresh();
             });
 
@@ -86,8 +92,10 @@ module JDB {
             this.$scope.topicType = TopicType.Newest;
             this.$scope.currentPage = 1;
             this.$scope.staticHost = staticHost;
+            this.$scope.topicList = [];
+            this.$scope.hasMoreData = true;
 
-            this.refresh();
+            //this.refresh();
         }
 
         //刷新页面
@@ -97,15 +105,17 @@ module JDB {
             this.TopicService.list({
                 phone: this.$rootScope.User ?this.$rootScope.User.phone : 0,
                 labelId: this.$scope.topicType || TopicType.Newest,
-                curPage: this.$scope.currentPage || 1
+                curPage: this.$scope.currentPage++,
+                pageSize: 10
             }).then(function(res){
-                if(res){
-                    self.$scope.topicList = res.data.resultList;
+                if(res && res.code ==0){
+                    self.$scope.hasMoreData = Math.ceil(res.data.totalCount/ 10) > self.$scope.currentPage;
+                    self.$scope.topicList = self.$scope.topicList.concat(res.data.resultList||[]);
                 }
-                console.log(res);
+                self.$scope.$broadcast('scroll.infiniteScrollComplete');
             }, function(err){
-                //self.$rootScope.loading();
                 window.plugins.toast.showShortCenter('数据记载失败,请重新进入。');
+                self.$scope.$broadcast('scroll.infiniteScrollComplete');
             });
         }
 
@@ -139,9 +149,8 @@ module JDB {
             }
         }
 
-
     }
 
-    Home.$inject = ['$rootScope', '$scope', 'TopicService', 'CommonService', 'AuthService', 'ReportService'];
+    Home.$inject = ['$rootScope', '$scope', 'TopicService', 'CommonService', 'AuthService', 'ReportService', '$timeout'];
     CtrlModule.controller('HomeCtrl', Home);
 }

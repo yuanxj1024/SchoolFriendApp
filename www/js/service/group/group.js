@@ -112,7 +112,7 @@ var JDB;
             return this.$rootScope.createModal('/templates/group/choose-member-modal.html', scope);
         };
         Group.prototype.mineGroupList = function (args) {
-            return this.$rootScope.requestHandler(this.mineGroupList, args);
+            return this.$rootScope.requestHandler(this.groupResource.mineGroupList, args);
         };
         //圈子列表
         Group.prototype.groupList = function (args) {
@@ -158,7 +158,7 @@ var JDB;
                     window.plugins.toast.showShortCenter('成功解散圈子');
                 }
                 else {
-                    defer.reject(err);
+                    defer.reject(result);
                     window.plugins.toast.showShortCenter('圈子解散失败');
                 }
             }, function (err) {
