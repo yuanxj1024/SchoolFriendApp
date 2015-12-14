@@ -11040,6 +11040,288 @@ a {
   margin-top: 20px;
   padding: 0 10px; }
 
+@media (min--moz-device-pixel-ratio: 1.5), (-webkit-min-device-pixel-ratio: 1.5), (min-device-pixel-ratio: 1.5), (min-resolution: 144dpi), (min-resolution: 1.5dppx) {
+  .message-wrap .list-wrap .msg-item .content-wrap .content .content-body {
+    border: none !important;
+    -moz-border-radius: 0px !important;
+    /* Gecko browsers */
+    -webkit-border-radius: 0px !important;
+    /* Webkit browsers */
+    border-radius: 0px !important;
+    /* W3C syntax */
+    background: linear-gradient(0deg, rgba(105, 94, 107, 0.2), rgba(105, 94, 107, 0.2) 50%, transparent 50%) bottom right/100% 1px no-repeat, linear-gradient(180deg, rgba(105, 94, 107, 0.2), rgba(105, 94, 107, 0.2) 50%, transparent 50%) top left/100% 1px no-repeat, linear-gradient(90deg, rgba(105, 94, 107, 0.2), rgba(105, 94, 107, 0.2) 50%, transparent 50%) top right/1px 100% no-repeat, linear-gradient(-90deg, rgba(105, 94, 107, 0.2), rgba(105, 94, 107, 0.2) 50%, transparent 50%) bottom left/1px 100% no-repeat; } }
+body {
+  -webkit-overflow-scrolling: touch; }
+
+.margin-b {
+  margin-bottom: 44px !important; }
+
+.missfreshim .list-wrap .msg-item {
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -moz-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-flex-flow: row;
+  -moz-flex-flow: row;
+  -ms-flex-flow: row;
+  flex-flow: row;
+  font-size: 14px;
+  border: none;
+  background-color: #F9F9F9;
+  padding: 5px 10px; }
+  .missfreshim .list-wrap .msg-item.sender {
+    -webkit-flex-flow: row-reverse;
+    -moz-flex-flow: row-reverse;
+    -ms-flex-flow: row-reverse;
+    flex-flow: row-reverse;
+    -o-flex-flow: row-reverse; }
+    .missfreshim .list-wrap .msg-item.sender .icon img {
+      float: right; }
+    .missfreshim .list-wrap .msg-item.sender .content-wrap .name {
+      text-align: right; }
+    .missfreshim .list-wrap .msg-item.sender .content-wrap .send-time {
+      padding-left: 40px;
+      padding-right: 0px; }
+    .missfreshim .list-wrap .msg-item.sender .content-wrap .content-body {
+      background-color: #B4E66C !important;
+      float: right !important;
+      text-align: left !important; }
+    .missfreshim .list-wrap .msg-item.sender .content-wrap .btn {
+      float: right !important; }
+  .missfreshim .list-wrap .msg-item .icon {
+    -webkit-box-flex: 0;
+    -webkit-flex: 0 0 40px;
+    -moz-box-flex: 0;
+    -moz-flex: 0 0 40px;
+    -ms-flex: 0 0 40px;
+    flex: 0 0 40px;
+    float: right; }
+    .missfreshim .list-wrap .msg-item .icon img {
+      width: 35px;
+      height: 35px; }
+  .missfreshim .list-wrap .msg-item .content-wrap {
+    -webkit-box-flex: 5;
+    -webkit-flex: 5 1 270px;
+    -moz-box-flex: 5;
+    -moz-flex: 5 1 270px;
+    -ms-flex: 5 1 270px;
+    flex: 5 1 270px;
+    display: -webkit-box;
+    display: -webkit-flex;
+    display: -moz-flex;
+    display: -ms-flexbox;
+    display: flex;
+    -webkit-flex-flow: column;
+    -moz-flex-flow: column;
+    -ms-flex-flow: column;
+    flex-flow: column; }
+    .missfreshim .list-wrap .msg-item .content-wrap .name {
+      -webkit-box-flex: 1;
+      -webkit-flex: 1 0;
+      -moz-box-flex: 1;
+      -moz-flex: 1 0;
+      -ms-flex: 1 0;
+      flex: 1 0;
+      color: #BCBCBC;
+      font-size: 12px;
+      min-height: 14px;
+      position: relative; }
+    .missfreshim .list-wrap .msg-item .content-wrap .content {
+      -webkit-box-flex: 3;
+      -webkit-flex: 3 1;
+      -moz-box-flex: 3;
+      -moz-flex: 3 1;
+      -ms-flex: 3 1;
+      flex: 3 1;
+      clear: both; }
+      .missfreshim .list-wrap .msg-item .content-wrap .content img {
+        height: 100%;
+        width: 100%; }
+      .missfreshim .list-wrap .msg-item .content-wrap .content .content-body {
+        background-color: white;
+        border: 1px solid #dedede;
+        -moz-border-radius: 6px;
+        /* Gecko browsers */
+        -webkit-border-radius: 6px;
+        /* Webkit browsers */
+        border-radius: 6px;
+        /* W3C syntax */
+        max-width: 79%;
+        padding: 5px; }
+        .missfreshim .list-wrap .msg-item .content-wrap .content .content-body p {
+          margin: 0;
+          word-wrap: break-word;
+          overflow: hidden;
+          white-space: normal; }
+      .missfreshim .list-wrap .msg-item .content-wrap .content .button {
+        min-width: 16px;
+        min-height: 16px;
+        height: 30px; }
+        .missfreshim .list-wrap .msg-item .content-wrap .content .button:before {
+          line-height: 30px; }
+      .missfreshim .list-wrap .msg-item .content-wrap .content .sending {
+        background-image: url(../img/ajax-loader.gif);
+        display: block;
+        background-repeat: no-repeat;
+        width: 16px;
+        height: 11px;
+        padding: 10px;
+        margin: 10px; }
+    .missfreshim .list-wrap .msg-item .content-wrap .send-time {
+      font-size: 10px;
+      text-align: center;
+      padding-right: 40px; }
+  .missfreshim .list-wrap .msg-item .refresh {
+    -webkit-box-flex: 1;
+    -webkit-flex: 1 1;
+    -moz-box-flex: 1;
+    -moz-flex: 1 1;
+    -ms-flex: 1 1;
+    flex: 1 1;
+    background-color: #F9F9F9; }
+    .missfreshim .list-wrap .msg-item .refresh a {
+      margin-top: 20px; }
+.missfreshim.footer {
+  position: fixed;
+  display: block !important;
+  bottom: 0;
+  left: 0;
+  z-index: 10000;
+  width: 100%;
+  background-color: white;
+  height: 44px; }
+  .missfreshim.footer .input {
+    display: -webkit-box;
+    display: -webkit-flex;
+    display: -moz-flex;
+    display: -ms-flexbox;
+    display: flex;
+    -webkit-flex-flow: row;
+    -moz-flex-flow: row;
+    -ms-flex-flow: row;
+    flex-flow: row;
+    -webkit-box-align: stretch;
+    -ms-flex-align: stretch;
+    -webkit-align-items: stretch;
+    -moz-align-items: stretch;
+    align-items: stretch;
+    padding: 5px;
+    background-color: #F9F9F9; }
+    .missfreshim.footer .input .write {
+      -webkit-box-flex: 5;
+      -webkit-flex: 5 0;
+      -moz-box-flex: 5;
+      -moz-flex: 5 0;
+      -ms-flex: 5 0;
+      flex: 5 0; }
+      .missfreshim.footer .input .write input {
+        display: inline-block;
+        border-bottom: solid 1px #ddd;
+        width: 90%; }
+    .missfreshim.footer .input .options {
+      -webkit-box-flex: 0;
+      -webkit-flex: 0 0 40px;
+      -moz-box-flex: 0;
+      -moz-flex: 0 0 40px;
+      -ms-flex: 0 0 40px;
+      flex: 0 0 40px;
+      margin-left: 5px; }
+      .missfreshim.footer .input .options .button {
+        font-size: 14px;
+        min-width: 30px;
+        width: 30px;
+        padding-left: 0;
+        padding-right: 0;
+        line-height: 34px;
+        min-height: 34px;
+        height: 34px;
+        color: black; }
+  .missfreshim.footer .panel {
+    display: none; }
+
+.fleft {
+  float: left; }
+
+.right {
+  float: right; }
+
+.im-footer {
+  background-color: #fff;
+  position: absolute;
+  height: 44px;
+  width: 100%; }
+  .im-footer .input-wrap {
+    position: relative; }
+    .im-footer .input-wrap .write .ion-edit {
+      position: absolute;
+      top: 0;
+      left: 0; }
+    .im-footer .input-wrap .write input {
+      display: inline-block;
+      width: 75%;
+      margin-left: 18px; }
+    .im-footer .input-wrap .write button {
+      width: 15%;
+      text-align: center;
+      min-height: 40px; }
+    .im-footer .input-wrap .options {
+      width: 25%;
+      position: absolute;
+      right: 0;
+      top: 0;
+      text-align: center; }
+
+.chat-list-wrap {
+  margin-bottom: 16px; }
+  .chat-list-wrap .item {
+    border: none;
+    disable: true; }
+  .chat-list-wrap .item-content {
+    padding-left: 65px !important;
+    padding-right: 10px !important;
+    padding-bottom: 0;
+    padding-top: 5px !important; }
+  .chat-list-wrap .chat-message {
+    margin-top: 15px;
+    overflow: auto;
+    text-overflow: initial;
+    white-space: initial;
+    font-size: 14px;
+    border: 1px solid #DDDDDD;
+    padding: 5px;
+    -webkit-border-radius: 5px;
+    -moz-border-radius: 5px;
+    border-radius: 5px;
+    display: inline-block; }
+  .chat-list-wrap .sender .item-content {
+    padding-right: 65px !important;
+    padding-left: 10px !important; }
+    .chat-list-wrap .sender .item-content img {
+      right: 16px !important;
+      left: inherit; }
+  .chat-list-wrap .sender .chat-message {
+    text-align: right;
+    float: right;
+    border: 1px solid #3FCB10;
+    background-color: #3FCB10;
+    color: #fff; }
+  .chat-list-wrap .sender h2 {
+    text-align: right; }
+  .chat-list-wrap .sender .time {
+    padding-left: 100px;
+    padding-right: 0;
+    margin-left: -50px; }
+  .chat-list-wrap .time {
+    font-size: 10px;
+    color: gray;
+    text-align: center;
+    margin-left: -30px;
+    padding-right: 31px; }
+
+.clear {
+  clear: both; }
+
 body {
   font-size: 12px;
   background-color: #666666; }

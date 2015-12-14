@@ -24,6 +24,13 @@ var JDB;
                     controller: 'TabCtrl'
                 }
             }
+        }).state('jdb.login', {
+            url: '/login',
+            views: {
+                'tab-main': {
+                    templateUrl: 'templates/login.html'
+                }
+            }
         }).state('jdb.activity-add', {
             url: '/activity/add',
             views: {

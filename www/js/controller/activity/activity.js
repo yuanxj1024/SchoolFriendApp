@@ -27,8 +27,10 @@ var JDB;
             }
             var self = this;
             $rootScope.$once('event:refresh-all-slide-view', function () {
-                console.log('activity refresh');
                 self.init();
+                $timeout(function () {
+                    self.refresh();
+                }, 1000);
             });
             $rootScope.$once('event:refresh-activity-list', function () {
                 self.init();
@@ -41,7 +43,6 @@ var JDB;
             //this.refresh();
         };
         Activity.prototype.initForJoinMember = function () {
-            console.log(this.$stateParams);
             var self = this;
             this.ActivityService.joinMemberList({
                 id: self.$stateParams['activityID']

@@ -34,6 +34,14 @@ module JDB {
                     }
                 }
             })
+            .state('jdb.login',{
+                url: '/login',
+                views: {
+                    'tab-main':{
+                        templateUrl: 'templates/login.html',
+                    }
+                }
+            })
             //活动
             //.state('jdb.activity',{
             //    url: '/activity',

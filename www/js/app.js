@@ -12,8 +12,10 @@
 var JDB;
 (function (JDB) {
     'use strict';
+    //环信的appKey
+    JDB.appKey = 'zhiyilian#jdb';
     //后台数据地址
-    JDB.appHost = 'http://172.17.231.1:8080/jdb/mobile';
+    JDB.appHost = 'http://192.168.253.1:8080/jdb/mobile';
     //静态资源域
     JDB.staticHost = JDB.appHost + '/image/showimage?picpath=';
     //版本号

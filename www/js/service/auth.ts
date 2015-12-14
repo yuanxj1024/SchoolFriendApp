@@ -128,6 +128,8 @@ module JDB {
         userLogout(){
             localStorage.removeItem(userKey);
             localStorage.removeItem('accessToken');
+            this.$rootScope.User = {};
+            this.$rootScope.$emit('event:logout');
         }
 
         accessToken(key:string){

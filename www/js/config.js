@@ -49,8 +49,6 @@ var JDB;
             },
             response: function (response) {
                 var accessToken = response.headers('x-access-token');
-                //console.log(response);
-                //console.log(response['data']);
                 if (response['data']['code'] && response['data']['code'] == 122) {
                     $rootScope.$emit('event:need-login');
                 }
@@ -64,6 +62,12 @@ var JDB;
                     case 1001:
                         $rootScope.$emit('event:need-login');
                         break;
+                    default:
+                        break;
+                }
+                if (rejection.data && rejection.data.message == '请登录') {
+                    //$rootScope.$emit('event:need-login');
+                    $rootScope.stateGo('jdb.login');
                 }
                 return $q.reject(rejection);
             }

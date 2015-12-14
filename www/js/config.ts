@@ -7,6 +7,7 @@
 module JDB {
     'use strict';
 
+    declare var window;
 
     //请求中需要包含的参数
     interface IJDBRequestConfig extends ng.IRequestConfig{
@@ -85,8 +86,6 @@ module JDB {
             },
             response: function(response: IJDBHttpPromiseCallbackArg<any>): IJDBHttpPromiseCallbackArg<any> {
                 var accessToken = response.headers('x-access-token');
-                //console.log(response);
-                //console.log(response['data']);
                 if(response['data']['code'] && response['data']['code'] == 122){
                     $rootScope.$emit('event:need-login');
                 }
@@ -101,6 +100,16 @@ module JDB {
                     case 1001:
                         $rootScope.$emit('event:need-login');
                         break;
+                    default :
+                        //if()
+                        //window.plugins.toast.showShortCenter('请求超时，请重新登陆');
+                        //$rootScope.stateGo('jdb.login');
+                        break;
+                }
+
+                if(rejection.data && rejection.data.message == '请登录'){
+                    //$rootScope.$emit('event:need-login');
+                    $rootScope.stateGo('jdb.login');
                 }
                 return $q.reject(rejection);
             }

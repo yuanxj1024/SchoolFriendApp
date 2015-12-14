@@ -4,6 +4,7 @@
 
 /// <reference path="../../app.ts" />
 /// <reference path="../../service/common.ts" />
+/// <reference path="../../service/auth.ts" />
 
 module JDB {
     'use strict';
@@ -58,7 +59,8 @@ module JDB {
             public $q: ng.IQService,
             public $resource: ng.resource.IResourceService,
             public $ionicActionSheet: Ionic.IActionSheet,
-            public CommonService: ICommonService
+            public CommonService: ICommonService,
+            public AuthService: IAuthService
         ){
             this.mineResource = <IMineResource> $resource(appHost + '/user/:action', {
                 action: '@action'
@@ -124,9 +126,17 @@ module JDB {
         }
 
         logout(){
+            var self = this;
+            this.CommonService.showConfirm('提示', '确定退出吗').then(function(res){
+                if(res){
+                    self.AuthService.userLogout();
+                    self.$rootScope.stateGo('jdb.login');
+                    self.$rootScope.$emit('event:logout');
+                }
+            });
 
-            window.localStorage.clear();
-            this.$rootScope.User = null;
+            //window.localStorage.clear();
+            //this.$rootScope.User = null;
         }
 
         sendSMSCode(args:any): ng.IPromise<any> {
@@ -189,6 +199,6 @@ module JDB {
 
     }
 
-    Mine.$inject = ['$rootScope', '$q', '$resource', '$ionicActionSheet', 'CommonService'];
+    Mine.$inject = ['$rootScope', '$q', '$resource', '$ionicActionSheet', 'CommonService', 'AuthService'];
     ServiceModule.service('MineService', Mine);
 }

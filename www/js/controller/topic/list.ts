@@ -116,7 +116,7 @@ module JDB {
                 self.$scope.$broadcast('scroll.infiniteScrollComplete');
             }, function(err){
                 self.$scope.$broadcast('scroll.infiniteScrollComplete');
-                window.plugins.toast.showShortCenter('数据记载失败,请重新进入。');
+                //window.plugins.toast.showShortCenter('数据加载失败,请重新进入');
             });
         }
         refreshDetail(detailID: number){
@@ -133,6 +133,7 @@ module JDB {
         //最新，好友切换
         changeTabs(index: number){
             this.$scope.tabIndex = index;
+            this.$scope.currentPageIndex = 1;
             this.refresh();
         }
 

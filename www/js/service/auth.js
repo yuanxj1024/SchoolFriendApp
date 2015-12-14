@@ -84,6 +84,8 @@ var JDB;
         Auth.prototype.userLogout = function () {
             localStorage.removeItem(JDB.userKey);
             localStorage.removeItem('accessToken');
+            this.$rootScope.User = {};
+            this.$rootScope.$emit('event:logout');
         };
         Auth.prototype.accessToken = function (key) {
             return '';

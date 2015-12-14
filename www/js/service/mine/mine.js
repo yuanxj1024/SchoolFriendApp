@@ -3,18 +3,20 @@
  */
 /// <reference path="../../app.ts" />
 /// <reference path="../../service/common.ts" />
+/// <reference path="../../service/auth.ts" />
 var JDB;
 (function (JDB) {
     'use strict';
     //用户头像选择
     var userHeaderSheet = null;
     var Mine = (function () {
-        function Mine($rootScope, $q, $resource, $ionicActionSheet, CommonService) {
+        function Mine($rootScope, $q, $resource, $ionicActionSheet, CommonService, AuthService) {
             this.$rootScope = $rootScope;
             this.$q = $q;
             this.$resource = $resource;
             this.$ionicActionSheet = $ionicActionSheet;
             this.CommonService = CommonService;
+            this.AuthService = AuthService;
             this.mineResource = $resource(JDB.appHost + '/user/:action', {
                 action: '@action'
             }, {
@@ -76,8 +78,16 @@ var JDB;
             return this.$rootScope.requestHandler(this.mineResource.login, args, true);
         };
         Mine.prototype.logout = function () {
-            window.localStorage.clear();
-            this.$rootScope.User = null;
+            var self = this;
+            this.CommonService.showConfirm('提示', '确定退出吗').then(function (res) {
+                if (res) {
+                    self.AuthService.userLogout();
+                    self.$rootScope.stateGo('jdb.login');
+                    self.$rootScope.$emit('event:logout');
+                }
+            });
+            //window.localStorage.clear();
+            //this.$rootScope.User = null;
         };
         Mine.prototype.sendSMSCode = function (args) {
             return this.$rootScope.requestHandler(this.mineResource.smsCode, args, true);
@@ -130,7 +140,7 @@ var JDB;
         };
         return Mine;
     })();
-    Mine.$inject = ['$rootScope', '$q', '$resource', '$ionicActionSheet', 'CommonService'];
+    Mine.$inject = ['$rootScope', '$q', '$resource', '$ionicActionSheet', 'CommonService', 'AuthService'];
     JDB.ServiceModule.service('MineService', Mine);
 })(JDB || (JDB = {}));
 //# sourceMappingURL=mine.js.map

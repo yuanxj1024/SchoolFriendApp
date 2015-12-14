@@ -25,7 +25,6 @@ module JDB {
         logout: Function;
         //上传头像
         upload: Function;
-
         tempFile: any;
     }
 
@@ -44,7 +43,7 @@ module JDB {
             $scope.logout = angular.bind(MineService, MineService.logout);
             $scope.upload = angular.bind(this ,this.upload);
 
-            $scope.tempFile = staticHost + this.$rootScope.User.headPicPath ;// '/img/discover-user-head.png';
+            $scope.tempFile = staticHost + this.$rootScope.localUser().headPicPath;// '/img/discover-user-head.png';
 
             $scope.editTag = $stateParams['tag'];
             $scope.tagName = window.JDBTypes.InfoEditTags[$scope.editTag];
@@ -84,17 +83,10 @@ module JDB {
             }, function(err){
                 window.plugins.toast.showShortCenter('头像上传失败');
             });
-            //console.log(file);
-            //
-            //this.MineService.uploadHeadImg(file,function(evt){
-            //    console.log(evt);
-            //}).then(function(res){
-            //    console.log(res);
-            //},function(res){
-            //    console.log(res);
-            //});
         }
 
+        logout(){
+        }
     }
 
     Mine.$inject = ['$rootScope', '$scope', '$stateParams', 'MineService', '$state', 'CommonService', 'Upload', 'AuthService'];

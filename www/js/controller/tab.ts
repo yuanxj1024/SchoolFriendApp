@@ -27,6 +27,11 @@ module JDB{
             $rootScope.$once('event:change-slide-veiw', function(e, index){
                 $scope.changeSlide(index);
             });
+            $rootScope.$once('event:refresh-all-slide-view',function(){
+                $timeout(function(){
+                    $scope.slideView.update();
+                },1000);
+            });
 
             var self = this;
             if($stateParams['index']){
@@ -41,8 +46,13 @@ module JDB{
 
         changeSlide(index){
             this.$scope.selectedIndex = index;
-            this.$scope.slideView.slide(index);
-            this.$scope.slideView.update();
+            var view = this.$ionicSlideBoxDelegate.$getByHandle('main-slide')._instances[0];
+            if(view){
+                view.slide(index);
+                //this.$scope.slideView.slide(index);
+                //this.$scope.slideView.update();
+                view.update();
+            }
         }
     }
 

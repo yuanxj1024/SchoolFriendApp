@@ -36,12 +36,12 @@ var JDB;
             //    }
             //});
             //self.AuthService.verify();
-            this.$rootScope.$once('event:refresh-home', function () {
+            self.init();
+            this.$rootScope.$once('event:refresh-all-slide-view', function () {
                 console.log('refresh home');
-                self.init();
+                self.$scope.hasMoreData = true;
                 self.refresh();
             });
-            this.init();
         }
         Home.prototype.init = function () {
             //最新
@@ -67,7 +67,9 @@ var JDB;
                 }
                 self.$scope.$broadcast('scroll.infiniteScrollComplete');
             }, function (err) {
-                window.plugins.toast.showShortCenter('数据记载失败,请重新进入。');
+                self.$scope.hasMoreData = false;
+                console.log(123);
+                //window.plugins.toast.showShortCenter('数据加载失败,请重新进入');
                 self.$scope.$broadcast('scroll.infiniteScrollComplete');
             });
         };

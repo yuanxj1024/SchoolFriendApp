@@ -22,7 +22,7 @@ var JDB;
             this.AuthService = AuthService;
             $scope.logout = angular.bind(MineService, MineService.logout);
             $scope.upload = angular.bind(this, this.upload);
-            $scope.tempFile = JDB.staticHost + this.$rootScope.User.headPicPath; // '/img/discover-user-head.png';
+            $scope.tempFile = JDB.staticHost + this.$rootScope.localUser().headPicPath; // '/img/discover-user-head.png';
             $scope.editTag = $stateParams['tag'];
             $scope.tagName = window.JDBTypes.InfoEditTags[$scope.editTag];
             if ($scope.editTag) {
@@ -54,15 +54,8 @@ var JDB;
             }, function (err) {
                 window.plugins.toast.showShortCenter('头像上传失败');
             });
-            //console.log(file);
-            //
-            //this.MineService.uploadHeadImg(file,function(evt){
-            //    console.log(evt);
-            //}).then(function(res){
-            //    console.log(res);
-            //},function(res){
-            //    console.log(res);
-            //});
+        };
+        Mine.prototype.logout = function () {
         };
         return Mine;
     })();

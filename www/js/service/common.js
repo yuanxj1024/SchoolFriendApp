@@ -131,7 +131,9 @@ var JDB;
             var defer = this.$q.defer();
             var confirmPopup = this.$ionicPopup.confirm({
                 title: title || '提示',
-                template: tpl || ''
+                template: tpl || '',
+                cancelText: '取消',
+                okText: '确定'
             });
             confirmPopup.then(function (res) {
                 defer.resolve(res);
@@ -142,7 +144,8 @@ var JDB;
             var defer = this.$q.defer();
             var alertPopup = this.$ionicPopup.alert({
                 title: title,
-                template: tpl
+                template: tpl,
+                okText: '确定'
             });
             alertPopup.then(function (res) {
                 console.log('Thank you for not eating my delicious ice cream cone');

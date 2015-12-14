@@ -1,0 +1,302 @@
+@import "flex";
+$main-background-color: #F9F9F9;
+@media (min--moz-device-pixel-ratio: 1.5),
+(-webkit-min-device-pixel-ratio: 1.5),
+(min-device-pixel-ratio: 1.5),
+(min-resolution: 144dpi),
+(min-resolution: 1.5dppx) {
+
+  .message-wrap{
+    .list-wrap{
+      .msg-item{
+        .content-wrap{
+          .content{
+            .content-body{
+              border: none!important;
+              -moz-border-radius: 0px!important;      /* Gecko browsers */
+              -webkit-border-radius: 0px!important;   /* Webkit browsers */
+              border-radius:0px!important;            /* W3C syntax */
+              background: linear-gradient(0deg,  rgba(105, 94, 107, 0.2), rgba(105, 94, 107, 0.2) 50%, transparent 50%) bottom right / 100% 1px no-repeat,
+                        linear-gradient(180deg, rgba(105, 94, 107, 0.2), rgba(105, 94, 107, 0.2) 50%, transparent 50%) top    left  / 100% 1px no-repeat,
+                        linear-gradient(90deg, rgba(105, 94, 107, 0.2), rgba(105, 94, 107, 0.2) 50%, transparent 50%) top    right / 1px 100% no-repeat,
+                        linear-gradient(-90deg, rgba(105, 94, 107, 0.2), rgba(105, 94, 107, 0.2) 50%, transparent 50%) bottom left  / 1px 100% no-repeat;
+
+            }
+          }
+        }
+      }
+    }
+  }
+}
+body
+{
+  -webkit-overflow-scrolling: touch;
+}
+.margin-b{
+  margin-bottom: 44px!important;
+}
+.missfreshim{
+  .list-wrap{
+    .msg-item{
+      @include flexbox;
+      @include flex-flow(row);
+      font-size: 14px;
+      border:none;
+      background-color:$main-background-color;
+      padding:5px 10px;
+      &.sender{
+        @include flex-flow(row-reverse);
+        -o-flex-flow: row-reverse;
+        .icon{
+          img{
+            float: right;
+          }
+        }
+        .content-wrap{
+          .name{
+            text-align: right;
+          }
+          .send-time{
+            padding-left: 40px;
+            padding-right: 0px;
+          }
+          .content-body{
+            background-color: #B4E66C!important;
+            float: right!important;
+            text-align: left!important;
+            p{
+            }
+          }
+          .btn{
+            float: right!important;
+          }
+        }
+      }
+      .icon{
+        @include flex(0,0,40px);
+        float: right;
+        img{
+          width: 35px;
+          height: 35px;
+        }
+      }
+      .content-wrap{
+        @include flex(5,1,270px);
+        @include flexbox;
+        @include flex-flow(column);
+        .name{
+          @include flex(1,0);
+          color:#BCBCBC;
+          font-size: 12px;
+          min-height: 14px;
+          position: relative;
+        }
+        .content{
+          @include flex(3,1);
+          clear:both;
+          img{
+            height: 100%;
+            width: 100%;
+          }
+          .content-body{
+            background-color: white;
+            border: 1px solid #dedede;
+            -moz-border-radius: 6px;      /* Gecko browsers */
+            -webkit-border-radius: 6px;   /* Webkit browsers */
+            border-radius:6px;            /* W3C syntax */
+            max-width:79%;
+            padding: 5px;
+            p{
+              margin: 0;
+              word-wrap:break-word;
+              overflow:hidden;
+              white-space:normal;
+            }
+          }
+          .button{
+            min-width:16px;
+            min-height: 16px;
+            height: 30px;
+            &:before{
+              line-height: 30px;
+            }
+          }
+          .sending{
+            background-image: url(../img/ajax-loader.gif);
+            display: block;
+            background-repeat: no-repeat;
+            width:16px;
+            height: 11px;
+            padding: 10px;
+            margin: 10px;
+          }
+        }
+        .send-time{
+          font-size: 10px;
+          text-align: center;
+          padding-right: 40px;
+        }
+      }
+      .refresh{
+        @include flex(1,1);
+        background-color:$main-background-color;
+        a{
+          margin-top: 20px;
+        }
+      }
+    }
+  }
+
+  &.footer{
+    position: fixed;
+    //position: absolute;
+    display: block!important;
+    bottom: 0;
+    left: 0;
+    z-index: 10000;
+    width: 100%;
+    background-color: white;
+    height: 44px;
+    .input{
+      @include flexbox;
+      @include flex-flow(row);
+      @include align-items(stretch);
+      padding:5px;
+      background-color: #F9F9F9;
+      .write{
+        @include flex(5,0);
+        input{
+          display: inline-block;
+          border-bottom: solid 1px #ddd;
+          width: 90%;
+        }
+      }
+      .options{
+        @include flex(0,0,40px);
+        margin-left: 5px;
+        .button{
+          font-size: 14px;
+          min-width: 30px;
+          width:30px;
+          padding-left: 0;
+          padding-right: 0;
+          line-height: 34px;
+          min-height: 34px;
+          height: 34px;
+          color:black;
+        }
+      }
+    }
+    .panel{
+      display: none;
+    }
+  }
+}
+
+.fleft{
+  float:left;
+}
+.right{
+ float:right;
+}
+.im-footer{
+  background-color: #fff;
+  position: absolute;
+  height: 44px;
+  width: 100%;
+  .input-wrap{
+    position: relative;
+    .write{
+      .ion-edit {
+        position: absolute;
+        top: 0;
+        left: 0;
+      }
+      input{
+        display: inline-block;
+        width: 75%;
+        margin-left: 18px;
+      }
+      button{
+        width: 15%;
+        text-align: center;
+        min-height: 40px;
+      }
+    }
+    .options{
+      width: 25%;
+      position: absolute;
+      right: 0;
+      top: 0;
+      text-align: center;
+    }
+  }
+}
+
+//
+.chat-list-wrap{
+  margin-bottom: 16px;
+  .item{
+    border: none;
+    disable: true;
+  //  position: relative;
+  }
+  .item-content{
+    padding-left: 65px!important;
+    padding-right: 10px!important;
+    padding-bottom: 0;
+    padding-top: 5px!important;
+  }
+  .chat-message{
+    margin-top: 15px;
+    overflow: auto;
+    text-overflow: initial;
+    white-space: initial;
+    font-size: 14px;
+    border: 1px solid #DDDDDD;
+    padding: 5px;
+    -webkit-border-radius: 5px;
+    -moz-border-radius: 5px;
+    border-radius: 5px;
+    display: inline-block;
+  }
+  .sender{
+    .item-content{
+      padding-right: 65px!important;
+      padding-left: 10px!important;
+      img{
+        right: 16px!important;
+        left: inherit;
+      }
+    }
+    .chat-message{
+      text-align: right;
+      float: right;
+      border: 1px solid #3FCB10;
+      background-color: #3FCB10;
+      color: #fff;
+    }
+    h2{
+      text-align: right;
+    }
+    .time{
+      //margin-right: -30px;
+      //margin-left: 0px;
+      padding-left: 100px;
+      padding-right: 0;
+      margin-left: -50px;
+    }
+  }
+  .time{
+    font-size: 10px;
+    color: gray;
+    text-align: center;
+    margin-left: -30px;
+    padding-right: 31px;
+    //padding-left: -65px;
+  }
+
+}
+.clear{
+  clear:both;
+}

@@ -1,6 +1,6 @@
 <ion-view>
   <ion-header-bar class="top-header-bg-color">
-    <button class="button button-clear" ui-sref="jdb.message">
+    <button class="button button-clear" ng-click="goBack()">
       <i class="ion-ios-arrow-left"></i>
     </button>
     <h1 class="title">聊天</h1>
@@ -8,7 +8,54 @@
       邀请
     </button>
   </ion-header-bar>
-  <ion-content class="main-body-bg-color " scrollbar-y='false'>
+  <ion-content scrollbar-x="false" scrollbar-y="false" class=""main-body-bg-color missfreshim im-content has-footer" delegate-handle="mainScroll">
+  <!--<ion-refresher-->
+  <!--pulling-text="下拉刷新..."-->
+  <!--spinner="lines"-->
+  <!--on-refresh="doRefresh()">-->
+  <!--</ion-refresher>-->
 
+  <ion-list class="chat-list-wrap">
+
+    <ion-item class="item-remove-animate item-avatar"
+              type="item-text-wrap"
+              href="#" ng-repeat="data in messageList track by $index" ng-class="{true:'sender'}[data.isSender == 1]">
+      <img ng-src="{{server_pic}}{{data.sender.alumnus.headPicPath}}">
+      <!--<h2>{{data.sender.alumnus.realName}}</h2>-->
+      <p class="chat-message">{{data.content}}</p>
+      <div class="clear"></div>
+      <div class="time">{{data.createTime | date:'yyyy-MM-dd HH:mm:ss'}}</div>
+    </ion-item>
+
+    <ion-item class="item-remove-animate item-avatar"
+              type="item-text-wrap"
+              href="#" >
+      <img src="/img/2015.jpg">
+      <!--<h2>{{data.sender.alumnus.realName}}</h2>-->
+      <p class="chat-message">小明,你好呀</p>
+      <div class="clear"></div>
+      <div class="time">2015-11-23 22:23:33</div>
+    </ion-item>
+    <ion-item class="item-remove-animate item-avatar sender"
+              type="item-text-wrap"
+              href="#" >
+      <img src="/img/2015.jpg">
+      <!--<h2>上撒</h2>-->
+      <p class="chat-message">小明,你好呀</p>
+      <div class="clear"></div>
+      <div class="time">2015-11-23 22:23:33</div>
+    </ion-item>
+  </ion-list>
   </ion-content>
+  <div class="missfreshim footer" style="display: block">
+    <div class="input">
+      <div class="write">
+        <i class="icon ion-edit"></i>
+        <input placeholder="" type="text" ng-model="form.message"/>
+      </div>
+      <div class="options">
+        <button class="send button button-clear" ng-class="{'disabled':form.message == ''}" ng-click="sendMessage()">发送</button>
+      </div>
+    </div>
+  </div>
 </ion-view>

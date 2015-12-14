@@ -3,20 +3,31 @@
  * Created by AaronYuan on 10/31/15.
  */
 /// <reference path="../../app.ts" />
+/// <reference path="../../service/mine/mine.ts" />
 ///邀请码
 var JDB;
 (function (JDB) {
     'use strict';
     var InviteCode = (function () {
-        function InviteCode($rootScope, $scope) {
+        function InviteCode($rootScope, $scope, MineService) {
             this.$rootScope = $rootScope;
             this.$scope = $scope;
+            this.MineService = MineService;
             $scope.createNewCode = angular.bind(this, this.createNewCode);
             $scope.copyCode = angular.bind(this, this.copyCode);
-            $scope.currentCode = this.getUID();
+            //$scope.currentCode = this.getUID();
+            this.createNewCode();
         }
         InviteCode.prototype.createNewCode = function () {
-            this.$scope.currentCode = this.getUID();
+            //this.$scope.currentCode = this.getUID();
+            var self = this;
+            this.MineService.getInviteCode({
+                username: this.$rootScope.localUser().phone
+            }).then(function (result) {
+                if (result && result.code == 0) {
+                    self.$scope.currentCode = result.data.code;
+                }
+            });
         };
         InviteCode.prototype.copyCode = function () {
         };
@@ -29,7 +40,7 @@ var JDB;
         };
         return InviteCode;
     })();
-    InviteCode.$inject = ['$rootScope', '$scope'];
+    InviteCode.$inject = ['$rootScope', '$scope', 'MineService'];
     JDB.CtrlModule.controller('InviteCodeCtrl', InviteCode);
 })(JDB || (JDB = {}));
 //# sourceMappingURL=invite-code.js.map

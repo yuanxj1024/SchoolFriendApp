@@ -5,18 +5,20 @@
 /// <reference path="../../app.ts" />
 /// <reference path="../../service/mine/mine.ts" />
 /// <reference path="../../service/auth.ts" />
+/// <reference path="../../service/message/im.ts" />
 //登陆，注册逻辑
 var JDB;
 (function (JDB) {
     'use strict';
     var LoginReg = (function () {
-        function LoginReg($rootScope, $scope, MineService, AuthService, $interval, $state) {
+        function LoginReg($rootScope, $scope, MineService, AuthService, $interval, $state, IMService) {
             this.$rootScope = $rootScope;
             this.$scope = $scope;
             this.MineService = MineService;
             this.AuthService = AuthService;
             this.$interval = $interval;
             this.$state = $state;
+            this.IMService = IMService;
             //登陆
             $scope.login = angular.bind(this, this.login);
             //注册
@@ -56,9 +58,9 @@ var JDB;
                 if (res && res.code == 0) {
                     self.AuthService.setUser(res.data.alumnus);
                     window.plugins.toast.showExShortCenter('登陆成功');
-                    self.$scope.cancel();
+                    self.$scope.cancel && self.$scope.cancel();
                     //self.$rootScope.stateGo('jdb.home');
-                    //self.$rootScope.$emit('event:refresh-home');
+                    self.$rootScope.$emit('event:login-success');
                     self.$rootScope.$emit('event:refresh-all-slide-view');
                     self.$rootScope.stateGo('jdb.home');
                 }
@@ -96,6 +98,8 @@ var JDB;
                     self.MineService.login(self.$scope.regForm).then(function (res) {
                         if (res && res.code == 0) {
                             self.AuthService.setUser(res.data.alumnus);
+                            self.$rootScope.$emit('event:login-success');
+                            self.$rootScope.$emit('event:refresh-all-slide-view');
                             self.$rootScope.stateGo('jdb.reginfo');
                         }
                         else {
@@ -103,7 +107,7 @@ var JDB;
                         }
                     }, function (err) {
                         window.plugins.toast.showExShortCenter('登陆失败');
-                        self.$rootScope.stateGo('jdb.home');
+                        self.$rootScope.stateGo('jdb.login');
                     });
                 }
                 else {
@@ -185,7 +189,7 @@ var JDB;
         };
         return LoginReg;
     })();
-    LoginReg.$inject = ['$rootScope', '$scope', 'MineService', 'AuthService', '$interval', '$state'];
+    LoginReg.$inject = ['$rootScope', '$scope', 'MineService', 'AuthService', '$interval', '$state', 'IMService'];
     JDB.CtrlModule.controller('LoginRegCtrl', LoginReg);
 })(JDB || (JDB = {}));
 //# sourceMappingURL=login-reg.js.map

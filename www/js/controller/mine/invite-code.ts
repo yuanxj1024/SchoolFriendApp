@@ -3,6 +3,7 @@
  * Created by AaronYuan on 10/31/15.
  */
 /// <reference path="../../app.ts" />
+/// <reference path="../../service/mine/mine.ts" />
 
 ///邀请码
 module JDB {
@@ -22,17 +23,27 @@ module JDB {
     class InviteCode {
         constructor(
             public $rootScope: IJDBRootScopeService,
-            public $scope: IInviteScope
+            public $scope: IInviteScope,
+            public MineService: IMineService
         ) {
             $scope.createNewCode = angular.bind(this, this.createNewCode);
             $scope.copyCode = angular.bind(this ,this.copyCode);
 
-            $scope.currentCode = this.getUID();
+            //$scope.currentCode = this.getUID();
 
+            this.createNewCode();
         }
 
         createNewCode() {
-            this.$scope.currentCode = this.getUID();
+            //this.$scope.currentCode = this.getUID();
+            var self = this;
+            this.MineService.getInviteCode({
+                username: this.$rootScope.localUser().phone
+            }).then(function(result){
+                if(result && result.code ==0){
+                    self.$scope.currentCode = result.data.code;
+                }
+            });
         }
 
         copyCode() {
@@ -49,7 +60,7 @@ module JDB {
 
     }
 
-    InviteCode.$inject = ['$rootScope', '$scope'];
+    InviteCode.$inject = ['$rootScope', '$scope', 'MineService'];
     CtrlModule.controller('InviteCodeCtrl', InviteCode);
 
 }
